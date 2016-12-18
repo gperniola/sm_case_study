@@ -283,13 +283,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                             </thead>
                                                             <tbody>
 													<?php
+
+                                                        global $indaginiNum;
+                                                        $indaginiNum = $this ->get_var('indaginiNum');
 														for($i=0; $i<$indaginiNum; $i++)
 														{
 														echo '<tr>';
-														echo '<td>'.$indaginiData[$i].'</td>
-															  <td>'.$indaginiTipo[$i].'</td>
-															  <td>'.$indaginiReferto[$i].'</td>
-															  <td>'.$indaginiAllegato[$i].'</td>';
+														echo '<td>'.$this->get_var('ind.data.'.$i).'</td>
+															  <td>'.$this->get_var('ind.tipo.'.$i).'</td>
+															  <td>'.$this->get_var('ind.referto.'.$i).'</td>
+															  <td>'.$this->get_var('ind.allegato.'.$i).'</td>';
 														echo '</tr>';
 														}
 															?>

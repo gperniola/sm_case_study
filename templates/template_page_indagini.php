@@ -309,39 +309,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!--------------------------------------------------------->		
 						<div class="row">
 							<div class="col-lg-12"> 
-									<div class="panel panel-danger">
+									<div class="panel panel-warning">
+                                        <div class="panel-heading">Indagini Richieste</div>
 										<div class=" panel-body">
-											<h3>Indagini Richieste</h3>
-											<hr/>
-										</div>
-									</div>	<!--paneldanger-->	
-							</div>	<!--col lg12-->
-						</div>
+                                            <div class="table-responsive" >
+                                                <table class="table" id="tableRichieste">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Indagine</th>
+                                                        <th>Motivo</th>
+                                                        <th>Care provider</th>
+                                                        <th>Opzioni</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+										    </div>
+									    </div>	<!--paneldanger-->
+							        </div>	<!--col lg12-->
+						    </div>
+                        </div>
 						<div class="row">
 							<div class="col-lg-12"> 
-									<div class="panel panel-warning">
-										<div class=" panel-body">
-											<h3>Indagini Programmate</h3>
-											<hr/>
-										</div>
-									</div>	<!--panelwarning-->	
-							</div>	<!--col lg12-->
-						</div>
+									<div class="panel panel-danger">
+                                        <div class="panel-heading">Indagini Programmate</div>
+                                        <div class=" panel-body">
+                                            <div class="table-responsive" >
+                                                <table class="table" id="tableRichieste">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Indagine</th>
+                                                        <th>Motivo</th>
+                                                        <th>Care provider</th>
+                                                        <th>Data</th>
+                                                        <th>Centro</th>
+                                                        <th>Opzioni</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>	<!--paneldanger-->
+                                    </div>	<!--col lg12-->
+                            </div>
+                        </div>
 						<div class="row">
 							<div class="col-lg-12">
 									<div class="panel panel-info">
-										<div class=" panel-body">
-											<h3>Indagini completate</h3>
-											<hr/>
-										</div>	<!--panelbody-->
-									</div>
-							</div>	<!--col lg4-->
-						</div><!--row-->
+                                        <div class="panel-heading">Indagini completate</div>
+                                        <div class=" panel-body">
+                                            <div class="table-responsive" >
+                                                <table class="table" id="tableRichieste">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Indagine</th>
+                                                        <th>Motivo</th>
+                                                        <th>Care provider</th>
+                                                        <th>Data</th>
+                                                        <th>Referto</th>
+                                                        <th>Allegati</th>
+                                                        <th>Opzioni</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>	<!--paneldanger-->
+                                    </div>	<!--col lg12-->
+                            </div>
+                        </div>
 				   </div><!--col-lg-12-->
-                </div><!--row-->	
+                </div>
 
 
-              
+
 
                 <hr />
 

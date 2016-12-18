@@ -138,7 +138,7 @@
                     </a>
                     <ul class="<?php if (($this->get_var('panel_active')=='indagini') || ($this->get_var('panel_active')=='richieste')) echo 'in'; else echo 'collapse';?>" id="form-nav">
                         <li class="diagnostic"><a href="<?php echo $this->get_var('link_indagini'); ?>"><i class="icon-angle-right"></i> Diario Indagini Diagnostiche </a></li>
-                        <li class="diagnostic"><a href="<?php echo $this->get_var('link_richieste'); ?>"><i class="icon-angle-right"></i> Richiesta Indagini Diagnostiche </a></li>
+                        <li class="diagnostic"><a href="<?php echo $this->get_var('link_richieste'); ?>"><i class="icon-angle-right"></i> Centri Indagini Diagnostiche </a></li>
                     </ul>
                 </li>
                 <li class="panel<?php if ($this->get_var('panel_active')=='diagnosi') echo ' active';?>"> <a href="<?php echo $this->get_var('link_diagnosi'); ?>"> <em class="icon-file-text-alt"></em> Diagnosi </a></li>  

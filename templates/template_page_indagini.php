@@ -259,52 +259,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			</div>
 		</form><br>
 		
-		
-
-		
-		<div class="row">
-									<div class="col-lg-12"> 
-											<div class="panel panel-warning">
-											<div class="panel-heading">Indagini effettuate per diagnosi di <?php echo $nomePatologia.' del '.$dataDiagnosi; ?></div>
-												<div class="panel-body">
-													
-												
-													<div class="table-responsive" >
-                                                        <table class="table" id="tableIndagini">
-                                                            <thead>
-                                                                <tr>
-                                                                	<th>Data</th>
-                                                                    <th>Indagine</th>
-                                                                    
-																	<th>Referto</th> 
-																	<th>Allegati</th>
-																	  
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-													<?php
-
-                                                        global $indaginiNum;
-                                                        $indaginiNum = $this ->get_var('indaginiNum');
-														for($i=0; $i<$indaginiNum; $i++)
-														{
-														echo '<tr>';
-														echo '<td>'.$this->get_var('ind.data.'.$i).'</td>
-															  <td>'.$this->get_var('ind.tipo.'.$i).'</td>
-															  <td>'.$this->get_var('ind.referto.'.$i).'</td>
-															  <td>'.$this->get_var('ind.allegato.'.$i).'</td>';
-														echo '</tr>';
-														}
-															?>
-															</tbody>
-                                                        </table>
-                                                    </div>
-													
-												</div> <!--panelbody-->	
-											</div>	<!--paneldanger-->	
-									</div>	<!--col lg12-->
-									</div>
-		
 
 <!--------------------------------------------------------->		
 						<div class="row">
@@ -323,6 +277,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    <?php
+                                                    global $indaginiNum;
+                                                    $indaginiNum = $this ->get_var('indaginiNum');
+                                                    for($i=0; $i<$indaginiNum; $i++)
+                                                    {
+                                                        if($this->get_var('ind.stato.'.$i) == "richiesta"){
+                                                            echo '<tr>';
+                                                            echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>buttons</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                 </table>
 										    </div>
@@ -336,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         <div class="panel-heading">Indagini Programmate</div>
                                         <div class=" panel-body">
                                             <div class="table-responsive" >
-                                                <table class="table" id="tableRichieste">
+                                                <table class="table" id="tableProgrammate">
                                                     <thead>
                                                     <tr>
                                                         <th>Indagine</th>
@@ -348,6 +317,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    <?php
+                                                    global $indaginiNum;
+                                                    $indaginiNum = $this ->get_var('indaginiNum');
+                                                    for($i=0; $i<$indaginiNum; $i++)
+                                                    {
+                                                        if($this->get_var('ind.stato.'.$i) == "programmata"){
+                                                            echo '<tr>';
+                                                            echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>'.$this->get_var('ind.data.'.$i).'</td>
+															        <td>'.$this->get_var('ind.centro.'.$i).'</td>
+															        <td>buttons</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -374,6 +360,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    <?php
+                                                    global $indaginiNum;
+                                                    $indaginiNum = $this ->get_var('indaginiNum');
+                                                    for($i=0; $i<$indaginiNum; $i++)
+                                                    {
+                                                        if($this->get_var('ind.stato.'.$i) == "conclusa"){
+                                                            echo '<tr>';
+                                                            echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>'.$this->get_var('ind.data.'.$i).'</td>
+															        <td>'.$this->get_var('ind.referto.'.$i).'</td>
+															        <td>'.$this->get_var('ind.allegato.'.$i).'</td>
+															        <td>buttons</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -286,7 +286,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                             echo '<tr>';
                                                             echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
 															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
-															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cpNome.'.$i).' '.$this->get_var('ind.cpCognome.'.$i).
+                                                                        '<br>('.$this->get_var('ind.cpRep.'.$i).')</td>
 															        <td>buttons</td>';
                                                             echo '</tr>';
                                                         }
@@ -326,9 +327,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                             echo '<tr>';
                                                             echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
 															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
-															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cpNome.'.$i).' '.$this->get_var('ind.cpCognome.'.$i).
+                                                                        '<br>('.$this->get_var('ind.cpRep.'.$i).')</td>
 															        <td>'.$this->get_var('ind.data.'.$i).'</td>
-															        <td>'.$this->get_var('ind.centro.'.$i).'</td>
+															        <td>'.$this->get_var('ind.centroNome.'.$i).'<br>'.
+                                                                        $this->get_var('ind.centroVia.'.$i).', '.
+                                                                        $this->get_var('ind.centroCitta.'.$i).'</td>
 															        <td>buttons</td>';
                                                             echo '</tr>';
                                                         }
@@ -369,7 +373,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                             echo '<tr>';
                                                             echo '<td>'.$this->get_var('ind.tipo.'.$i).'</td>
 															        <td>'.$this->get_var('ind.motivo.'.$i).'</td>
-															        <td>'.$this->get_var('ind.cp.'.$i).'</td>
+															        <td>'.$this->get_var('ind.cpNome.'.$i).' '.$this->get_var('ind.cpCognome.'.$i).
+                                                                        '<br>('.$this->get_var('ind.cpRep.'.$i).')</td>
 															        <td>'.$this->get_var('ind.data.'.$i).'</td>
 															        <td>'.$this->get_var('ind.referto.'.$i).'</td>
 															        <td>'.$this->get_var('ind.allegato.'.$i).'</td>

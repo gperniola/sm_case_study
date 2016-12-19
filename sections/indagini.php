@@ -55,8 +55,23 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.data.'.$i, $indaginiData[$i]);
     $pag_indagini -> set_var('ind.referto.'.$i, $indaginiReferto[$i]);
     $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);
-    $pag_indagini -> set_var('ind.cp.'.$i, $indaginiCp[$i]);
-    $pag_indagini -> set_var('ind.centro.'.$i, $indaginiCentro[$i]);
+
+    $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
+    $careproviderNome = getInfo('nome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
+    $careproviderCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
+    $careproviderRep = getInfo('reperibilita', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
+    $pag_indagini -> set_var('ind.cpNome.'.$i, $careproviderNome);
+    $pag_indagini -> set_var('ind.cpCognome.'.$i, $careproviderCognome);
+    $pag_indagini -> set_var('ind.cpRep.'.$i, $careproviderRep);
+
+    $pag_indagini -> set_var('ind.centroId.'.$i, $indaginiCentro[$i]);
+    $centroNome = getInfo('nomeStudio', 'centriindagini', 'id='.$indaginiCentro[$i]);
+    $centroVia = getInfo('via', 'centriindagini', 'id='.$indaginiCentro[$i]);
+    $centroCitta = getInfo('citta', 'centriindagini', 'id='.$indaginiCentro[$i]);
+    $pag_indagini -> set_var('ind.centroNome.'.$i, $centroNome);
+    $pag_indagini -> set_var('ind.centroVia.'.$i, $centroVia);
+    $pag_indagini -> set_var('ind.centroCitta.'.$i, $centroCitta);
+
     $pag_indagini -> set_var('ind.motivo.'.$i, $indaginiMotivo[$i]);
     $pag_indagini -> set_var('ind.stato.'.$i, $indaginiStato[$i]);
 }

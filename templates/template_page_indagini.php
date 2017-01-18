@@ -140,11 +140,11 @@ else
                         <div class="btn-group">
 
                             <?php
-                            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            //if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 echo '<button class="btn btn-primary" id="nuovoFile"><i class="icon-file-text-alt"></i> Nuova indagine</button>';
-                            }else{
-                                echo '<button disabled class="btn btn-primary" id="nuovoFile"><i class="icon-file-text-alt"></i> Nuova indagine</button>';
-                            }
+                            //}else{
+                             //   echo '<button disabled class="btn btn-primary" id="nuovoFile"><i class="icon-file-text-alt"></i> Nuova indagine</button>';
+                           // }
                             ?>
                             <button class="btn btn-primary" id="concludi"><i class="icon-ok-sign"></i> Concludi indagine</button>
                             <button class="btn btn-primary" id="annulla"><i class="icon-trash"></i> Annulla indagine</button>
@@ -153,35 +153,39 @@ else
 
                 <form style="display:none;" id="formIndagini" action="formscripts/none.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
-                        <div class="row">
-                            <div style="display:none;">
+                        <div class="row"> <!-- Hidden row -->
+                            <div <!--style="display:none;"--> >
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
                                         <div class="col-lg-4">
-                                            <input id="idPaziente" type="text"  readonly class="form-control" value="<?php echo $idPaziente; ?>"/>
+                                            <input id="idPaziente" type="text"  readonly class="form-control" value="<?php echo $this->get_var('idPaz'); ?>"/>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">ID Diagnosi:</label>
-                                        <div class="col-lg-4">
-                                            <input id="idDiagnosi" type="text"  readonly class="form-control" value="<?php echo $idDiagnosi; ?>"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Motivo:</label>
-                                        <div class="col-lg-4">
-                                            <input id="motivoIndagine" type="text"  readonly class="form-control" value="<?php echo 'verifica diagnosi di '.$nomePatologia; ?>"/>
-                                        </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">ID CP:</label>
+                                    <div class="col-lg-4">
+                                        <input id="cpId" type="text"  readonly class="form-control"
+                                            <?php
+                                            if ($cp_id != NULL) {echo 'value="'.$this -> get_var('idUtenteCp').'" ';}
+                                            else {echo 'value="-1"';}
+                                            ?>
+                                        />
                                     </div>
                                 </div>
                             </div>
+                            <!--
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">ID Diagnosi:</label>
+                                    <div class="col-lg-4">
+                                        <input id="idDiagnosi" type="text"  readonly class="form-control" value="<?php echo $idDiagnosi; ?>"/>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div> <!-- End hidden row -->
 
 
 
@@ -197,37 +201,65 @@ else
 
                             <div class="col-lg-12">
                                 <div class="form-group">
+                                    <label class="control-label col-lg-4">Motivo:</label>
+                                    <div class="col-lg-4">
+                                        <input id="motivoIndagine" type="text"  class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Stato:</label>
+                                    <div class="col-lg-4">
+                                        <select id="statoIndagine" class="form-control">
+                                            <option selected value="0">Richiesta</option>
+                                            <option value="1">Programmata</option>
+                                            <option value="2">Completata</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Centro:</label>
+                                    <div class="col-lg-4">
+                                        <input id="centroIndagine" type="text"  class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Care provider:</label>
+                                    <div class="col-lg-4">
+                                        <?php
+                                        $sp = ' ';
+                                        if($cp_id != NULL){ // Se sono un care provider
+                                            // Il mio nome è pre-inserito e non può essere cambiato
+                                            echo '<select id="cpD" class="form-control"><option selected value="'.$mioCpId.'">'.$mioCpNome.$sp.$mioCpCognome.'</option></select>';
+                                        }else{
+                                            echo '<select id="cpD" class="form-control">';
+                                            for($i=0; $i<$nCps; $i++){
+                                                echo '<option value='.$myCpId[$i].'>'.$myCpNome[$i].$sp.$myCpCognome[$i].'</option>';
+                                            }
+                                            echo '<option style="font-style:italic;"value=-1>Inserisci manualmente...</option>';
+                                            echo '</select>';
+                                        }
+                                        ?>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Data:</label>
                                     <div class="col-lg-4">
-
                                         <input id="data" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="col-lg-12" style="display:none;">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">cpId:</label>
-                                    <div class="col-lg-4">
-
-                                        <input id="cpId" readonly
-                                            <?php if ($cp_id != NULL) {echo 'value="'.$this -> get_var('idUtenteCp').'" ';} else {echo 'value="-1"';} ?> class="form-control"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12" style="display:none;">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">pzId:</label>
-                                    <div class="col-lg-4">
-
-                                        <input id="pzId" readonly
-                                            <?php echo 'value="'.$this->get_var('idUtentePaz').'" '; ?> class="form-control"/>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
@@ -245,12 +277,12 @@ else
                                 </div>
                             </div>
 
-                            <div id="da_eliminare" style="display:none;">
+                            <!-- <div id="da_eliminare" style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">Care provider:</label>
                                         <div class="col-lg-4">
-                                            <?php
+                                            <?php/*
                                             $sp = ' ';
                                             if($cp_id != NULL){ // Se sono un care provider
                                                 // Il mio nome è pre-inserito e non può essere cambiato
@@ -263,7 +295,7 @@ else
                                                 echo '<option style="font-style:italic;"value=-1>Inserisci manualmente...</option>';
                                                 echo '</select>';
                                             }
-                                            ?>
+                                            */?>
 
                                         </div>
                                     </div>
@@ -287,7 +319,7 @@ else
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
 
 
                         </div>

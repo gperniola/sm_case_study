@@ -122,6 +122,25 @@ else
                      break;
              }
          }
+
+
+        $array_centri = array();
+        $n_s = 0;
+        global $n_centri;             //numero totale di centri
+        $n_centri = $this->get_var('centriNum');
+        for ($i = 0; $i < $n_indagini; $i++) {          //per ogni centro...
+            $array_centri[$n_s + 0] = $this->get_var('centro.id.'.$i);
+            $array_centri[$n_s + 1] = $this->get_var('centro.nome.'.$i);
+            $array_centri[$n_s + 2] = $this->get_var('centro.via.'.$i);
+            $array_centri[$n_s + 3] = $this->get_var('centro.citta.'.$i);
+            $array_centri[$n_s + 4] = $this->get_var('centro.tipo.'.$i);
+            $array_centri[$n_s + 5] = $this->get_var('centro.mail.'.$i);
+            $array_centri[$n_s + 6] = $this->get_var('centro.responsabileId.'.$i);
+            $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
+            $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
+            $n_s = $n_s + 9;
+        }
+
         // --------------------------------------
         ?>
 
@@ -151,9 +170,26 @@ else
 
                         </div></div></div><br>
 
-                <form style="display:none;" id="formIndagini" action="formscripts/none.php" method="POST" class="form-horizontal" >
+                <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
+                            <?php
+                            $cps=$this->get_var('suggestCps');
+                            $script = '<script>
+							   $(document).ready(function(){
+								var cps ='.$cps." var cpSuggest = new Bloodhound({
+								datumTokenizer: Bloodhound.tokenizers.whitespace,
+								queryTokenizer: Bloodhound.tokenizers.whitespace,
+								local: cps});";
+                            /*for($i=0; $i<$nDiagno; $i++){
+                                $script=$script."$('#txt".$this->get_var('dia.id.'.$i)."').typeahead({
+                                hint: true,highlight: true,minLength: 1},{name: 'cps',source: cpSuggest,
+                                limit: 10});";
+                            }*/
+                            $script=$script."$('#nomeCpD').typeahead({ hint: true,highlight: true,
+                            minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
+                            if ($cp_id == NULL){echo $script;}
+                            ?>
                             <div <!--style="display:none;"--> >
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -181,7 +217,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">ID Diagnosi:</label>
                                     <div class="col-lg-4">
-                                        <input id="idDiagnosi" type="text"  readonly class="form-control" value="<?php echo $idDiagnosi; ?>"/>
+                                        <input id="idDiagnosi" type="text"  readonly class="form-control" value="<?php /*echo $idDiagnosi; */?>"/>
                                     </div>
                                 </div>
                             </div> -->
@@ -225,7 +261,16 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Centro:</label>
                                     <div class="col-lg-4">
-                                        <input id="centroIndagine" type="text"  class="form-control"/>
+                                        <select id="centroIndagine" class="form-control">
+                                            <?php
+                                            for($i = 0; i < $n_s; $n_s+=9){
+                                                echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .'</option>';
+                                            }
+                                            /*echo '<option selected value="'.0">Richiesta</option>
+                                            <option value="1">Programmata</option>
+                                            <option value="2">Completata</option>*/
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -233,21 +278,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Care provider:</label>
                                     <div class="col-lg-4">
-                                        <?php
-                                        $sp = ' ';
-                                        if($cp_id != NULL){ // Se sono un care provider
-                                            // Il mio nome è pre-inserito e non può essere cambiato
-                                            echo '<select id="cpD" class="form-control"><option selected value="'.$mioCpId.'">'.$mioCpNome.$sp.$mioCpCognome.'</option></select>';
-                                        }else{
-                                            echo '<select id="cpD" class="form-control">';
-                                            for($i=0; $i<$nCps; $i++){
-                                                echo '<option value='.$myCpId[$i].'>'.$myCpNome[$i].$sp.$myCpCognome[$i].'</option>';
-                                            }
-                                            echo '<option style="font-style:italic;"value=-1>Inserisci manualmente...</option>';
-                                            echo '</select>';
-                                        }
-                                        ?>
-
+                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> class="form-control"/>
                                     </div>
                                 </div>
 

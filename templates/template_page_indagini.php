@@ -141,6 +141,9 @@ else
             $n_s = $n_s + 9;
         }
 
+        $mioCpNome = $this->get_var('mioCpNome');
+        $mioCpCognome = $this->get_var('mioCpCognome');
+
         // --------------------------------------
         ?>
 
@@ -190,7 +193,7 @@ else
                             minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
                             if ($cp_id == NULL){echo $script;}
                             ?>
-                            <div style="display:none;" >
+                            <div <!--style="display:none;" --> >
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>

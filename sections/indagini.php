@@ -35,6 +35,13 @@ $pag_indagini -> set_var('idPaz',$idPaziente);
 $idCpp = getInfo('id','careproviderpersona','idutente='.$cp_id);
 $pag_indagini -> set_var('idUtenteCp', $idCpp);
 
+//Inoltre, estraggo il mio nome e cognome (mi serve per le operazioni di inserimento/modifica diagnosi)
+$cpNome = getInfo('nome', 'careproviderpersona', 'idutente='.$cp_id);
+$cpCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$cp_id);
+$pag_indagini -> set_var('mioCpNome', $cpNome);
+$pag_indagini -> set_var('mioCpCognome', $cpCognome);
+
+
 
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente);

@@ -16,4 +16,9 @@ templates/*
 
 !modello PBAC/
 modello PBAC/*
+modello PBAC/graphic/*
+modello PBAC/Login/*
+modello PBAC/pdfLib/*
+modello PBAC/PHPMailer/*
+modello PBAC/Security Framework/*
 !modello PBAC/Utility.php

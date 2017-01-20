@@ -94,13 +94,13 @@ $pag_indagini -> set_var('suggestCps',$cps);
 
 
 
-$centriId = getArray('id', 'centriindagini');
-$centriNome = getArray('nomeStudio', 'centriindagini');
-$centriVia = getArray('via', 'centriindagini');
-$centriCitta = getArray('citta', 'centriindagini');
-$centriTipo = getArray('tipoCentro', 'centriindagini');
-$centriEmail = getArray('mail', 'centriindagini');
-$centriIdCpp = getArray('idcpp', 'centriindagini');
+$centriId = getArrayNoCondition('id', 'centriindagini');
+$centriNome = getArrayNoCondition('nomeStudio', 'centriindagini');
+$centriVia = getArrayNoCondition('via', 'centriindagini');
+$centriCitta = getArrayNoCondition('citta', 'centriindagini');
+$centriTipo = getArrayNoCondition('tipoCentro', 'centriindagini');
+$centriEmail = getArrayNoCondition('mail', 'centriindagini');
+$centriIdCpp = getArrayNoCondition('idcpp', 'centriindagini');
 $m = count($centriId);
 for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.id.'.$i, $centriId[$i]);
@@ -113,7 +113,7 @@ for($i=0; $i<$m; $i++){
     $responsabileNome = getInfo('nome', 'careproviderpersona', 'idutente='.$centriIdCpp[$i]);
     $responsabileCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$centriIdCpp[$i]);
     $pag_indagini -> set_var('centro.responsabileNome.'.$i, $responsabileNome);
-    $pag_indagini -> set_var('ind.responsabileCognome.'.$i, $responsabileCognome);
+    $pag_indagini -> set_var('centro.responsabileCognome.'.$i, $responsabileCognome);
 }
 $pag_indagini -> set_var('centriNum', $m);
 

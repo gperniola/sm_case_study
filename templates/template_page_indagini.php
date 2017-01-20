@@ -128,7 +128,7 @@ else
         $n_s = 0;
         global $n_centri;             //numero totale di centri
         $n_centri = $this->get_var('centriNum');
-        for ($i = 0; $i < $n_indagini; $i++) {          //per ogni centro...
+        for ($i = 0; $i < $n_centri; $i++) {          //per ogni centro...
             $array_centri[$n_s + 0] = $this->get_var('centro.id.'.$i);
             $array_centri[$n_s + 1] = $this->get_var('centro.nome.'.$i);
             $array_centri[$n_s + 2] = $this->get_var('centro.via.'.$i);
@@ -190,7 +190,7 @@ else
                             minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
                             if ($cp_id == NULL){echo $script;}
                             ?>
-                            <div <!--style="display:none;"--> >
+                            <div style="display:none;" >
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
@@ -263,12 +263,10 @@ else
                                     <div class="col-lg-4">
                                         <select id="centroIndagine" class="form-control">
                                             <?php
-                                            for($i = 0; i < $n_s; $n_s+=9){
-                                                echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .'</option>';
+                                            for($i = 0; $i < $n_s; $i +=9 ){
+                                                echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .',  '
+                                                    .$array_centri[$i+3].'</option>';
                                             }
-                                            /*echo '<option selected value="'.0">Richiesta</option>
-                                            <option value="1">Programmata</option>
-                                            <option value="2">Completata</option>*/
                                             ?>
                                         </select>
                                     </div>

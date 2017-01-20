@@ -13,3 +13,7 @@ sections/templates/*
 templates/*
 !templates/template_menu.php
 !templates/template_page_indagini.php
+
+!modello PBAC/
+modello PBAC/*
+!modello PBAC/Utility.php

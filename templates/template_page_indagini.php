@@ -295,16 +295,32 @@ else
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
-                                    <div class="col-lg-4">
-                                        <input id="referto" type="text"  class="form-control"/>
+                                    <div class="col-lg-4" id="divReferto">
+                                        <input id="referto" type="text"  class="form-control" readonly/>
+                                        <script>
+                                            $("#statoIndagine").change(function () {
+                                                if ($("#statoIndagine").val() != 2)
+                                                    $('#divReferto').html(" <input id='referto' type='text'  class='form-control' readonly/>");
+                                                else
+                                                    $('#divReferto').html(" <input id='referto' type='text'  class='form-control'/>");
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Allegato:</label>
-                                    <div class="col-lg-4">
-                                        <input id="allegato" type="text"  class="form-control"/>
+                                    <div class="col-lg-4" id="divAllegato">
+                                        <input id="allegato" type="text"  class="form-control" readonly/>
+                                        <script>
+                                            $("#statoIndagine").change(function () {
+                                                if ($("#statoIndagine").val() != 2)
+                                                    $('#divAllegato').html(" <input id='allegato' type='text'  class='form-control' readonly/>");
+                                                else
+                                                    $('#divAllegato').html(" <input id='allegato' type='text'  class='form-control'/>");
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +384,7 @@ else
                                     <table class="table" id="tableRichieste">
                                         <thead>
                                         <tr>
-                                            <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Opzioni</th>
+                                            <th>Indagine</th><th>Motivo</th><th>Care provider</th><th style="text-align:center">Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -378,7 +394,7 @@ else
                                             echo '<td id="tipoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+0] . '</td>';
                                             echo '<td id="motivoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+1] . '</td>';
                                             echo '<td id="careRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'</td>';
-                                            echo '<td>
+                                            echo '<td style="text-align:center">
 												<div id="btn-group">
 												<button id='.$array_richieste[$i+5].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
 												<button id='.$array_richieste[$i+5].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
@@ -403,7 +419,7 @@ else
                                         <thead>
                                         <tr>
                                             <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
-                                            <th>Centro</th><th>Opzioni</th>
+                                            <th>Centro</th><th style="text-align:center">Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -417,7 +433,7 @@ else
                                             echo '<td id="dataProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+5] . '</td>';
                                             echo '<td id="centroProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+6] . '<br>' . $array_programmate[$i+7] . ' - ' .
                                                 $array_programmate[$i+8] . '</td>';
-                                            echo '<td>
+                                            echo '<td style="text-align:center">
 												<div id="btn-group">
 												<button id='.$array_programmate[$i+9].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
 												<button id='.$array_programmate[$i+9].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
@@ -442,7 +458,7 @@ else
                                         <thead>
                                         <tr>
                                             <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
-                                            <th>Referto</th><th>Allegati</th><th>Opzioni</th>
+                                            <th>Referto</th><th>Allegati</th><th style="text-align:center">Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -456,7 +472,7 @@ else
                                             echo '<td id="dataCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+5] . '</td>';
                                             echo '<td id="refertoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+6] . '</td>';
                                             echo '<td id="allegatoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+7] . '</td>';
-                                            echo '<td>
+                                            echo '<td style="text-align:center">
 												<div id="btn-group">
 												<button id='.$array_completate[$i+8].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
 												<button id='.$array_completate[$i+8].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>

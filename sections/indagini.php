@@ -56,7 +56,7 @@ $n = count($indaginiId);
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
-    $pag_indagini -> set_var('ind.data.'.$i, $indaginiData[$i]);
+    $pag_indagini -> set_var('ind.data.'.$i, italianFormat($indaginiData[$i]));
     $pag_indagini -> set_var('ind.referto.'.$i, $indaginiReferto[$i]);
     $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);

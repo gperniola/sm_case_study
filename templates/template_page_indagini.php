@@ -95,7 +95,8 @@ else
                      $array_richieste[$n_r + 2] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
                      $array_richieste[$n_r + 3] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
                      $array_richieste[$n_r + 4] = $this->get_var('ind.cpRep.'.$i);      //ruolo careprovider
-                     $n_r = $n_r + 5;   //offset per prossima indagine
+                     $array_richieste[$n_r + 5] = $this->get_var('ind.id.'.$i);      //id indagine
+                     $n_r = $n_r + 6;   //offset per prossima indagine
                      break;
                  case $stato_programmata:
                      $array_programmate[$n_p + 0] = $this->get_var('ind.tipo.'.$i);
@@ -107,7 +108,8 @@ else
                      $array_programmate[$n_p + 6] = $this->get_var('ind.centroNome.'.$i);   //nome del centro per indagine
                      $array_programmate[$n_p + 7] = $this->get_var('ind.centroVia.'.$i);    //via del centro indagini
                      $array_programmate[$n_p + 8] = $this->get_var('ind.centroCitta.'.$i);  //citta del centro indagini
-                     $n_p = $n_p + 9;   //offset per prossima indagine
+                     $array_programmate[$n_p + 9] = $this->get_var('ind.id.'.$i);      //id indagine
+                     $n_p = $n_p + 10;   //offset per prossima indagine
                      break;
                  case $stato_completata:
                      $array_completate[$n_c + 0] = $this->get_var('ind.tipo.'.$i);
@@ -118,7 +120,8 @@ else
                      $array_completate[$n_c + 5] = $this->get_var('ind.data.'.$i);
                      $array_completate[$n_c + 6] = $this->get_var('ind.referto.'.$i);   //nome del file referto
                      $array_completate[$n_c + 7] = $this->get_var('ind.allegato.'.$i);  //nome del file allegato
-                     $n_c = $n_c + 8;   //offset per prossima indagine
+                     $array_completate[$n_c + 8] = $this->get_var('ind.id.'.$i);      //id indagine
+                     $n_c = $n_c + 9;   //offset per prossima indagine
                      break;
              }
          }
@@ -193,7 +196,7 @@ else
                             minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
                             if ($cp_id == NULL){echo $script;}
                             ?>
-                            <div <!--style="display:none;" --> >
+                            <div style="display:none;" >
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
@@ -246,7 +249,14 @@ else
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Care provider:</label>
+                                    <div class="col-lg-4">
+                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Stato:</label>
@@ -259,7 +269,6 @@ else
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Centro:</label>
@@ -274,15 +283,6 @@ else
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">Care provider:</label>
-                                    <div class="col-lg-4">
-                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> class="form-control"/>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -358,7 +358,7 @@ else
                     </div>
                 </form><br>
 
-                <!--------------------------------------------------------->
+                <!---------------------INDAGINI RICHIESTE------------------------------------>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-warning">
@@ -368,20 +368,21 @@ else
                                     <table class="table" id="tableRichieste">
                                         <thead>
                                         <tr>
-                                            <th>Indagine</th>
-                                            <th>Motivo</th>
-                                            <th>Care provider</th>
-                                            <th>Opzioni</th>
+                                            <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini richieste
-                                        for($i = 0; $i < $n_r; $i+=5){
-                                            echo '<tr><td>' . $array_richieste[$i+0] . '</td>';
-                                            echo '<td>' . $array_richieste[$i+1] . '</td>';
-                                            echo '<td>' . $array_richieste[$i+2] . ' ' . $array_richieste[$i+3] . '<br>(' .
-                                            $array_richieste[$i+4] . ')</td>';
-                                            echo '<td>buttonz</td></tr>';
+                                        for($i = 0; $i < $n_r; $i+=6){
+                                            echo '<tr class="info" id="r'.$array_richieste[$i+5].'">';
+                                            echo '<td id="tipoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+0] . '</td>';
+                                            echo '<td id="motivoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+1] . '</td>';
+                                            echo '<td id="careRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'</td>';
+                                            echo '<td>
+												<div id="btn-group">
+												<button id='.$array_richieste[$i+5].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												<button id='.$array_richieste[$i+5].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												</div></td></tr>';
                                         }
                                         ?>
                                         </tbody>
@@ -391,6 +392,7 @@ else
                         </div>	<!--col lg12-->
                     </div>
                 </div>
+                <!---------------------INDAGINI PROGRAMMATE------------------------------------>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-danger">
@@ -400,25 +402,26 @@ else
                                     <table class="table" id="tableProgrammate">
                                         <thead>
                                         <tr>
-                                            <th>Indagine</th>
-                                            <th>Motivo</th>
-                                            <th>Care provider</th>
-                                            <th>Data</th>
-                                            <th>Centro</th>
-                                            <th>Opzioni</th>
+                                            <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
+                                            <th>Centro</th><th>Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini programmate
-                                        for($i = 0; $i < $n_p; $i+=9){
-                                            echo '<tr><td>' . $array_programmate[$i+0] . '</td>';
-                                            echo '<td>' . $array_programmate[$i+1] . '</td>';
-                                            echo '<td>' . $array_programmate[$i+2] . ' ' . $array_programmate[$i+3] . '<br>(' .
+                                        for($i = 0; $i < $n_p; $i+=10){
+                                            echo '<tr class="info" id="r'.$array_programmate[$i+9].'">';
+                                            echo '<td id="tipoProgrammata'.$array_programmate[$i+9].'">' . $array_programmate[$i+0] . '</td>';
+                                            echo '<td id="motivoProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+1] . '</td>';
+                                            echo '<td id="careProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+2] . ' ' . $array_programmate[$i+3] . '<br>(' .
                                                 $array_programmate[$i+4] . ')</td>';
-                                            echo '<td>' . $array_programmate[$i+5] . '</td>';
-                                            echo '<td>' . $array_programmate[$i+6] . '<br>' . $array_programmate[$i+7] . ' - ' .
+                                            echo '<td id="dataProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+5] . '</td>';
+                                            echo '<td id="centroProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+6] . '<br>' . $array_programmate[$i+7] . ' - ' .
                                                 $array_programmate[$i+8] . '</td>';
-                                            echo '<td>buttonz</td></tr>';
+                                            echo '<td>
+												<div id="btn-group">
+												<button id='.$array_programmate[$i+9].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												<button id='.$array_programmate[$i+9].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												</div></td></tr>';
                                         }
                                         ?>
                                         </tbody>
@@ -428,6 +431,7 @@ else
                         </div>	<!--col lg12-->
                     </div>
                 </div>
+                <!---------------------INDAGINI COMPLETATE------------------------------------>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-info">
@@ -437,26 +441,26 @@ else
                                     <table class="table" id="tableCompletate">
                                         <thead>
                                         <tr>
-                                            <th>Indagine</th>
-                                            <th>Motivo</th>
-                                            <th>Care provider</th>
-                                            <th>Data</th>
-                                            <th>Referto</th>
-                                            <th>Allegati</th>
-                                            <th>Opzioni</th>
+                                            <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
+                                            <th>Referto</th><th>Allegati</th><th>Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini completate
-                                        for($i = 0; $i < $n_c; $i+=8){
-                                            echo '<tr><td>' . $array_completate[$i+0] . '</td>';
-                                            echo '<td>' . $array_completate[$i+1] . '</td>';
-                                            echo '<td>' . $array_completate[$i+2] . ' ' . $array_completate[$i+3] . '<br>(' .
+                                        for($i = 0; $i < $n_c; $i+=9){
+                                            echo '<tr class="info" id="r'.$array_completate[$i+8].'">';
+                                            echo '<td id="tipoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+0] . '</td>';
+                                            echo '<td id="motivoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+1] . '</td>';
+                                            echo '<td id="careCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+2] . ' ' . $array_completate[$i+3] . '<br>(' .
                                                 $array_completate[$i+4] . ')</td>';
-                                            echo '<td>' . $array_completate[$i+5] . '</td>';
-                                            echo '<td>' . $array_completate[$i+6] . '</td>';
-                                            echo '<td>' . $array_completate[$i+7] . '</td>';
-                                            echo '<td>buttonz</td></tr>';
+                                            echo '<td id="dataCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+5] . '</td>';
+                                            echo '<td id="refertoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+6] . '</td>';
+                                            echo '<td id="allegatoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+7] . '</td>';
+                                            echo '<td>
+												<div id="btn-group">
+												<button id='.$array_completate[$i+8].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												<button id='.$array_completate[$i+8].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												</div></td></tr>';
                                         }
                                         ?>
                                         </tbody>

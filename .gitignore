@@ -22,3 +22,7 @@ modello PBAC/pdfLib/*
 modello PBAC/PHPMailer/*
 modello PBAC/Security Framework/*
 !modello PBAC/Utility.php
+
+!formscripts/
+formscripts/*
+!formscripts/indagini.js

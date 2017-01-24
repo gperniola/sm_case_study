@@ -394,11 +394,35 @@ else
                                             echo '<td id="tipoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+0] . '</td>';
                                             echo '<td id="motivoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+1] . '</td>';
                                             echo '<td id="careRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'</td>';
-                                            echo '<td style="text-align:center">
-												<div id="btn-group">
-												<button id='.$array_richieste[$i+5].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
-												<button id='.$array_richieste[$i+5].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
-												</div></td></tr>';
+                                            echo '<td style="text-align:center"><div id="btn-group">
+										            <button id='.$array_richieste[$i+5].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												    <button id='.$array_richieste[$i+5].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												 </div></td></tr>';
+                                            echo '
+                                            <tr id="riga'.$array_richieste[$i+5].'" style="display:none">
+		                                        <td colspan="5">
+		                                            <form class="form-horizontal">
+		                                                <div class="row">	
+		                                                    <div class="col-lg-12">';
+                                                            echo '
+                                                            <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
+							                                    <div class="col-lg-4">
+								                                    <select class="form-control" id="selStat'.$array_richieste[$i+5].'">
+									                                    <option value="0" selected>Sospetta</option>
+									                                    <option value="1" >Confermata</option>
+									                                    <option value="2" >Esclusa</option>
+								                                    </select>
+							                                    </div>
+						                                    </div>
+					                                        </div>
+					                                    </div>
+			                                        </form>
+			                                        <div style="text-align:right;">
+				                                        <a href="" onclick="return false;" class=annulla id="'.$array_richieste[$i+5].'">[Annulla]</a>
+				                                        <a href="" onclick="return false;" class=conferma id="'.$array_richieste[$i+5].'">[Conferma]</a>
+			                                        </div>
+			                                    </td>
+	                                     </tr>';
                                         }
                                         ?>
                                         </tbody>

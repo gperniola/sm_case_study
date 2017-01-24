@@ -75,7 +75,19 @@ $(document).ready(function(){
 	
 });
 
+/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
+$(document).on('click', "button.modifica", function () {
+    $(this).prop('disabled', true);
+    var id = '#riga'+$(this).attr('id');
+    $(id).show(200);
+});
 
 
+/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
+$(document).on('click', "a.annulla", function () {
+    var but = '#'+$(this).attr('id');
+    $(but+'.modifica').prop('disabled', false);
 
-
+    var id = '#riga'+$(this).attr('id');
+    $(id).hide(200);
+});

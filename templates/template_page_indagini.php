@@ -187,11 +187,11 @@ else
 								datumTokenizer: Bloodhound.tokenizers.whitespace,
 								queryTokenizer: Bloodhound.tokenizers.whitespace,
 								local: cps});";
-                            /*for($i=0; $i<$nDiagno; $i++){
-                                $script=$script."$('#txt".$this->get_var('dia.id.'.$i)."').typeahead({
+                            for($i=0; $i<$n_indagini; $i++){
+                                $script=$script."$('#nomeCpD".$this->get_var('ind.id.'.$i)."').typeahead({
                                 hint: true,highlight: true,minLength: 1},{name: 'cps',source: cpSuggest,
                                 limit: 10});";
-                            }*/
+                            }
                             $script=$script."$('#nomeCpD').typeahead({ hint: true,highlight: true,
                             minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
                             if ($cp_id == NULL){echo $script;}
@@ -253,7 +253,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Care provider:</label>
                                     <div class="col-lg-4">
-                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> class="form-control"/>
+                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> type="text" class="form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -402,19 +402,44 @@ else
                                             <tr id="riga'.$array_richieste[$i+5].'" style="display:none">
 		                                        <td colspan="5">
 		                                            <form class="form-horizontal">
-		                                                <div class="row">	
-		                                                    <div class="col-lg-12">';
+		                                                <div class="row">';
                                                             echo '
-                                                            <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
-							                                    <div class="col-lg-4">
-								                                    <select class="form-control" id="selStat'.$array_richieste[$i+5].'">
-									                                    <option value="0" selected>Sospetta</option>
-									                                    <option value="1" >Confermata</option>
-									                                    <option value="2" >Esclusa</option>
-								                                    </select>
-							                                    </div>
-						                                    </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="tipoIndagine'.$array_richieste[$i+5].'" type="text"  class="form-control"
+                                                                            value ="'.$array_richieste[$i+0].'"/>
+                                                                    </div>
+                                                                </div>
 					                                        </div>
+					                                        <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="motivoIndagine'.$array_richieste[$i+5].'" type="text"  class="form-control"
+                                                                            value ="'.$array_richieste[$i+1].'"/>
+                                                                    </div>
+                                                                 </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="nomeCpD'.$array_richieste[$i+5].'" type="text" class="form-control"
+                                                                            value ="'. $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'"';
+                                                                            if ($cp_id != NULL) echo ' readonly ';
+                                                                        echo '/>
+                                                                    </div>
+                                                                 </div>
+                                                             </div>
+                                                            <div class="col-lg-12"><label class="control-label col-lg-4">Stato:</label>
+                                                                <div class="col-lg-4">
+                                                                    <select id="statoIndagine'.$array_richieste[$i+5].'" class="form-control">
+                                                                        <option selected value="0">Richiesta</option>
+                                                                        <option value="1">Programmata</option>
+                                                                        <option value="2">Completata</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                
 					                                    </div>
 			                                        </form>
 			                                        <div style="text-align:right;">

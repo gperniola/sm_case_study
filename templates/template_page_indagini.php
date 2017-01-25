@@ -73,33 +73,65 @@ else
         }
 
         // ------ DATA FROM diagnosi.php --------
-         $stato_richiesta = "richiesta";
-         $stato_programmata = "programmata";
-         $stato_completata = "conclusa";
-         $array_richieste = array();      //array indagini richieste
-         $array_programmate = array();   //array indagini programmate
-         $array_completate = array();    //array indagini completate
-         $n_r = 0;               //numero indagini richieste
-         $n_p = 0;             //numero indagini programmate
-         $n_c = 0;              //numero completate
+        $stato_richiesta = "richiesta";
+        $stato_programmata = "programmata";
+        $stato_completata = "conclusa";
+        $array_richieste = array();      //array indagini richieste
+        $array_programmate = array();   //array indagini programmate
+        $array_completate = array();    //array indagini completate
+        $n_r = 0;               //numero indagini richieste
+        $n_p = 0;             //numero indagini programmate
+        $n_c = 0;              //numero completate
+        global $offset; $offset = 15;
+        global $n_indagini;             //numero totale di indagini
+        $n_indagini = $this->get_var('indaginiNum');
 
-         global $n_indagini;             //numero totale di indagini
-         $n_indagini = $this->get_var('indaginiNum');
-
-         for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
-             $stato = $this->get_var('ind.stato.'.$i);  //verifica lo stato
+        for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
+            $stato = $this->get_var('ind.stato.'.$i);  //verifica lo stato
              switch ($stato){
                  case $stato_richiesta:
-                     $array_richieste[$n_r + 0] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
+                     $array_richieste[$n_r + 0] = $this->get_var('ind.id.'.$i);         //id indagine
+                     $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
+                     $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.'.$i);     //motivazione
+                     $array_richieste[$n_r + 3] = $this->get_var('ind.stato.'.$i);      //stato indagine
+                     $array_richieste[$n_r + 4] = $this->get_var('ind.data.'.$i);       //data indagine
+                     $array_richieste[$n_r + 5] = $this->get_var('ind.referto.'.$i);       
+                     $array_richieste[$n_r + 6] = $this->get_var('ind.allegato.'.$i);
+                     $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.'.$i);       //id careprovider
+                     $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
+                     $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
+                     $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.'.$i);     //ruolo careprovider
+                     $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.'.$i);  //id centro diagnostico
+                     $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
+                     $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
+                     $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $n_r = $n_r + $offset;
+                     /*$array_richieste[$n_r + 0] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
                      $array_richieste[$n_r + 1] = $this->get_var('ind.motivo.'.$i);     //motivazione
                      $array_richieste[$n_r + 2] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
                      $array_richieste[$n_r + 3] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
                      $array_richieste[$n_r + 4] = $this->get_var('ind.cpRep.'.$i);      //ruolo careprovider
                      $array_richieste[$n_r + 5] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_r = $n_r + 6;   //offset per prossima indagine
+                     $n_r = $n_r + 6;   //offset per prossima indagine*/
                      break;
                  case $stato_programmata:
-                     $array_programmate[$n_p + 0] = $this->get_var('ind.tipo.'.$i);
+                     $array_programmate[$n_p + 0] = $this->get_var('ind.id.'.$i);         //id indagine
+                     $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
+                     $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.'.$i);     //motivazione
+                     $array_programmate[$n_p + 3] = $this->get_var('ind.stato.'.$i);      //stato indagine
+                     $array_programmate[$n_p + 4] = $this->get_var('ind.data.'.$i);       //data indagine
+                     $array_programmate[$n_p + 5] = $this->get_var('ind.referto.'.$i);
+                     $array_programmate[$n_p + 6] = $this->get_var('ind.allegato.'.$i);
+                     $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.'.$i);       //id careprovider
+                     $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
+                     $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
+                     $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.'.$i);     //ruolo careprovider
+                     $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.'.$i);  //id centro diagnostico
+                     $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
+                     $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
+                     $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $n_p = $n_p + $offset;
+                     /*$array_programmate[$n_p + 0] = $this->get_var('ind.tipo.'.$i);
                      $array_programmate[$n_p + 1] = $this->get_var('ind.motivo.'.$i);
                      $array_programmate[$n_p + 2] = $this->get_var('ind.cpNome.'.$i);
                      $array_programmate[$n_p + 3] = $this->get_var('ind.cpCognome.'.$i);
@@ -109,10 +141,26 @@ else
                      $array_programmate[$n_p + 7] = $this->get_var('ind.centroVia.'.$i);    //via del centro indagini
                      $array_programmate[$n_p + 8] = $this->get_var('ind.centroCitta.'.$i);  //citta del centro indagini
                      $array_programmate[$n_p + 9] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_p = $n_p + 10;   //offset per prossima indagine
+                     $n_p = $n_p + 10;   //offset per prossima indagine*/
                      break;
                  case $stato_completata:
-                     $array_completate[$n_c + 0] = $this->get_var('ind.tipo.'.$i);
+                     $array_completate[$n_c + 0] = $this->get_var('ind.id.'.$i);         //id indagine
+                     $array_completate[$n_c + 1] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
+                     $array_completate[$n_c + 2] = $this->get_var('ind.motivo.'.$i);     //motivazione
+                     $array_completate[$n_c + 3] = $this->get_var('ind.stato.'.$i);      //stato indagine
+                     $array_completate[$n_c + 4] = $this->get_var('ind.data.'.$i);       //data indagine
+                     $array_completate[$n_c + 5] = $this->get_var('ind.referto.'.$i);
+                     $array_completate[$n_c + 6] = $this->get_var('ind.allegato.'.$i);
+                     $array_completate[$n_c + 7] = $this->get_var('ind.cpId.'.$i);       //id careprovider
+                     $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
+                     $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
+                     $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.'.$i);     //ruolo careprovider
+                     $array_completate[$n_c + 11] = $this->get_var('ind.centroId.'.$i);  //id centro diagnostico
+                     $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
+                     $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
+                     $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $n_c = $n_c + $offset;
+                     /*$array_completate[$n_c + 0] = $this->get_var('ind.tipo.'.$i);
                      $array_completate[$n_c + 1] = $this->get_var('ind.motivo.'.$i);
                      $array_completate[$n_c + 2] = $this->get_var('ind.cpNome.'.$i);
                      $array_completate[$n_c + 3] = $this->get_var('ind.cpCognome.'.$i);
@@ -121,7 +169,7 @@ else
                      $array_completate[$n_c + 6] = $this->get_var('ind.referto.'.$i);   //nome del file referto
                      $array_completate[$n_c + 7] = $this->get_var('ind.allegato.'.$i);  //nome del file allegato
                      $array_completate[$n_c + 8] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_c = $n_c + 9;   //offset per prossima indagine
+                     $n_c = $n_c + 9;   //offset per prossima indagine*/
                      break;
              }
          }
@@ -389,17 +437,17 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini richieste
-                                        for($i = 0; $i < $n_r; $i+=6){
-                                            echo '<tr class="info" id="r'.$array_richieste[$i+5].'">';
-                                            echo '<td id="tipoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+0] . '</td>';
-                                            echo '<td id="motivoRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+1] . '</td>';
-                                            echo '<td id="careRichiesta'.$array_richieste[$i+5].'">' . $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'</td>';
+                                        for($i = 0; $i < $n_r; $i+=$offset){
+                                            echo '<tr class="info" id="r'.$array_richieste[$i+0].'">';
+                                            echo '<td id="tipoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+1] . '</td>';
+                                            echo '<td id="motivoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+2] . '</td>';
+                                            echo '<td id="careRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+8]. ' ' .$array_richieste[$i+9].'</td>';
                                             echo '<td style="text-align:center"><div id="btn-group">
-										            <button id='.$array_richieste[$i+5].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
-												    <button id='.$array_richieste[$i+5].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+										            <button id='.$array_richieste[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												    <button id='.$array_richieste[$i+0].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
 												 </div></td></tr>';
                                             echo '
-                                            <tr id="riga'.$array_richieste[$i+5].'" style="display:none">
+                                            <tr id="riga'.$array_richieste[$i+0].'" style="display:none">
 		                                        <td colspan="5">
 		                                            <form class="form-horizontal">
 		                                                <div class="row">';
@@ -407,24 +455,24 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="tipoIndagine'.$array_richieste[$i+5].'" type="text"  class="form-control"
-                                                                            value ="'.$array_richieste[$i+0].'"/>
+                                                                        <input id="tipoIndagine'.$array_richieste[$i+0].'" type="text"  class="form-control"
+                                                                            value ="'.$array_richieste[$i+1].'"/>
                                                                     </div>
                                                                 </div>
 					                                        </div>
 					                                        <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="motivoIndagine'.$array_richieste[$i+5].'" type="text"  class="form-control"
-                                                                            value ="'.$array_richieste[$i+1].'"/>
+                                                                        <input id="motivoIndagine'.$array_richieste[$i+0].'" type="text"  class="form-control"
+                                                                            value ="'.$array_richieste[$i+2].'"/>
                                                                     </div>
                                                                  </div>
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="nomeCpD'.$array_richieste[$i+5].'" type="text" class="form-control"
-                                                                            value ="'. $array_richieste[$i+2]. ' ' .$array_richieste[$i+3].'"';
+                                                                        <input id="nomeCpD'.$array_richieste[$i+0].'" type="text" class="form-control"
+                                                                            value ="'. $array_richieste[$i+8]. ' ' .$array_richieste[$i+9].'"';
                                                                             if ($cp_id != NULL) echo ' readonly ';
                                                                         echo '/>
                                                                     </div>
@@ -432,7 +480,7 @@ else
                                                              </div>
                                                             <div class="col-lg-12"><label class="control-label col-lg-4">Stato:</label>
                                                                 <div class="col-lg-4">
-                                                                    <select id="statoIndagine'.$array_richieste[$i+5].'" class="form-control">
+                                                                    <select id="statoIndagine'.$array_richieste[$i+0].'" class="form-control">
                                                                         <option selected value="0">Richiesta</option>
                                                                         <option value="1">Programmata</option>
                                                                         <option value="2">Completata</option>
@@ -443,8 +491,8 @@ else
 					                                    </div>
 			                                        </form>
 			                                        <div style="text-align:right;">
-				                                        <a href="" onclick="return false;" class=annulla id="'.$array_richieste[$i+5].'">[Annulla]</a>
-				                                        <a href="" onclick="return false;" class=conferma id="'.$array_richieste[$i+5].'">[Conferma]</a>
+				                                        <a href="" onclick="return false;" class=annulla id="'.$array_richieste[$i+0].'">[Annulla]</a>
+				                                        <a href="" onclick="return false;" class=conferma id="'.$array_richieste[$i+0].'">[Conferma]</a>
 			                                        </div>
 			                                    </td>
 	                                     </tr>';
@@ -473,19 +521,19 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini programmate
-                                        for($i = 0; $i < $n_p; $i+=10){
-                                            echo '<tr class="info" id="r'.$array_programmate[$i+9].'">';
-                                            echo '<td id="tipoProgrammata'.$array_programmate[$i+9].'">' . $array_programmate[$i+0] . '</td>';
-                                            echo '<td id="motivoProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+1] . '</td>';
-                                            echo '<td id="careProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+2] . ' ' . $array_programmate[$i+3] . '<br>(' .
-                                                $array_programmate[$i+4] . ')</td>';
-                                            echo '<td id="dataProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+5] . '</td>';
-                                            echo '<td id="centroProgrammata'.$array_programmate[$i+9].'">'. $array_programmate[$i+6] . '<br>' . $array_programmate[$i+7] . ' - ' .
-                                                $array_programmate[$i+8] . '</td>';
+                                        for($i = 0; $i < $n_p; $i+=$offset){
+                                            echo '<tr class="info" id="r'.$array_programmate[$i+0].'">';
+                                            echo '<td id="tipoProgrammata'.$array_programmate[$i+0].'">' . $array_programmate[$i+1] . '</td>';
+                                            echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
+                                            echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+8] . ' ' . $array_programmate[$i+9] . '<br>(' .
+                                                $array_programmate[$i+10] . ')</td>';
+                                            echo '<td id="dataProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+4] . '</td>';
+                                            echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . ' - ' .
+                                                $array_programmate[$i+14] . '</td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
-												<button id='.$array_programmate[$i+9].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
-												<button id='.$array_programmate[$i+9].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												<button id='.$array_programmate[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												<button id='.$array_programmate[$i+0].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
 												</div></td></tr>';
                                         }
                                         ?>
@@ -512,19 +560,19 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini completate
-                                        for($i = 0; $i < $n_c; $i+=9){
-                                            echo '<tr class="info" id="r'.$array_completate[$i+8].'">';
-                                            echo '<td id="tipoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+0] . '</td>';
-                                            echo '<td id="motivoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+1] . '</td>';
-                                            echo '<td id="careCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+2] . ' ' . $array_completate[$i+3] . '<br>(' .
-                                                $array_completate[$i+4] . ')</td>';
-                                            echo '<td id="dataCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+5] . '</td>';
-                                            echo '<td id="refertoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+6] . '</td>';
-                                            echo '<td id="allegatoCompletata'.$array_completate[$i+8].'">' . $array_completate[$i+7] . '</td>';
+                                        for($i = 0; $i < $n_c; $i+=$offset){
+                                            echo '<tr class="info" id="r'.$array_completate[$i+0].'">';
+                                            echo '<td id="tipoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+1] . '</td>';
+                                            echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
+                                            echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+8] . ' ' . $array_completate[$i+9] . '<br>(' .
+                                                $array_completate[$i+10] . ')</td>';
+                                            echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
+                                            echo '<td id="refertoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+5] . '</td>';
+                                            echo '<td id="allegatoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+6] . '</td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
-												<button id='.$array_completate[$i+8].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
-												<button id='.$array_completate[$i+8].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
+												<button id='.$array_completate[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
+												<button id='.$array_completate[$i+0].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
 												</div></td></tr>';
                                         }
                                         ?>

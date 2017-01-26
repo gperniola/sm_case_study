@@ -448,10 +448,10 @@ else
 												 </div></td></tr>';
                                             echo '
                                             <tr id="riga'.$array_richieste[$i+0].'" style="display:none">
-		                                        <td colspan="5">
+		                                        <td colspan="5">';
+                                            echo'
 		                                            <form class="form-horizontal">
-		                                                <div class="row">';
-                                                            echo '
+		                                                <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
                                                                     <div class="col-lg-4">
@@ -478,13 +478,66 @@ else
                                                                     </div>
                                                                  </div>
                                                              </div>
-                                                            <div class="col-lg-12"><label class="control-label col-lg-4">Stato:</label>
-                                                                <div class="col-lg-4">
-                                                                    <select id="statoIndagine'.$array_richieste[$i+0].'" class="form-control">
-                                                                        <option selected value="0">Richiesta</option>
-                                                                        <option value="1">Programmata</option>
-                                                                        <option value="2">Completata</option>
-                                                                    </select>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <select id="statoIndagine'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected value="0">Richiesta</option>
+                                                                            <option value="1">Programmata</option>
+                                                                            <option value="2">Completata</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        for($k = 0; $k < $n_s; $k +=9 ){
+                                                                            if( $array_centri[$k+0] == $array_richieste[$i+11])
+                                                                                echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
+                                                                            else
+                                                                                echo '<option value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
+                                                                        }
+                                                                        echo '</select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Data:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="data'.$array_richieste[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
+                                                                    <div class="col-lg-4" id="divReferto'.$array_richieste[$i+0].'">
+                                                                        <input id="referto'.$array_richieste[$i+0].'" type="text"  class="form-control" readonly/>
+                                                                        <script>
+                                                                            $("#statoIndagine'.$array_richieste[$i+0].'").change(function () {
+                                                                                if ($("#statoIndagine'.$array_richieste[$i+0].'").val() != 2)
+                                                                                    $(\'#divReferto'.$array_richieste[$i+0].'\').html(" <input id=\'referto'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' readonly/>");
+                                                                                else
+                                                                                    $(\'#divReferto'.$array_richieste[$i+0].'\').html(" <input id=\'referto'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\'/>");
+                                                                            });
+                                                                        </script>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
+                                                                    <div class="col-lg-4" id="divAllegato'.$array_richieste[$i+0].'">
+                                                                        <input id="allegato'.$array_richieste[$i+0].'" type="text"  class="form-control" readonly/>
+                                                                        <script>
+                                                                            $("#statoIndagine'.$array_richieste[$i+0].'").change(function () {
+                                                                            if ($("#statoIndagine'.$array_richieste[$i+0].'").val() != 2)
+                                                                                $(\'#divAllegato'.$array_richieste[$i+0].'\').html(" <input id=\'allegato'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' readonly/>");
+                                                                            else
+                                                                                $(\'#divAllegato'.$array_richieste[$i+0].'\').html(" <input id=\'allegato'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\'/>");
+                                                                            });
+                                                                        </script>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                 

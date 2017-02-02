@@ -129,19 +129,8 @@
                  
                 <!-- ALLERGIE / INTOLLERANZE -->
                
-				<li class="panel<?php if (($this->get_var('panel_active')=='indagini') || ($this->get_var('panel_active')=='richieste')) echo ' active';?>">
-                    <a id="diagnosticArrowLink" href="" onClick="return false;" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
-                        <i class="icon-search"></i> Indagini Diagnostiche
-                        <span class="pull-right">
-                            <i id="diagnosticArrow" class="icon-angle-left"></i>
-                        </span>
-                    </a>
-                    <ul class="<?php if (($this->get_var('panel_active')=='indagini') || ($this->get_var('panel_active')=='richieste')) echo 'in'; else echo 'collapse';?>" id="form-nav">
-                        <li class="diagnostic"><a href="<?php echo $this->get_var('link_indagini'); ?>"><i class="icon-angle-right"></i> Diario Indagini Diagnostiche </a></li>
-                        <li class="diagnostic"><a href="<?php echo $this->get_var('link_richieste'); ?>"><i class="icon-angle-right"></i> Centri Indagini Diagnostiche </a></li>
-                    </ul>
-                </li>
-                <li class="panel<?php if ($this->get_var('panel_active')=='diagnosi') echo ' active';?>"> <a href="<?php echo $this->get_var('link_diagnosi'); ?>"> <em class="icon-file-text-alt"></em> Diagnosi </a></li>  
+				<li class="panel<?php if ($this->get_var('panel_active')=='indagini') echo ' active';?>"><a href="<?php echo $this->get_var('link_indagini'); ?>"><em class="icon-search"></em> Indagini Diagnostiche </a></li>
+                <li class="panel<?php if ($this->get_var('panel_active')=='diagnosi') echo ' active';?>"><a href="<?php echo $this->get_var('link_diagnosi'); ?>"> <em class="icon-file-text-alt"></em> Diagnosi </a></li>
                   <li class="panel<?php if ($this->get_var('panel_active')=='terapie') echo ' active';?>"> <a href="<?php echo $this->get_var('link_terapie'); ?>"> <em class="icon-medkit"></em> Terapie Farmacologiche </a></li>
                 <li class="panel<?php if ($this->get_var('panel_active')=='procedure') echo ' active';?>"> <a href="<?php echo $this->get_var('link_procedure'); ?>"> <em class="icon-hospital"></em> Procedure Terapeutiche </a></li>
                 <li class="panel<?php if ($this->get_var('panel_active')=='dispositivi') echo ' active';?>"> <a href="<?php echo $this->get_var('link_dispositivi'); ?>"> <em class="icon-plus-sign-alt"></em> Dispositivi Medici </a></li>                 

@@ -203,9 +203,25 @@ else
         <script src="formscripts/jquery-ui.js"></script>
         <script src="formscripts/indagini.js"></script>
 
+        <h2>Indagini diagnostiche</h2><hr>
+        <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
+        l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
+        <hr/>
+       <!-- ACCORDION -->
+        <div class="accordion ac" id="accordion">
+            <div class="accordion-group">
+                <div class="accordion-heading centered">
+                    <h3>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            Diario indagini diagnostiche
+                            <span ><i  class="icon-angle-down"></i></span>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapse1" class="acordion-body collapse">
+                    <div class="accordion-inner">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Indagini Diagnostiche</h2>
                 <hr>
 
                 <div class="row">
@@ -845,7 +861,54 @@ else
                 </div><br>
             </div><!--col-lg-12-->
         </div>
+                    </div>
+                </div>
+            </div>
         <hr />
+            <div class="accordion-group">
+                <div class="accordion-heading centered">
+                    <h3>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            Centri indagini diagnostiche
+                            <span ><i  class="icon-angle-down"></i></span>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapse2" class="acordion-body collapse">
+                    <div class="accordion-inner">
+                        <!--elenco dei careproviders che effettuano indagini diagnostiche-->
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="panel panel-warning">
+                                    <div class="panel-body">
+                                        <h3>Studi specialistici</h3>
+                                        <hr/>
+                                    </div>	<!--panelbody-->
+                                </div>	<!--panelwarning-->
+                            </div>	<!--col lg4-->
+                            <div class="col-lg-4">
+                                <div class="panel panel-warning">
+                                    <div class="panel-body">
+                                        <h3>Studi Radiologici</h3>
+                                        <hr/>
+                                    </div>	<!--panelbody-->
+                                </div>	<!--panelwarning-->
+                            </div>	<!--col lg4-->
+                            <div class="col-lg-4">
+                                <div class="panel panel-warning">
+                                    <div class="panel-body">
+                                        <h3>Laboratori Analisi</h3>
+                                        <hr/>
+                                    </div>	<!--panelbody-->
+                                </div>	<!--panelwarning-->
+                            </div>	<!--col lg4-->
+                        </div><!--row-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END ACCORDION -->
+
     </div>
 </div>
 <!--END PAGE CONTENT -->

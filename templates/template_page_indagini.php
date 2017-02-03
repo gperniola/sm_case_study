@@ -146,7 +146,6 @@ else
              }
          }
 
-
         $array_centri = array();
         $n_s = 0;
         global $n_centri;             //numero totale di centri
@@ -162,6 +161,19 @@ else
             $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
             $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
             $n_s = $n_s + 9;
+        }
+
+
+        $array_diagnosi = array();
+        $n_z = 0;
+        global $n_diagnosi;
+        $n_diagnosi = $this->get_var('diagnosiNum');
+        for ($i = 0; $i < $n_diagnosi; $i++) {
+            $array_diagnosi[$n_z + 0] = $this->get_var('diagnosi.id.'.$i);
+            $array_diagnosi[$n_z + 1] = $this->get_var('diagnosi.data.'.$i);
+            $array_diagnosi[$n_z + 2] = $this->get_var('diagnosi.patologia.'.$i);
+            $array_diagnosi[$n_z + 3] = $this->get_var('diagnosi.conf.'.$i);
+            $n_z = $n_z + 4;
         }
 
         $mioCpNome = $this->get_var('mioCpNome');

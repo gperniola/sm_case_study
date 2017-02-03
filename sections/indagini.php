@@ -53,6 +53,7 @@ $indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPazi
 $indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente);
 $n = count($indaginiId);
+
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
@@ -125,6 +126,18 @@ for($i=0; $i<$m; $i++){
 $pag_indagini -> set_var('centriNum', $m);
 
 
+$diagnosiId = getArray('id', 'diagnosi','idPaziente='.$idPaziente);
+$diagnosiData = getArray('dataIns', 'diagnosi','idPaziente='.$idPaziente);
+$diagnosiPatologia = getArray('patologia', 'diagnosi','idPaziente='.$idPaziente);
+$diagnosiConf = getArray('conf', 'diagnosi','idPaziente='.$idPaziente);
+$z = count($diagnosiId);
+for($i=0; $i<$m; $i++){
+    $pag_indagini -> set_var('diagnosi.id.'.$i, $diagnosiId[$i]);
+    $pag_indagini -> set_var('diagnosi.data.'.$i, $diagnosiData[$i]);
+    $pag_indagini -> set_var('diagnosi.patologia.'.$i, $diagnosiPatologia[$i]);
+    $pag_indagini -> set_var('diagnosi.conf.'.$i, $diagnosiConf[$i]);
+}
+$pag_indagini -> set_var('DiagnosiNum', $z);
 
 $pag_indagini->out('template_page_indagini');
 ?>

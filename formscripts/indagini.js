@@ -10,7 +10,32 @@ $(document).ready(function(){
 	
 	$('#nomeCp').prop('disabled',true);
 	$('#cognomeCp').prop('disabled',true);
-	
+
+
+    $(document.getElementById("statoIndagine")).change(function () {
+        switch ($(document.getElementById("statoIndagine")).val()){
+			case "0":
+                document.getElementById("divCentro").style.display = "none";
+                document.getElementById("divData").style.display = "none";
+                document.getElementById("divReferto").style.display = "none";
+                document.getElementById("divAllegato").style.display = "none";
+				break;
+			case "1":
+                document.getElementById("divCentro").style.display = "block";
+                document.getElementById("divData").style.display = "block";
+                document.getElementById("divReferto").style.display = "none";
+                document.getElementById("divAllegato").style.display = "none";
+				break;
+			case "2":
+                document.getElementById("divCentro").style.display = "block";
+                document.getElementById("divData").style.display = "block";
+                document.getElementById("divReferto").style.display = "block";
+                document.getElementById("divAllegato").style.display = "block";
+				break;
+		}
+    });
+
+
     $("#nuovoFile").click(function(){
 		
         $("#formIndagini").show(200);
@@ -91,3 +116,5 @@ $(document).on('click', "a.annulla", function () {
     var id = '#riga'+$(this).attr('id');
     $(id).hide(200);
 });
+
+

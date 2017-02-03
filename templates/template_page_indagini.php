@@ -537,8 +537,7 @@ else
                                             echo '<tr class="info" id="r'.$array_programmate[$i+0].'">';
                                             echo '<td id="tipoProgrammata'.$array_programmate[$i+0].'">' . $array_programmate[$i+1] . '</td>';
                                             echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
-                                            echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+8] . ' ' . $array_programmate[$i+9] . '<br>(' .
-                                                $array_programmate[$i+10] . ')</td>';
+                                            echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+8] . ' ' . $array_programmate[$i+9] . '</td>';
                                             echo '<td id="dataProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+4] . '</td>';
                                             echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . ' - ' .
                                                 $array_programmate[$i+14] . '</td>';
@@ -664,8 +663,7 @@ else
                                             echo '<tr class="info" id="r'.$array_completate[$i+0].'">';
                                             echo '<td id="tipoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+1] . '</td>';
                                             echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
-                                            echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+8] . ' ' . $array_completate[$i+9] . '<br>(' .
-                                                $array_completate[$i+10] . ')</td>';
+                                            echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+8] . ' ' . $array_completate[$i+9] . '</td>';
                                             echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
                                             echo '<td id="refertoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+5] . '</td>';
                                             echo '<td id="allegatoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+6] . '</td>';

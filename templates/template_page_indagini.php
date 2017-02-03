@@ -297,7 +297,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Stato:</label>
                                     <div class="col-lg-4">
-                                        <select id="statoIndagine" class="form-control">
+                                        <select id="statoIndagine_new" class="form-control">
                                             <option selected value="0">Richiesta</option>
                                             <option value="1">Programmata</option>
                                             <option value="2">Completata</option>
@@ -305,11 +305,11 @@ else
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" id="divCentro" style="display:none;">
+                            <div class="col-lg-12" id="divCentro_new" style="display:none;">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Centro:</label>
                                     <div class="col-lg-4">
-                                        <select id="centroIndagine" class="form-control">
+                                        <select id="centroIndagine_new" class="form-control">
                                             <option selected disabled hidden style='display: none' value=''>Selezionare un centro..</option>
                                             <?php
                                             for($i = 0; $i < $n_s; $i +=9 ){
@@ -321,7 +321,7 @@ else
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" id="divData" style="display:none;">
+                            <div class="col-lg-12" id="divData_new" style="display:none;">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Data:</label>
                                     <div class="col-lg-4">
@@ -329,7 +329,7 @@ else
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" id="divReferto" style="display:none;">
+                            <div class="col-lg-12" id="divReferto_new" style="display:none;">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
                                     <div class="col-lg-4" >
@@ -337,7 +337,7 @@ else
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" id="divAllegato" style="display:none;">
+                            <div class="col-lg-12" id="divAllegato_new" style="display:none;">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Allegato:</label>
                                     <div class="col-lg-4">
@@ -453,7 +453,7 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="statoIndagine'.$array_richieste[$i+0].'" class="form-control">
+                                                                        <select id="statoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected value="0">Richiesta</option>
                                                                             <option value="1">Programmata</option>
                                                                             <option value="2">Completata</option>
@@ -461,7 +461,7 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divCentro_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">';
@@ -475,40 +475,27 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                             <div class="col-lg-12">
+                                                             <div class="col-lg-12" id="divData_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_richieste[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
+                                                                        <input id="data'.$array_richieste[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
+                                                                        value ="'.$array_richieste[$i+4].'"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4" id="divReferto'.$array_richieste[$i+0].'">
-                                                                        <input id="referto'.$array_richieste[$i+0].'" type="text"  class="form-control" readonly value ="'.$array_richieste[$i+5].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_richieste[$i+0].'").change(function () {
-                                                                                if ($("#statoIndagine'.$array_richieste[$i+0].'").val() != 2)
-                                                                                    $(\'#divReferto'.$array_richieste[$i+0].'\').html(" <input id=\'referto'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_richieste[$i+5].'\'/>");
-                                                                                else
-                                                                                    $(\'#divReferto'.$array_richieste[$i+0].'\').html(" <input id=\'referto'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' value =\''.$array_richieste[$i+5].'\'/>");
-                                                                            });
-                                                                        </script>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="referto'.$array_richieste[$i+0].'" type="text"  class="form-control" value ="'.$array_richieste[$i+5].'"/>
+                                                                      
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divAllegato_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4" id="divAllegato'.$array_richieste[$i+0].'">
-                                                                        <input id="allegato'.$array_richieste[$i+0].'" type="text"  class="form-control" readonly value ="'.$array_richieste[$i+6].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_richieste[$i+0].'").change(function () {
-                                                                            if ($("#statoIndagine'.$array_richieste[$i+0].'").val() != 2)
-                                                                                $(\'#divAllegato'.$array_richieste[$i+0].'\').html(" <input id=\'allegato'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_richieste[$i+6].'\'/>");
-                                                                            else
-                                                                                $(\'#divAllegato'.$array_richieste[$i+0].'\').html(" <input id=\'allegato'.$array_richieste[$i+0].'\' type=\'text\'  class=\'form-control\' value =\''.$array_richieste[$i+6].'\'/>");
-                                                                            });
-                                                                        </script>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="allegato'.$array_richieste[$i+0].'" type="text"  class="form-control" value ="'.$array_richieste[$i+6].'"/>
+                                                                  
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -595,7 +582,7 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="statoIndagine'.$array_programmate[$i+0].'" class="form-control">
+                                                                        <select id="statoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option value="0">Richiesta</option>
                                                                             <option selected value="1">Programmata</option>
                                                                             <option value="2">Completata</option>
@@ -603,7 +590,7 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divCentro_'.$array_programmate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">';
@@ -617,40 +604,25 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                             <div class="col-lg-12">
+                                                             <div class="col-lg-12" id="divData_'.$array_programmate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_programmate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
+                                                                        <input id="data'.$array_programmate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control" 
+                                                                        value ="'.$array_programmate[$i+4].'"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4" id="divReferto'.$array_programmate[$i+0].'">
-                                                                        <input id="referto'.$array_programmate[$i+0].'" type="text"  class="form-control" readonly value ="'.$array_programmate[$i+5].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_programmate[$i+0].'").change(function () {
-                                                                                if ($("#statoIndagine'.$array_programmate[$i+0].'").val() != 2)
-                                                                                    $(\'#divReferto'.$array_programmate[$i+0].'\').html(" <input id=\'referto'.$array_programmate[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_programmate[$i+5].'\'/>");
-                                                                                else
-                                                                                    $(\'#divReferto'.$array_programmate[$i+0].'\').html(" <input id=\'referto'.$array_programmate[$i+0].'\' type=\'text\'  class=\'form-control\' value =\''.$array_programmate[$i+5].'\'/>");
-                                                                            });
-                                                                        </script>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="referto'.$array_programmate[$i+0].'" type="text"  class="form-control" value ="'.$array_programmate[$i+5].'"/>        
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divAllegato_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4" id="divAllegato'.$array_programmate[$i+0].'">
-                                                                        <input id="allegato'.$array_programmate[$i+0].'" type="text"  class="form-control" readonly value ="'.$array_programmate[$i+6].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_programmate[$i+0].'").change(function () {
-                                                                            if ($("#statoIndagine'.$array_programmate[$i+0].'").val() != 2)
-                                                                                $(\'#divAllegato'.$array_programmate[$i+0].'\').html(" <input id=\'allegato'.$array_programmate[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_programmate[$i+6].'\'/>");
-                                                                            else
-                                                                                $(\'#divAllegato'.$array_programmate[$i+0].'\').html(" <input id=\'allegato'.$array_programmate[$i+0].'\' type=\'text\'  class=\'form-control\' value =\''.$array_programmate[$i+6].'\'/>");
-                                                                            });
-                                                                        </script>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="allegato'.$array_programmate[$i+0].'" type="text"  class="form-control" value ="'.$array_programmate[$i+6].'"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -737,7 +709,7 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="statoIndagine'.$array_completate[$i+0].'" class="form-control">
+                                                                        <select id="statoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option value="0">Richiesta</option>
                                                                             <option value="1">Programmata</option>
                                                                             <option selected value="2">Completata</option>
@@ -745,7 +717,7 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divCentro_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">';
@@ -759,7 +731,7 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                             <div class="col-lg-12">
+                                                             <div class="col-lg-12" id="divData_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="data'.$array_completate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
@@ -767,33 +739,17 @@ else
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4" id="divReferto'.$array_completate[$i+0].'">
+                                                                    <div class="col-lg-4">
                                                                         <input id="referto'.$array_completate[$i+0].'" type="text"  class="form-control" value ="'.$array_completate[$i+5].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_completate[$i+0].'").change(function () {
-                                                                                if ($("#statoIndagine'.$array_completate[$i+0].'").val() != 2)
-                                                                                    $(\'#divReferto'.$array_completate[$i+0].'\').html(" <input id=\'referto'.$array_completate[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_completate[$i+5].'\'/>");
-                                                                                else
-                                                                                    $(\'#divReferto'.$array_completate[$i+0].'\').html(" <input id=\'referto'.$array_completate[$i+0].'\' type=\'text\'  class=\'form-control\'value =\''.$array_completate[$i+5].'\'/>");
-                                                                            });
-                                                                        </script>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-12" id="divAllegato_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4" id="divAllegato'.$array_completate[$i+0].'">
+                                                                    <div class="col-lg-4">
                                                                         <input id="allegato'.$array_completate[$i+0].'" type="text"  class="form-control" value ="'.$array_completate[$i+6].'"/>
-                                                                        <script>
-                                                                            $("#statoIndagine'.$array_completate[$i+0].'").change(function () {
-                                                                            if ($("#statoIndagine'.$array_completate[$i+0].'").val() != 2)
-                                                                                $(\'#divAllegato'.$array_completate[$i+0].'\').html(" <input id=\'allegato'.$array_completate[$i+0].'\' type=\'text\'  class=\'form-control\' readonly value =\''.$array_completate[$i+6].'\'/>");
-                                                                            else
-                                                                                $(\'#divAllegato'.$array_completate[$i+0].'\').html(" <input id=\'allegato'.$array_completate[$i+0].'\' type=\'text\'  class=\'form-control\'/ value =\''.$array_completate[$i+6].'\'/>");
-                                                                            });
-                                                                        </script>
                                                                     </div>
                                                                 </div>
                                                             </div>

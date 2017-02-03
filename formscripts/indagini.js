@@ -12,27 +12,28 @@ $(document).ready(function(){
 	$('#cognomeCp').prop('disabled',true);
 
 
-    $(document.getElementById("statoIndagine")).change(function () {
-        switch ($(document.getElementById("statoIndagine")).val()){
-			case "0":
-                document.getElementById("divCentro").style.display = "none";
-                document.getElementById("divData").style.display = "none";
-                document.getElementById("divReferto").style.display = "none";
-                document.getElementById("divAllegato").style.display = "none";
-				break;
-			case "1":
-                document.getElementById("divCentro").style.display = "block";
-                document.getElementById("divData").style.display = "block";
-                document.getElementById("divReferto").style.display = "none";
-                document.getElementById("divAllegato").style.display = "none";
-				break;
-			case "2":
-                document.getElementById("divCentro").style.display = "block";
-                document.getElementById("divData").style.display = "block";
-                document.getElementById("divReferto").style.display = "block";
-                document.getElementById("divAllegato").style.display = "block";
-				break;
-		}
+    $("[id^=statoIndagine]").change(function() {
+        var index = $(this).attr("id").replace('statoIndagine','');
+        switch ($(document.getElementById("statoIndagine" + index)).val()){
+            case "0":
+                document.getElementById("divCentro" + index).style.display = "none";
+                document.getElementById("divData" + index).style.display = "none";
+                document.getElementById("divReferto" + index).style.display = "none";
+                document.getElementById("divAllegato" + index).style.display = "none";
+                break;
+            case "1":
+                document.getElementById("divCentro" + index).style.display = "block";
+                document.getElementById("divData" + index).style.display = "block";
+                document.getElementById("divReferto" + index).style.display = "none";
+                document.getElementById("divAllegato" + index).style.display = "none";
+                break;
+            case "2":
+                document.getElementById("divCentro" + index).style.display = "block";
+                document.getElementById("divData" + index).style.display = "block";
+                document.getElementById("divReferto" + index).style.display = "block";
+                document.getElementById("divAllegato" + index).style.display = "block";
+                break;
+        }
     });
 
 

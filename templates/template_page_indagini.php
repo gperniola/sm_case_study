@@ -303,7 +303,7 @@ else
                                             ?>
                                             <option value=''>Altro..</option>
                                         </select>
-                                        <input id="motivoIndagineAltro_new" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
+                                        <input id="motivoAltro_new" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -457,8 +457,15 @@ else
 					                                        <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="motivoIndagine'.$array_richieste[$i+0].'" type="text"  class="form-control"
-                                                                            value ="'.$array_richieste[$i+2].'"/>
+                                                                        <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style="display: none" value="placeholder">Selezionare una motivazione..</option>';
+                                                                                    for($k = 0; $k < 10; $k +=4 ) {
+                                                                                        echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                    }
+                                                                                echo '
+                                                                            <option value=\'\'>Altro..</option>
+                                                                        </select>
+                                                                        <input id="motivoAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
                                                                     </div>
                                                                  </div>
                                                             </div>
@@ -585,8 +592,15 @@ else
 					                                        <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="motivoIndagine'.$array_programmate[$i+0].'" type="text"  class="form-control"
-                                                                            value ="'.$array_programmate[$i+2].'"/>
+                                                                        <select id="motivoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style="display: none" value="placeholder">Selezionare una motivazione..</option>';
+                                                                                    for($k = 0; $k < 10; $k +=4 ) {
+                                                                                        echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                    }
+                                                                                echo '
+                                                                            <option value=\'\'>Altro..</option>
+                                                                        </select>
+                                                                        <input id="motivoAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
                                                                     </div>
                                                                  </div>
                                                             </div>
@@ -711,8 +725,15 @@ else
 					                                        <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="motivoIndagine'.$array_completate[$i+0].'" type="text"  class="form-control"
-                                                                            value ="'.$array_completate[$i+2].'"/>
+                                                                        <select id="motivoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style="display: none" value="placeholder">Selezionare una motivazione..</option>';
+                                                                                    for($k = 0; $k < 10; $k +=4 ) {
+                                                                                        echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                    }
+                                                                                echo '
+                                                                            <option value=\'\'>Altro..</option>
+                                                                        </select>
+                                                                        <input id="motivoAltro_'.$array_completate[$i+0].'" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
                                                                     </div>
                                                                  </div>
                                                             </div>

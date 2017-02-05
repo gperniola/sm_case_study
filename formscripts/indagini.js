@@ -1,5 +1,48 @@
+function motivoChange(){
+    var index = $(this).attr("id").replace('motivoIndagine','');
+    var value = $(document.getElementById("motivoIndagine" + index)).val();
+    if (value == ""){
+        document.getElementById("motivoAltro" + index).style.display = "block";
+    }
+    else {
+        document.getElementById("motivoAltro" + index).style.display = "none";
+    }
+}
+
+
+function statoChange(){
+    var index = $(this).attr("id").replace('statoIndagine','');
+    switch ($(document.getElementById("statoIndagine" + index)).val()){
+        case "0":
+            document.getElementById("divCentro" + index).style.display = "none";
+            document.getElementById("divData" + index).style.display = "none";
+            document.getElementById("divReferto" + index).style.display = "none";
+            document.getElementById("divAllegato" + index).style.display = "none";
+            break;
+        case "1":
+            document.getElementById("divCentro" + index).style.display = "block";
+            document.getElementById("divData" + index).style.display = "block";
+            document.getElementById("divReferto" + index).style.display = "none";
+            document.getElementById("divAllegato" + index).style.display = "none";
+            break;
+        case "2":
+            document.getElementById("divCentro" + index).style.display = "block";
+            document.getElementById("divData" + index).style.display = "block";
+            document.getElementById("divReferto" + index).style.display = "block";
+            document.getElementById("divAllegato" + index).style.display = "block";
+            break;
+    }
+}
+
 $(document).ready(function(){
 
+    $(window).load(function() {
+        $("[id^=motivoIndagine]").each(motivoChange);
+        $("[id^=statoIndagine]").each(statoChange);
+    });
+
+    $("[id^=motivoIndagine]").change(motivoChange);
+    $("[id^=statoIndagine]").change(statoChange);
 
 
 	$('#concludi').prop('disabled',true);
@@ -8,51 +51,6 @@ $(document).ready(function(){
 	$('#nomeCp').prop('disabled',true);
 	$('#cognomeCp').prop('disabled',true);
 
-
-
-    $("[id^=motivoIndagine]").change(motivoChange);
-    $("[id^=statoIndagine]").change(statoChange);
-
-    function motivoChange(){
-        var index = $(this).attr("id").replace('motivoIndagine','');
-        var value = $(document.getElementById("motivoIndagine" + index)).val();
-        if (value == ""){
-            document.getElementById("motivoIndagineAltro" + index).style.display = "block";
-        }
-        else {
-            document.getElementById("motivoIndagineAltro" + index).style.display = "none";
-        }
-    }
-
-
-    function statoChange(){
-        var index = $(this).attr("id").replace('statoIndagine','');
-        switch ($(document.getElementById("statoIndagine" + index)).val()){
-            case "0":
-                document.getElementById("divCentro" + index).style.display = "none";
-                document.getElementById("divData" + index).style.display = "none";
-                document.getElementById("divReferto" + index).style.display = "none";
-                document.getElementById("divAllegato" + index).style.display = "none";
-                break;
-            case "1":
-                document.getElementById("divCentro" + index).style.display = "block";
-                document.getElementById("divData" + index).style.display = "block";
-                document.getElementById("divReferto" + index).style.display = "none";
-                document.getElementById("divAllegato" + index).style.display = "none";
-                break;
-            case "2":
-                document.getElementById("divCentro" + index).style.display = "block";
-                document.getElementById("divData" + index).style.display = "block";
-                document.getElementById("divReferto" + index).style.display = "block";
-                document.getElementById("divAllegato" + index).style.display = "block";
-                break;
-        }
-    }
-
-    $(document).ready(function() {
-        $("[id^=motivoIndagine]").each(motivoChange);
-        $("[id^=statoIndagine]").each(statoChange);
-    });
 
 
     $("#nuovoFile").click(function(){
@@ -133,8 +131,6 @@ $(document).ready(function(){
         var id = '#riga'+$(this).attr('id');
         $(id).hide(200);
     });
-
-
 
 
 });

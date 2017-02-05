@@ -293,7 +293,17 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Motivo:</label>
                                     <div class="col-lg-4">
-                                        <input id="motivoIndagine" type="text"  class="form-control"/>
+                                        <select id="motivoIndagine_new" class="form-control">
+                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_z; $i +=4 ){
+                                                echo '<option value="'.$array_diagnosi[$i+0] .'">Diagnosi: ' .$array_diagnosi[$i+2] .'  ('
+                                                    .$array_diagnosi[$i+1].')</option>';
+                                            }
+                                            ?>
+                                            <option value=''>Altro..</option>
+                                        </select>
+                                        <input id="motivoIndagineAltro_new" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
                                     </div>
                                 </div>
                             </div>

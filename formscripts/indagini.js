@@ -1,9 +1,6 @@
 $(document).ready(function(){
-	
-	
-	
-	
-	
+
+
 
 	$('#concludi').prop('disabled',true);
 	$('#annulla').prop('disabled',true);
@@ -12,7 +9,23 @@ $(document).ready(function(){
 	$('#cognomeCp').prop('disabled',true);
 
 
-    $("[id^=statoIndagine]").change(function() {
+
+    $("[id^=motivoIndagine]").change(motivoChange);
+    $("[id^=statoIndagine]").change(statoChange);
+
+    function motivoChange(){
+        var index = $(this).attr("id").replace('motivoIndagine','');
+        var value = $(document.getElementById("motivoIndagine" + index)).val();
+        if (value == ""){
+            document.getElementById("motivoIndagineAltro" + index).style.display = "block";
+        }
+        else {
+            document.getElementById("motivoIndagineAltro" + index).style.display = "none";
+        }
+    }
+
+
+    function statoChange(){
         var index = $(this).attr("id").replace('statoIndagine','');
         switch ($(document.getElementById("statoIndagine" + index)).val()){
             case "0":
@@ -34,6 +47,11 @@ $(document).ready(function(){
                 document.getElementById("divAllegato" + index).style.display = "block";
                 break;
         }
+    }
+
+    $(document).ready(function() {
+        $("[id^=motivoIndagine]").each(motivoChange);
+        $("[id^=statoIndagine]").each(statoChange);
     });
 
 
@@ -97,25 +115,30 @@ $(document).ready(function(){
 		$('#concludi').prop('disabled',true);
 		$('#annulla').prop('disabled',true);
     });
-	
-	
+
+
+	/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
+    $(document).on('click', "button.modifica", function () {
+        $(this).prop('disabled', true);
+        var id = '#riga'+$(this).attr('id');
+        $(id).show(200);
+    });
+
+
+	/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
+    $(document).on('click', "a.annulla", function () {
+        var but = '#'+$(this).attr('id');
+        $(but+'.modifica').prop('disabled', false);
+
+        var id = '#riga'+$(this).attr('id');
+        $(id).hide(200);
+    });
+
+
+
+
 });
 
-/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
-$(document).on('click', "button.modifica", function () {
-    $(this).prop('disabled', true);
-    var id = '#riga'+$(this).attr('id');
-    $(id).show(200);
-});
 
-
-/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
-$(document).on('click', "a.annulla", function () {
-    var but = '#'+$(this).attr('id');
-    $(but+'.modifica').prop('disabled', false);
-
-    var id = '#riga'+$(this).attr('id');
-    $(id).hide(200);
-});
 
 

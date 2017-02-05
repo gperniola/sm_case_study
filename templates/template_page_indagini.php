@@ -82,7 +82,7 @@ else
         $n_r = 0;               //numero indagini richieste
         $n_p = 0;             //numero indagini programmate
         $n_c = 0;              //numero completate
-        global $offset; $offset = 15;
+        global $offset; $offset = 16;
         global $n_indagini;             //numero totale di indagini
         $n_indagini = $this->get_var('indaginiNum');
 
@@ -105,6 +105,7 @@ else
                      $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
                      $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.'.$i);   //id diagnosi associata
                      $n_r = $n_r + $offset;
                      break;
                  case $stato_programmata:
@@ -123,6 +124,7 @@ else
                      $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
                      $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.'.$i);   //id diagnosi associata
                      $n_p = $n_p + $offset;
                      break;
                  case $stato_completata:
@@ -141,6 +143,7 @@ else
                      $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.'.$i);//nome centro diagnostico
                      $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
+                     $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.'.$i);   //id diagnosi associata
                      $n_c = $n_c + $offset;
                      break;
              }

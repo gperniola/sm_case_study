@@ -498,7 +498,8 @@ else
                                                             <div class="col-lg-12" id="divCentro_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
                                                                         for($k = 0; $k < $n_s; $k +=9 ){
                                                                             if( $array_centri[$k+0] == $array_richieste[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
@@ -635,14 +636,15 @@ else
                                                             <div class="col-lg-12" id="divCentro_'.$array_programmate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">';
-                                            for($k = 0; $k < $n_s; $k +=9 ){
-                                                if( $array_centri[$k+0] == $array_programmate[$i+11])
-                                                    echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
-                                                else
-                                                    echo '<option value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
-                                            }
-                                            echo '</select>
+                                                                        <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style="display: none" value=/'/'>Selezionare un centro..</option>';
+                                                                            for($k = 0; $k < $n_s; $k +=9 ){
+                                                                            if( $array_centri[$k+0] == $array_programmate[$i+11])
+                                                                                echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
+                                                                            else
+                                                                                echo '<option value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
+                                                                            }
+                                                                        echo '</select>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -770,7 +772,8 @@ else
                                                             <div class="col-lg-12" id="divCentro_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
-                                                                        <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">';
+                                                                        <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">
+                                                                            <option selected disabled hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
                                             for($k = 0; $k < $n_s; $k +=9 ){
                                                 if( $array_centri[$k+0] == $array_completate[$i+11])
                                                     echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 19, 2016 alle 14:04
+-- Creato il: Feb 06, 2017 alle 15:16
 -- Versione del server: 5.7.14
 -- Versione PHP: 5.6.25
 
@@ -26,12 +26,13 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `indagini`
 --
 
+DROP TABLE IF EXISTS `indagini`;
 CREATE TABLE `indagini` (
   `id` int(10) UNSIGNED NOT NULL,
   `idpaziente` int(5) DEFAULT NULL,
   `idcpp` int(10) UNSIGNED DEFAULT NULL,
-  `idDiagnosi` int(10) NOT NULL,
-  `idStudioIndagini` int(11) NOT NULL,
+  `idDiagnosi` int(10) DEFAULT NULL,
+  `idStudioIndagini` int(11) DEFAULT NULL,
   `data` date DEFAULT NULL,
   `dataAggiornamento` date DEFAULT NULL,
   `stato` varchar(12) DEFAULT NULL,
@@ -57,7 +58,9 @@ INSERT INTO `indagini` (`id`, `idpaziente`, `idcpp`, `idDiagnosi`, `idStudioInda
 (46, 1, 192, 0, 1, '2017-01-04', NULL, 'programmata', 'tipoIndagine3', 'motivo3', NULL, NULL),
 (47, 1, 190, 0, 2, '2017-01-06', NULL, 'programmata', 'tipoIndagine4', 'motivo4', NULL, NULL),
 (50, 1, 190, 0, 1, '2016-12-01', NULL, 'conclusa', 'tipoIndagine5', 'motivo5', 'referto5.doc', 'allegato5.jpg'),
-(51, 1, 192, 0, 2, '2016-12-02', NULL, 'conclusa', 'tipoIndagine6', 'motivo6', 'referto6.pdf', NULL);
+(51, 1, 192, 0, 2, '2016-12-02', NULL, 'conclusa', 'tipoIndagine6', 'motivo6', 'referto6.pdf', NULL),
+(52, 1, 190, 43, NULL, NULL, NULL, 'richiesta', 'Indagine dem.', 'Indagine: demenza (10-09-2016)', NULL, NULL),
+(54, 1, 192, 35, 2, '2017-02-08', NULL, 'programmata', 'Indagini urinarie', 'Diagnosi: infezione vie urinarie (23-04-2016)', NULL, NULL);
 
 --
 -- Indici per le tabelle scaricate
@@ -80,7 +83,7 @@ ALTER TABLE `indagini`
 -- AUTO_INCREMENT per la tabella `indagini`
 --
 ALTER TABLE `indagini`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- Limiti per le tabelle scaricate
 --

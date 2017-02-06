@@ -45,11 +45,24 @@ $(document).ready(function(){
     $("[id^=statoIndagine]").change(statoChange);
 
 
-	$('#concludi').prop('disabled',true);
-	$('#annulla').prop('disabled',true);
+    var menu = document.getElementById("menu_mode").getAttribute('data-menu');
+    if(menu){
+        $('#nuovoFile').prop('disabled',false);
+        $('#concludi').prop('disabled',true);
+        $('#annulla').prop('disabled',true);
+    }
+    else{
+        $('#nuovoFile').prop('disabled',true);
+        $('#concludi').prop('disabled',true);
+        $('#annulla').prop('disabled',true);
+        $("#collapse1").collapse('show');
+    }
+
+
+
 	
-	$('#nomeCp').prop('disabled',true);
-	$('#cognomeCp').prop('disabled',true);
+	//$('#nomeCp').prop('disabled',true);
+	//$('#cognomeCp').prop('disabled',true);
 
 
 

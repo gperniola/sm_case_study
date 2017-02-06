@@ -42,7 +42,6 @@ $pag_indagini -> set_var('mioCpNome', $cpNome);
 $pag_indagini -> set_var('mioCpCognome', $cpCognome);
 
 
-
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiData = getArray('DATE(data)', 'indagini', 'idPaziente='.$idPaziente);

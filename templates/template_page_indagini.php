@@ -80,7 +80,7 @@ else
         $n_r = 0;               //numero indagini richieste
         $n_p = 0;             //numero indagini programmate
         $n_c = 0;              //numero completate
-        global $offset; $offset = 16;
+        global $offset; $offset = 17;
         global $n_indagini;             //numero totale di indagini
         $n_indagini = $this->get_var('indaginiNum');
 
@@ -106,6 +106,7 @@ else
                         $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
                         $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
                         $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                        $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                         $n_r = $n_r + $offset;
                         break;
                     case $stato_programmata:
@@ -125,6 +126,7 @@ else
                         $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
                         $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
                         $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                        $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                         $n_p = $n_p + $offset;
                         break;
                     case $stato_completata:
@@ -144,6 +146,7 @@ else
                         $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
                         $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
                         $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                        $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                         $n_c = $n_c + $offset;
                         break;
                 }
@@ -178,6 +181,17 @@ else
             $array_diagnosi[$n_z + 2] = $this->get_var('diagnosi.patologia.'.$i);
             $array_diagnosi[$n_z + 3] = $this->get_var('diagnosi.conf.'.$i);
             $n_z = $n_z + 4;
+        }
+
+        $array_careprovider = array();
+        $n_v = 0;
+        global $n_careprovider;
+        $n_careprovider = $this->get_var('careproviderNum');
+        for ($i = 0; $i < $n_careprovider; $i++) {
+            $array_careprovider[n_v + 0] = $this->get_var('careprovider.id'.$i);
+            $array_careprovider[n_v + 1] = $this->get_var('careprovider.nome'.$i);
+            $array_careprovider[n_v + 2] = $this->get_var('careprovider.cognome'.$i);
+            $n_v =  $n_v + 3;
         }
 
         $mioCpNome = $this->get_var('mioCpNome');
@@ -222,23 +236,6 @@ else
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
-                            <?php
-                            $cps=$this->get_var('suggestCps');
-                            $script = '<script>
-							   $(document).ready(function(){
-								var cps ='.$cps." var cpSuggest = new Bloodhound({
-								datumTokenizer: Bloodhound.tokenizers.whitespace,
-								queryTokenizer: Bloodhound.tokenizers.whitespace,
-								local: cps});";
-                            for($i=0; $i<$n_indagini; $i++){
-                                $script=$script."$('#nomeCpD".$this->get_var('ind.id.'.$i)."').typeahead({
-                                hint: true,highlight: true,minLength: 1},{name: 'cps',source: cpSuggest,
-                                limit: 10});";
-                            }
-                            $script=$script."$('#nomeCpD').typeahead({ hint: true,highlight: true,
-                            minLength: 1},{name: 'cps',source: cpSuggest,limit: 10});});</script>";
-                            if ($cp_id == NULL){echo $script;}
-                            ?>
                             <div style="display:none;" >
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -248,33 +245,20 @@ else
                                         </div>
                                     </div>
                                 </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">ID CP:</label>
-                                    <div class="col-lg-4">
-                                        <input id="cpId" type="text"  readonly class="form-control"
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4">ID CP:</label>
+                                        <div class="col-lg-4">
+                                            <input id="cpId" type="text"  readonly class="form-control"
                                             <?php
                                             if ($cp_id != NULL) {echo 'value="'.$this -> get_var('idUtenteCp').'" ';}
                                             else {echo 'value="-1"';}
                                             ?>
-                                        />
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">ID Diagnosi:</label>
-                                    <div class="col-lg-4">
-                                        <input id="idDiagnosi" type="text"  readonly class="form-control" value="<?php /*echo $idDiagnosi; */?>"/>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div> <!-- End hidden row -->
-
-
-
-
+                            </div> <!-- End hidden row -->
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Tipo indagine:</label>

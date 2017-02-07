@@ -42,6 +42,12 @@ $pag_indagini -> set_var('mioCpNome', $cpNome);
 $pag_indagini -> set_var('mioCpCognome', $cpCognome);
 
 
+/******************************************************************************
+ * ESTRAGGO LE INDAGINI E LE INFORMAZIONI COLLEGATE:
+ * - diagnosi collegata all'indagine
+ * - careprovider che ha richiesto l'indagine
+ * - centro in cui si effettua l'indagine
+ ******************************************************************************/
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiData = getArray('DATE(data)', 'indagini', 'idPaziente='.$idPaziente);
@@ -52,8 +58,8 @@ $indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPazi
 $indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiIdDiagnosi = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente);
+$indaginiCareprovider = getArray('careprovider', 'indagini','idPaziente='.$idPaziente);
 $n = count($indaginiId);
-
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
@@ -61,6 +67,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.referto.'.$i, $indaginiReferto[$i]);
     $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
+    $pag_indagini -> set_var('ind.careprovider.'.$i, $indaginiCareprovider[$i]);
     $careproviderNome = getInfo('nome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
     $careproviderCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
     $careproviderRep = getInfo('reperibilita', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
@@ -74,7 +81,6 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.centroNome.'.$i, $centroNome);
     $pag_indagini -> set_var('ind.centroVia.'.$i, $centroVia);
     $pag_indagini -> set_var('ind.centroCitta.'.$i, $centroCitta);
-
     $pag_indagini -> set_var('ind.motivo.'.$i, $indaginiMotivo[$i]);
     $pag_indagini -> set_var('ind.stato.'.$i, $indaginiStato[$i]);
     $pag_indagini -> set_var('ind.idDiagno.'.$i, $indaginiIdDiagnosi[$i]);
@@ -82,27 +88,24 @@ for($i=0; $i<$n; $i++){
 $pag_indagini -> set_var('indaginiNum', $n);
 
 
-
-$cpPaziente = getArray('idcpp', 'careproviderpaziente', 'idutente='.$idPaziente);
-$cpList = array();
-foreach($cpPaziente as $cppId){
-    $cp = getInfo('nome','careproviderpersona', 'idutente='.$cppId) . ' '
-        .getInfo('cognome','careproviderpersona', 'idutente='.$cppId);
-    array_push($cpList,$cp);
+/******************************************************************************
+ * ESTRAGGO I CAREPROVIDER COLLEGATI ALL'UTENTE
+ ******************************************************************************/
+$cpRegistratiId = getArray('idcpp', 'careproviderpaziente', 'idutente='.$idPaziente);
+$v = count($cpRegistratiId);
+for($i=0; $i<$v; $i++){
+    $cpRegistratoNome = getInfo('nome', 'careproviderpersona', 'idutente='.$cpRegistratiId[$i]);
+    $cpRegistratoCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$cpRegistratiId[$i]);
+    $pag_indagini -> set_var('careprovider.id.'.$i, $cpRegistratiId[$i]);
+    $pag_indagini -> set_var('careprovider.nome.'.$i, $cpRegistratoNome);
+    $pag_indagini -> set_var('careprovider.cognome.'.$i, $cpRegistratoCognome);
 }
-$cps = '[';
-$cpCount = count($cpList);
-for($i=0; $i<$cpCount; $i++){
-    if($i==$cpCount-1){
-        $cps = $cps.'"'.$cpList[$i].'"];';
-    }else{
-        $cps = $cps.'"'.$cpList[$i].'",';
-    }
-}
-$pag_indagini -> set_var('suggestCps',$cps);
+$pag_indagini -> set_var('careproviderNum', $v);
 
 
-
+/******************************************************************************
+ * ESTRAGGO I CENTRI DIAGNOSTICI
+ ******************************************************************************/
 $centriId = getArrayNoCondition('id', 'centriindagini');
 $centriNome = getArrayNoCondition('nomeStudio', 'centriindagini');
 $centriVia = getArrayNoCondition('via', 'centriindagini');
@@ -127,13 +130,14 @@ for($i=0; $i<$m; $i++){
 $pag_indagini -> set_var('centriNum', $m);
 
 
+/******************************************************************************
+ * ESTRAGGO LE DIAGNOSI COLLEGATE AL PAZIENTE
+ ******************************************************************************/
 $diagnosiId = getArray('id', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
 $diagnosiData = getArray('dataIns', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
 $diagnosiPatologia = getArray('patologia', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
 $diagnosiConf = getArray('conf', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
 $z = count($diagnosiId);
-
-
 for($i=0; $i<$z; $i++){
     $pag_indagini -> set_var('diagnosi.id.'.$i, $diagnosiId[$i]);
     $pag_indagini -> set_var('diagnosi.data.'.$i,  italianFormat($diagnosiData[$i]));
@@ -141,6 +145,8 @@ for($i=0; $i<$z; $i++){
     $pag_indagini -> set_var('diagnosi.conf.'.$i, $diagnosiConf[$i]);
 }
 $pag_indagini -> set_var('diagnosiNum', $z);
+
+
 
 $pag_indagini->out('template_page_indagini');
 ?>

@@ -9,6 +9,17 @@ function motivoChange(){
     }
 }
 
+function careproviderChange(){
+    var index = $(this).attr("id").replace('careproviderIndagine','');
+    var value = $(document.getElementById("careproviderIndagine" + index)).val();
+    if (value == ""){
+        document.getElementById("careproviderAltro" + index).style.display = "block";
+    }
+    else {
+        document.getElementById("careproviderAltro" + index).style.display = "none";
+    }
+}
+
 
 function statoChange(){
     var index = $(this).attr("id").replace('statoIndagine','');
@@ -39,11 +50,12 @@ $(document).ready(function(){
     $(window).load(function() {
         $("[id^=motivoIndagine]").each(motivoChange);
         $("[id^=statoIndagine]").each(statoChange);
+        $("[id^=careproviderIndagine]").each(careproviderChange);
     });
 
     $("[id^=motivoIndagine]").change(motivoChange);
     $("[id^=statoIndagine]").change(statoChange);
-
+    $("[id^=careproviderIndagine]").change(careproviderChange);
 
     var menu = document.getElementById("menu_mode").getAttribute('data-menu');
     if(menu){

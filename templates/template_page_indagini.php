@@ -188,9 +188,9 @@ else
         global $n_careprovider;
         $n_careprovider = $this->get_var('careproviderNum');
         for ($i = 0; $i < $n_careprovider; $i++) {
-            $array_careprovider[n_v + 0] = $this->get_var('careprovider.id'.$i);
-            $array_careprovider[n_v + 1] = $this->get_var('careprovider.nome'.$i);
-            $array_careprovider[n_v + 2] = $this->get_var('careprovider.cognome'.$i);
+            $array_careprovider[$n_v + 0] = $this->get_var('careprovider.id.'.$i);
+            $array_careprovider[$n_v + 1] = $this->get_var('careprovider.nome.'.$i);
+            $array_careprovider[$n_v + 2] = $this->get_var('careprovider.cognome.'.$i);
             $n_v =  $n_v + 3;
         }
 
@@ -267,7 +267,6 @@ else
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Motivo:</label>
@@ -282,7 +281,7 @@ else
                                             ?>
                                             <option value=''>Altro..</option>
                                         </select>
-                                        <input id="motivoAltro_new" type="text" placeholder="Compilare motivazione.."  class="form-control"/>
+                                        <input id="motivoAltro_new" type="text" placeholder="Inserire motivazione.."  class="form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +289,19 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Care provider:</label>
                                     <div class="col-lg-4">
-                                        <input id="nomeCpD" <?php if ($cp_id != NULL){echo 'value="'.$mioCpNome.' '.$mioCpCognome.'" readonly ';}?> type="text" class="form-control"/>
+                                        <select id="careproviderIndagine_new" class="form-control">
+                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una careprovider..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_v; $i +=3 ){
+                                                if($cp_id == $array_careprovider[$i+0])
+                                                    echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                                 else
+                                                    echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                            }
+                                            ?>
+                                            <option value=''>Altro..</option>
+                                        </select>
+                                        <input id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>
                                     </div>
                                 </div>
                             </div>

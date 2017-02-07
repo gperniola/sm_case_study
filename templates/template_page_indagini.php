@@ -428,7 +428,7 @@ else
                                             echo '<tr class="info" id="r'.$array_richieste[$i+0].'">';
                                             echo '<td id="tipoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+1] . '</td>';
                                             echo '<td id="motivoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+2] . '</td>';
-                                            echo '<td id="careRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+8]. ' ' .$array_richieste[$i+9].'</td>';
+                                            echo '<td id="careRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+16] .'</td>';
                                             echo '<td style="text-align:center"><div id="btn-group">
 										            <button id='.$array_richieste[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
 												    <button id='.$array_richieste[$i+0].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
@@ -467,10 +467,17 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="nomeCpD'.$array_richieste[$i+0].'" type="text" class="form-control"
-                                                                            value ="'. $array_richieste[$i+8]. ' ' .$array_richieste[$i+9].'"';
-                                                                            if ($cp_id != NULL) echo ' readonly ';
-                                                                        echo '/>
+                                                                        <select id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected value=\'\'>Altro..</option>';
+                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                                        if ($array_careprovider[$k+0] == $array_richieste[$i+7])
+                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                        else
+                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                    }
+                                                                                echo '
+                                                                        </select>
+                                                                        <input id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>
                                                                     </div>
                                                                  </div>
                                                              </div>
@@ -562,7 +569,7 @@ else
                                             echo '<tr class="info" id="r'.$array_programmate[$i+0].'">';
                                             echo '<td id="tipoProgrammata'.$array_programmate[$i+0].'">' . $array_programmate[$i+1] . '</td>';
                                             echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
-                                            echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+8] . ' ' . $array_programmate[$i+9] . '</td>';
+                                            echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+16] . '</td>';
                                             echo '<td id="dataProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+4] . '</td>';
                                             echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . ' - ' .
                                                 $array_programmate[$i+14] . '</td>';
@@ -605,10 +612,17 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="nomeCpD'.$array_programmate[$i+0].'" type="text" class="form-control"
-                                                                            value ="'. $array_programmate[$i+8]. ' ' .$array_programmate[$i+9].'"';
-                                            if ($cp_id != NULL) echo ' readonly ';
-                                            echo '/>
+                                                                        <select id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                            <option selected value=\'\'>Altro..</option>';
+                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                                        if ($array_careprovider[$k+0] == $array_programmate[$i+7])
+                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                        else
+                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                    }
+                                                                                echo '
+                                                                        </select>
+                                                                        <input id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>
                                                                     </div>
                                                                  </div>
                                                              </div>
@@ -627,7 +641,7 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
-                                                                            <option selected disabled hidden style="display: none" value=/'/'>Selezionare un centro..</option>';
+                                                                        <option selected disabled hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
                                                                             for($k = 0; $k < $n_s; $k +=9 ){
                                                                             if( $array_centri[$k+0] == $array_programmate[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
@@ -698,7 +712,7 @@ else
                                             echo '<tr class="info" id="r'.$array_completate[$i+0].'">';
                                             echo '<td id="tipoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+1] . '</td>';
                                             echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
-                                            echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+8] . ' ' . $array_completate[$i+9] . '</td>';
+                                            echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+16] . '</td>';
                                             echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
                                             echo '<td id="refertoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+5] . '</td>';
                                             echo '<td id="allegatoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+6] . '</td>';
@@ -741,10 +755,17 @@ else
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="nomeCpD'.$array_completate[$i+0].'" type="text" class="form-control"
-                                                                            value ="'. $array_completate[$i+8]. ' ' .$array_completate[$i+9].'"';
-                                            if ($cp_id != NULL) echo ' readonly ';
-                                            echo '/>
+                                                                        <select id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                            <option selected value=\'\'>Altro..</option>';
+                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                                        if ($array_careprovider[$k+0] == $array_completate[$i+7])
+                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                        else
+                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                                    }
+                                                                                echo '
+                                                                        </select>
+                                                                        <input id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>
                                                                     </div>
                                                                  </div>
                                                              </div>

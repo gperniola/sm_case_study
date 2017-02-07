@@ -58,7 +58,7 @@ $indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPazi
 $indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiIdDiagnosi = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente);
-$indaginiCareprovider = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente);
+$indaginiCareprovider = getArray('careprovider', 'indagini','idPaziente='.$idPaziente);
 $n = count($indaginiId);
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);

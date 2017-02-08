@@ -1,13 +1,83 @@
+function motivoChange(){
+    var index = $(this).attr("id").replace('motivoIndagine','');
+    var value = $(document.getElementById("motivoIndagine" + index)).val();
+    if (value == ""){
+        document.getElementById("motivoAltro" + index).style.display = "block";
+    }
+    else {
+        document.getElementById("motivoAltro" + index).style.display = "none";
+    }
+}
+
+function careproviderChange(){
+    var index = $(this).attr("id").replace('careproviderIndagine','');
+    var value = $(document.getElementById("careproviderIndagine" + index)).val();
+    if (value == ""){
+        document.getElementById("careproviderAltro" + index).style.display = "block";
+    }
+    else {
+        document.getElementById("careproviderAltro" + index).style.display = "none";
+    }
+}
+
+
+function statoChange(){
+    var index = $(this).attr("id").replace('statoIndagine','');
+    switch ($(document.getElementById("statoIndagine" + index)).val()){
+        case "0":
+            document.getElementById("divCentro" + index).style.display = "none";
+            document.getElementById("divData" + index).style.display = "none";
+            document.getElementById("divReferto" + index).style.display = "none";
+            document.getElementById("divAllegato" + index).style.display = "none";
+            break;
+        case "1":
+            document.getElementById("divCentro" + index).style.display = "block";
+            document.getElementById("divData" + index).style.display = "block";
+            document.getElementById("divReferto" + index).style.display = "none";
+            document.getElementById("divAllegato" + index).style.display = "none";
+            break;
+        case "2":
+            document.getElementById("divCentro" + index).style.display = "block";
+            document.getElementById("divData" + index).style.display = "block";
+            document.getElementById("divReferto" + index).style.display = "block";
+            document.getElementById("divAllegato" + index).style.display = "block";
+            break;
+    }
+}
+
 $(document).ready(function(){
-	
+
+    $(window).load(function() {
+        $("[id^=motivoIndagine]").each(motivoChange);
+        $("[id^=statoIndagine]").each(statoChange);
+        $("[id^=careproviderIndagine]").each(careproviderChange);
+    });
+
+    $("[id^=motivoIndagine]").change(motivoChange);
+    $("[id^=statoIndagine]").change(statoChange);
+    $("[id^=careproviderIndagine]").change(careproviderChange);
+
+    var menu = document.getElementById("menu_mode").getAttribute('data-menu');
+    if(menu){
+        $('#nuovoFile').prop('disabled',false);
+        $('#concludi').prop('disabled',true);
+        $('#annulla').prop('disabled',true);
+    }
+    else{
+        $('#nuovoFile').prop('disabled',true);
+        $('#concludi').prop('disabled',true);
+        $('#annulla').prop('disabled',true);
+        $("#collapse1").collapse('show');
+    }
 
 
-	$('#concludi').prop('disabled',true);
-	$('#annulla').prop('disabled',true);
+
 	
-	$('#nomeCp').prop('disabled',true);
-	$('#cognomeCp').prop('disabled',true);
-	
+	//$('#nomeCp').prop('disabled',true);
+	//$('#cognomeCp').prop('disabled',true);
+
+
+
     $("#nuovoFile").click(function(){
 		
         $("#formIndagini").show(200);
@@ -68,23 +138,25 @@ $(document).ready(function(){
 		$('#concludi').prop('disabled',true);
 		$('#annulla').prop('disabled',true);
     });
-	
-	
+
+
+	/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
+    $(document).on('click', "button.modifica", function () {
+        $(this).prop('disabled', true);
+        var id = '#riga'+$(this).attr('id');
+        $(id).show(200);
+    });
+
+
+	/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
+    $(document).on('click', "a.annulla", function () {
+        var but = '#'+$(this).attr('id');
+        $(but+'.modifica').prop('disabled', false);
+
+        var id = '#riga'+$(this).attr('id');
+        $(id).hide(200);
+    });
+
+
 });
 
-/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
-$(document).on('click', "button.modifica", function () {
-    $(this).prop('disabled', true);
-    var id = '#riga'+$(this).attr('id');
-    $(id).show(200);
-});
-
-
-/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
-$(document).on('click', "a.annulla", function () {
-    var but = '#'+$(this).attr('id');
-    $(but+'.modifica').prop('disabled', false);
-
-    var id = '#riga'+$(this).attr('id');
-    $(id).hide(200);
-});

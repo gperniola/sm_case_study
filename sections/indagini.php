@@ -32,6 +32,10 @@ $pag_indagini -> set_var('idPaz',$idPaziente);
 $idCpp = getInfo('id','careproviderpersona','idutente='.$cp_id);
 $pag_indagini -> set_var('idUtenteCp', $idCpp);
 
+//Estraggo il livello di confidenzialita' tra careprovider e paziente
+$confidenzialita = getInfo('confidenzialita', 'careproviderpaziente', 'idutente='.$pz_id.' AND idcpp='.$cp_id);
+$pag_indagini -> set_var('confidenzialita', $confidenzialita);
+
 //Inoltre, estraggo il mio nome e cognome (mi serve per le operazioni di inserimento/modifica diagnosi)
 $cpNome = getInfo('nome', 'careproviderpersona', 'idutente='.$cp_id);
 $cpCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$cp_id);
@@ -81,6 +85,8 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.motivo.'.$i, $indaginiMotivo[$i]);
     $pag_indagini -> set_var('ind.stato.'.$i, $indaginiStato[$i]);
     $pag_indagini -> set_var('ind.idDiagno.'.$i, $indaginiIdDiagnosi[$i]);
+    $conf = getInfo('conf', 'diagnosi', 'id='.$indaginiIdDiagnosi[$i]);
+    $pag_indagini -> set_var('ind.conf.'.$i, $conf);
 }
 $pag_indagini -> set_var('indaginiNum', $n);
 

@@ -30,7 +30,7 @@ else
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Utility.php');
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Login/Database.php');
 
-        global $accesso_da_menu;
+        $accesso_da_menu;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -85,72 +85,75 @@ else
         $n_indagini = $this->get_var('indaginiNum');
 
         for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
-            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi ) {    //se ho effettuato l'accesso dal menu principale
+            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi  ) {    //se ho effettuato l'accesso dal menu principale
                                                                                             //o se il motivo dell'indagine è associato alla diagnosi...
-                $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
-                switch ($stato) {
-                    case $stato_richiesta:
-                        $array_richieste[$n_r + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_richieste[$n_r + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_richieste[$n_r + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_r = $n_r + $offset;
-                        break;
-                    case $stato_programmata:
-                        $array_programmate[$n_p + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_programmate[$n_p + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_programmate[$n_p + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_p = $n_p + $offset;
-                        break;
-                    case $stato_completata:
-                        $array_completate[$n_c + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_completate[$n_c + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_completate[$n_c + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_completate[$n_c + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_completate[$n_c + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_c = $n_c + $offset;
-                        break;
+                if($role == "pz" || $this->get_var('confidenzialita') >= $this->get_var('ind.conf.'.$i)){
+                    $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
+                    switch ($stato) {
+                        case $stato_richiesta:
+                            $array_richieste[$n_r + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_richieste[$n_r + 5] = $this->get_var('ind.referto.' . $i);
+                            $array_richieste[$n_r + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $n_r = $n_r + $offset;
+                            break;
+                        case $stato_programmata:
+                            $array_programmate[$n_p + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_programmate[$n_p + 5] = $this->get_var('ind.referto.' . $i);
+                            $array_programmate[$n_p + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $n_p = $n_p + $offset;
+                            break;
+                        case $stato_completata:
+                            $array_completate[$n_c + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_completate[$n_c + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_completate[$n_c + 5] = $this->get_var('ind.referto.' . $i);
+                            $array_completate[$n_c + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_completate[$n_c + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $n_c = $n_c + $offset;
+                            break;
+                    }
                 }
             }
+
          }
 
         $array_centri = array();
@@ -236,7 +239,7 @@ else
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
-                            <div style="display:none;" >
+                             <div <!--style="display:none;" --> >
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
@@ -251,7 +254,7 @@ else
                                         <div class="col-lg-4">
                                             <input id="cpId" type="text"  readonly class="form-control"
                                             <?php
-                                            if ($cp_id != NULL) {echo 'value="'.$this -> get_var('idUtenteCp').'" ';}
+                                            if ($role == "cp") {echo 'value="'.$this -> get_var('idUtenteCp').' - ' .$cp_id.'" ';}
                                             else {echo 'value="-1"';}
                                             ?>
                                             />

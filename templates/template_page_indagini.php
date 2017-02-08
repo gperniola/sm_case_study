@@ -83,12 +83,13 @@ else
         global $offset; $offset = 18;
         global $n_indagini;             //numero totale di indagini
         $n_indagini = $this->get_var('indaginiNum');
-        $careproviderConf = $this->get_var('confidenzialita');
+        $SelfCareproviderId =  $this->get_var('idUtenteCp');
+        $SelfcareproviderConf = $this->get_var('confidenzialita');
 
         for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
             if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi  ) {    //se ho effettuato l'accesso dal menu principale
                                                                                             //o se il motivo dell'indagine è associato alla diagnosi...
-                if($role == "pz" || $careproviderConf >= $this->get_var('ind.conf.'.$i)){
+                if($role == "pz" || $SelfcareproviderConf >= $this->get_var('ind.conf.'.$i)){
                     $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
                     switch ($stato) {
                         case $stato_richiesta:
@@ -243,7 +244,7 @@ else
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
-                             <div style="display:none;" >
+                             <div style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
@@ -258,7 +259,7 @@ else
                                         <div class="col-lg-4">
                                             <input id="cpId" type="text"  readonly class="form-control"
                                             <?php
-                                            if ($role == "cp") {echo 'value="'.$this -> get_var('idUtenteCp').'"';}
+                                            if ($role == "cp") {echo 'value="'.$SelfCareproviderId.'"';}
                                             else {echo 'value="-1"';}
                                             ?>
                                             />
@@ -282,7 +283,7 @@ else
                                             <option selected disabled hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
                                             <?php
                                             for($i = 0; $i < $n_z; $i +=4 ){
-                                                if($role == "pz" || $careproviderConf >= $array_diagnosi[$i+3] ){
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$i+3] ){
                                                     echo '<option value="'.$array_diagnosi[$i+0] .'">Diagnosi: ' .$array_diagnosi[$i+2] .'  ('
                                                         .$array_diagnosi[$i+1].')</option>';
                                                 }
@@ -298,19 +299,25 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Care provider:</label>
                                     <div class="col-lg-4">
-                                        <select id="careproviderIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una careprovider..</option>
-                                            <?php
-                                            for($i = 0; $i < $n_v; $i +=3 ){
-                                                if($cp_id == $array_careprovider[$i+0])
-                                                    echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
-                                                 else
-                                                    echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
-                                            }
-                                            ?>
-                                            <option value=''>Altro..</option>
-                                        </select>
-                                        <input id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>
+                                        <?php
+                                        if ($role == "cp")
+                                            echo ' <select disabled id="careproviderIndagine_new" class="form-control">';
+                                        else
+                                            echo '<select id="careproviderIndagine_new" class="form-control">';
+                                        echo '<option selected disabled hidden style="display: none" value="placeholder">Selezionare una careprovider..</option>';
+                                        for($i = 0; $i < $n_v; $i +=3 ){
+                                            if($SelfCareproviderId == $array_careprovider[$i+0])
+                                                echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                            else
+                                                echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                        }
+                                        echo '<option value="">Altro..</option></select>';
+                                        if ($role == "cp")
+                                            echo '<input disabled id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>';
+                                        else
+                                            echo '<input id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>';
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +469,7 @@ else
                                                                         <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($role == "pz" || $careproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_richieste[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
                                                                                             else
@@ -477,19 +484,25 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_richieste[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>
-                                                                    </div>
+                                                                    <div class="col-lg-4">';
+                                                                        if ($role == "cp")
+                                                                            echo '<select disabled id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        else
+                                                                            echo '<select id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        echo ' <option selected value=\'\'>Altro..</option>';
+                                                                        for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                            if ($array_careprovider[$k+0] == $array_richieste[$i+7])
+                                                                                echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                            else
+                                                                                echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        }
+                                                                        echo '</select>';
+                                                                        if ($role == "cp")
+                                                                            echo '<input disabled id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>';
+                                                                        else
+                                                                            echo '<input id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>';
+                                                                        echo'
+                                                                        </div>
                                                                  </div>
                                                              </div>
                                                             <div class="col-lg-12">
@@ -609,7 +622,7 @@ else
                                                                         <select id="motivoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($role == "pz" || $careproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_programmate[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
                                                                                             else
@@ -624,18 +637,24 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_programmate[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>
+                                                                    <div class="col-lg-4">';
+                                                                    if ($role == "cp")
+                                                                        echo '<select disabled id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">';
+                                                                    else
+                                                                        echo'<select id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">';
+                                                                    echo '<option selected value=\'\'>Altro..</option>';
+                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                        if ($array_careprovider[$k+0] == $array_programmate[$i+7])
+                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        else
+                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                    }
+                                                                    echo '</select>';
+                                                                    if ($role == "cp")
+                                                                        echo '<input disabled id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>';
+                                                                    else
+                                                                        echo '<input id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>';
+                                                                    echo '              
                                                                     </div>
                                                                  </div>
                                                              </div>
@@ -754,7 +773,7 @@ else
                                                                         <select id="motivoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($role == "pz" || $careproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_completate[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
                                                                                             else
@@ -769,18 +788,24 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_completate[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>
+                                                                    <div class="col-lg-4">';
+                                                                        if ($role == "cp")
+                                                                            echo '<select disabled id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">';
+                                                                        else
+                                                                            echo '<select id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">';
+                                                                        echo '<option selected value=\'\'>Altro..</option>';
+                                                                        for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                            if ($array_careprovider[$k+0] == $array_completate[$i+7])
+                                                                                echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                            else
+                                                                                echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        }
+                                                                        echo '</select>';
+                                                                        if ($role == "cp")
+                                                                            echo '<input disabled id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>';
+                                                                        else
+                                                                            echo '<input id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>';
+                                                                        echo '
                                                                     </div>
                                                                  </div>
                                                              </div>

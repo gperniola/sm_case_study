@@ -5,9 +5,6 @@
 //$pag_indagini->set_var('ciao', $var);
 //$pag_indagini->out('template_page_indagini');
 
-
-
-
 if ( isset ($_GET["cp_Id"]))
 {
     $cp_id = $_GET["cp_Id"]; //inizializzo $cp_id col valore passato con GET

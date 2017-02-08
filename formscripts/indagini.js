@@ -1,9 +1,6 @@
 $(document).ready(function(){
 	
-	
-	
-	
-	
+
 
 	$('#concludi').prop('disabled',true);
 	$('#annulla').prop('disabled',true);

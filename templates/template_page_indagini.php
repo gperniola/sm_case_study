@@ -23,7 +23,6 @@ else
 ?>
 
 
-
 <div id="content">
     <div class="inner" style="min-height:1200px;">
         <?php
@@ -106,13 +105,6 @@ else
                      $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
                      $n_r = $n_r + $offset;
-                     /*$array_richieste[$n_r + 0] = $this->get_var('ind.tipo.'.$i);       //tipo indagine
-                     $array_richieste[$n_r + 1] = $this->get_var('ind.motivo.'.$i);     //motivazione
-                     $array_richieste[$n_r + 2] = $this->get_var('ind.cpNome.'.$i);     //nome careprovider
-                     $array_richieste[$n_r + 3] = $this->get_var('ind.cpCognome.'.$i);  //cognome careprovider
-                     $array_richieste[$n_r + 4] = $this->get_var('ind.cpRep.'.$i);      //ruolo careprovider
-                     $array_richieste[$n_r + 5] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_r = $n_r + 6;   //offset per prossima indagine*/
                      break;
                  case $stato_programmata:
                      $array_programmate[$n_p + 0] = $this->get_var('ind.id.'.$i);         //id indagine
@@ -131,17 +123,6 @@ else
                      $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
                      $n_p = $n_p + $offset;
-                     /*$array_programmate[$n_p + 0] = $this->get_var('ind.tipo.'.$i);
-                     $array_programmate[$n_p + 1] = $this->get_var('ind.motivo.'.$i);
-                     $array_programmate[$n_p + 2] = $this->get_var('ind.cpNome.'.$i);
-                     $array_programmate[$n_p + 3] = $this->get_var('ind.cpCognome.'.$i);
-                     $array_programmate[$n_p + 4] = $this->get_var('ind.cpRep.'.$i);
-                     $array_programmate[$n_p + 5] = $this->get_var('ind.data.'.$i);         //data indagine programmata
-                     $array_programmate[$n_p + 6] = $this->get_var('ind.centroNome.'.$i);   //nome del centro per indagine
-                     $array_programmate[$n_p + 7] = $this->get_var('ind.centroVia.'.$i);    //via del centro indagini
-                     $array_programmate[$n_p + 8] = $this->get_var('ind.centroCitta.'.$i);  //citta del centro indagini
-                     $array_programmate[$n_p + 9] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_p = $n_p + 10;   //offset per prossima indagine*/
                      break;
                  case $stato_completata:
                      $array_completate[$n_c + 0] = $this->get_var('ind.id.'.$i);         //id indagine
@@ -160,16 +141,6 @@ else
                      $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.'.$i); // via centro diagnostico
                      $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.'.$i);   //citta centro diagnostico
                      $n_c = $n_c + $offset;
-                     /*$array_completate[$n_c + 0] = $this->get_var('ind.tipo.'.$i);
-                     $array_completate[$n_c + 1] = $this->get_var('ind.motivo.'.$i);
-                     $array_completate[$n_c + 2] = $this->get_var('ind.cpNome.'.$i);
-                     $array_completate[$n_c + 3] = $this->get_var('ind.cpCognome.'.$i);
-                     $array_completate[$n_c + 4] = $this->get_var('ind.cpRep.'.$i);
-                     $array_completate[$n_c + 5] = $this->get_var('ind.data.'.$i);
-                     $array_completate[$n_c + 6] = $this->get_var('ind.referto.'.$i);   //nome del file referto
-                     $array_completate[$n_c + 7] = $this->get_var('ind.allegato.'.$i);  //nome del file allegato
-                     $array_completate[$n_c + 8] = $this->get_var('ind.id.'.$i);      //id indagine
-                     $n_c = $n_c + 9;   //offset per prossima indagine*/
                      break;
              }
          }

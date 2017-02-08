@@ -28,3 +28,4 @@ modello PBAC/Security Framework/*
 !formscripts/
 formscripts/*
 !formscripts/indagini.js
+!formscripts/nuovaVaccinazione.php

@@ -160,6 +160,3 @@ $(document).ready(function(){
 
 });
 
-
-
-

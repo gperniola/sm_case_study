@@ -37,8 +37,8 @@ $confidenzialita = getInfo('confidenzialita', 'careproviderpaziente', 'idutente=
 $pag_indagini -> set_var('confidenzialita', $confidenzialita);
 
 //Inoltre, estraggo il mio nome e cognome (mi serve per le operazioni di inserimento/modifica diagnosi)
-$cpNome = getInfo('nome', 'careproviderpersona', 'idutente='.$cp_id);
-$cpCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$cp_id);
+$cpNome = getInfo('nome', 'careproviderpersona', 'id='.$idCpp);
+$cpCognome = getInfo('cognome', 'careproviderpersona', 'id='.$idCpp);
 $pag_indagini -> set_var('mioCpNome', $cpNome);
 $pag_indagini -> set_var('mioCpCognome', $cpCognome);
 
@@ -69,9 +69,9 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
     $pag_indagini -> set_var('ind.careprovider.'.$i, $indaginiCareprovider[$i]);
-    $careproviderNome = getInfo('nome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
-    $careproviderCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
-    $careproviderRep = getInfo('reperibilita', 'careproviderpersona', 'idutente='.$indaginiCp[$i]);
+    $careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$indaginiCp[$i]);
+    $careproviderCognome = getInfo('cognome', 'careproviderpersona', 'id='.$indaginiCp[$i]);
+    $careproviderRep = getInfo('reperibilita', 'careproviderpersona', 'id='.$indaginiCp[$i]);
     $pag_indagini -> set_var('ind.cpNome.'.$i, $careproviderNome);
     $pag_indagini -> set_var('ind.cpCognome.'.$i, $careproviderCognome);
     $pag_indagini -> set_var('ind.cpRep.'.$i, $careproviderRep);
@@ -94,12 +94,13 @@ $pag_indagini -> set_var('indaginiNum', $n);
 /******************************************************************************
  * ESTRAGGO I CAREPROVIDER COLLEGATI ALL'UTENTE
  ******************************************************************************/
-$cpRegistratiId = getArray('idcpp', 'careproviderpaziente', 'idutente='.$idPaziente);
-$v = count($cpRegistratiId);
+$cpRegistratiIdUtente = getArray('idcpp', 'careproviderpaziente', 'idutente='.$idPaziente);
+$v = count($cpRegistratiIdUtente);
 for($i=0; $i<$v; $i++){
-    $cpRegistratoNome = getInfo('nome', 'careproviderpersona', 'idutente='.$cpRegistratiId[$i]);
-    $cpRegistratoCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$cpRegistratiId[$i]);
-    $pag_indagini -> set_var('careprovider.id.'.$i, $cpRegistratiId[$i]);
+    $cpRegistratoId = getInfo('id','careproviderpersona','idutente='.$cpRegistratiIdUtente[$i]);
+    $cpRegistratoNome = getInfo('nome', 'careproviderpersona', 'id='.$cpRegistratoId);
+    $cpRegistratoCognome = getInfo('cognome', 'careproviderpersona', 'id='.$cpRegistratoId);
+    $pag_indagini -> set_var('careprovider.id.'.$i, $cpRegistratoId);
     $pag_indagini -> set_var('careprovider.nome.'.$i, $cpRegistratoNome);
     $pag_indagini -> set_var('careprovider.cognome.'.$i, $cpRegistratoCognome);
 }
@@ -125,8 +126,8 @@ for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.tipo.'.$i, $centriTipo[$i]);
     $pag_indagini -> set_var('centro.mail.'.$i, $indaginiAllegato[$i]);
     $pag_indagini -> set_var('centro.responsabileId.'.$i, $centriIdCpp[$i]);
-    $responsabileNome = getInfo('nome', 'careproviderpersona', 'idutente='.$centriIdCpp[$i]);
-    $responsabileCognome = getInfo('cognome', 'careproviderpersona', 'idutente='.$centriIdCpp[$i]);
+    $responsabileNome = getInfo('nome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);
+    $responsabileCognome = getInfo('cognome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);
     $pag_indagini -> set_var('centro.responsabileNome.'.$i, $responsabileNome);
     $pag_indagini -> set_var('centro.responsabileCognome.'.$i, $responsabileCognome);
 }

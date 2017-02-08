@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Feb 07, 2017 alle 13:42
+-- Creato il: Feb 08, 2017 alle 14:22
 -- Versione del server: 5.7.14
 -- Versione PHP: 5.6.25
 
@@ -54,13 +54,13 @@ INSERT INTO `indagini` (`id`, `idpaziente`, `idcpp`, `careprovider`, `idDiagnosi
 (27, 2, NULL, NULL, NULL, 0, '2016-04-19', NULL, 'conclusa', 'Verifica', 'verifica diagnosi di Prima', 'ref.pdf', 'img.jpg'),
 (28, 2, NULL, NULL, NULL, 0, '2016-04-19', NULL, 'conclusa', 'rx', 'verifica diagnosi di Terza', 'docu.doc', 'audio.mp3'),
 (29, 2, NULL, NULL, NULL, 0, '2016-04-19', NULL, 'conclusa', 'eco', 'verifica diagnosi di Terza', 'doc.pdf', 'imm.jpg'),
-(44, 1, 192, 'Francesco Girardi', NULL, 1, '2016-12-29', NULL, 'richiesta', 'tipoIndagine1', 'motivo1', NULL, NULL),
-(45, 1, 190, 'Gustavo Boccia', NULL, 1, '2016-12-31', NULL, 'richiesta', 'tipoIndagine2', 'motivo2', NULL, NULL),
-(46, 1, 192, 'Francesco Girardi', NULL, 1, '2017-01-04', NULL, 'programmata', 'tipoIndagine3', 'motivo3', NULL, NULL),
+(44, 1, 57, 'Francesco Girardi', NULL, 1, '2016-12-29', NULL, 'richiesta', 'tipoIndagine1', 'motivo1', NULL, NULL),
+(45, 1, 55, 'Gustavo Boccia', NULL, 1, '2016-12-31', NULL, 'richiesta', 'tipoIndagine2', 'motivo2', NULL, NULL),
+(46, 1, 57, 'Francesco Girardi', NULL, 1, '2017-01-04', NULL, 'programmata', 'tipoIndagine3', 'motivo3', NULL, NULL),
 (47, 1, NULL, 'Pinco Pallino', NULL, 2, '2017-01-06', NULL, 'programmata', 'tipoIndagine4', 'motivo4', NULL, NULL),
 (50, 1, NULL, 'Topolino', NULL, 1, '2016-12-01', NULL, 'conclusa', 'tipoIndagine5', 'motivo5', 'referto5.doc', 'allegato5.jpg'),
-(51, 1, 192, 'Francesco Girardi', NULL, 2, '2016-12-02', NULL, 'conclusa', 'tipoIndagine6', 'motivo6', 'referto6.pdf', NULL),
-(52, 1, 190, 'Gustavo Boccia', 43, NULL, NULL, NULL, 'richiesta', 'Indagine dem.', 'Indagine: demenza (10-09-2016)', NULL, NULL),
+(51, 1, 57, 'Francesco Girardi', NULL, 2, '2016-12-02', NULL, 'conclusa', 'tipoIndagine6', 'motivo6', 'referto6.pdf', NULL),
+(52, 1, 55, 'Gustavo Boccia', 43, NULL, NULL, NULL, 'richiesta', 'Indagine dem.', 'Indagine: demenza (10-09-2016)', NULL, NULL),
 (54, 1, NULL, 'Dr. Strange', 35, 2, '2017-02-08', NULL, 'programmata', 'Indagini urinarie', 'Diagnosi: infezione vie urinarie (23-04-2016)', NULL, NULL);
 
 --

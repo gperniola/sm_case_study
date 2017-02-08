@@ -243,7 +243,7 @@ else
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
-                             <div style="display:none;" >
+                             <div style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>

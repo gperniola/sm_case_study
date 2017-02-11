@@ -45,6 +45,22 @@ function statoChange(){
     }
 }
 
+function validateRichiesta(){
+
+
+}
+
+function validateProgrammata(){
+
+
+}
+
+function validateCompletata(){
+
+
+}
+
+
 $(document).ready(function(){
 
     $(window).load(function() {
@@ -89,9 +105,44 @@ $(document).ready(function(){
 	$("#concludi").click(function(){
 	
 		var tipo = $("#tipoIndagine").val();
-		var data = $("#data").val();
+		var motivo = $("#motivoIndagine_new").val();
+        var careprovider = $("#careproviderIndagine_new").val();
+        var stato = $("#statoIndagine_new").val();
+        var centro = $("#centroIndagine_new").val();
+        var data = $("#data").val();
 		var referto = $("#referto").val();
 		var allegato = $("#allegato").val();
+
+		alert(
+		    "tipo: " + tipo + ", " +
+            "motivo: " + motivo + ", " +
+            "careprovider: " + careprovider + ", " +
+            "stato: " + stato + ", " +
+            "centro: " + centro + ", " +
+            "data: " + data + ", " +
+            "referto: " + referto + ", " +
+            "allegato: " + allegato + ", "
+        );
+
+        var fieldsValid = false;
+        switch(stato){
+            case "0":
+                alert("is 0");
+                //fieldsValid = validateRichiesta();
+                break;
+            case "1":
+                alert("is 1");
+                //fieldsValid = validateProgrammata();
+                break;
+            case "2":
+                alert("is 2");
+                //fieldsValid = validateCompletata();
+                break;
+        }
+
+
+
+        /*
 		
 		
 		if(tipo.trim()=='' || data.trim()=='' || referto.trim()=='' || allegato.trim()==''){
@@ -124,7 +175,7 @@ $(document).ready(function(){
   			});
 		
 		
-		}
+		}*/
 		
 
 

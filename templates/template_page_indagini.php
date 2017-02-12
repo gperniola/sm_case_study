@@ -280,7 +280,7 @@ else
                                     <label class="control-label col-lg-4">Motivo:</label>
                                     <div class="col-lg-4">
                                         <select id="motivoIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
+                                            <option selected hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
                                             <?php
                                             for($i = 0; $i < $n_z; $i +=4 ){
                                                 if($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$i+3] ){
@@ -304,7 +304,7 @@ else
                                             echo ' <select disabled id="careproviderIndagine_new" class="form-control">';
                                         else
                                             echo '<select id="careproviderIndagine_new" class="form-control">';
-                                        echo '<option selected disabled hidden style="display: none" value="placeholder">Selezionare una careprovider..</option>';
+                                        echo '<option selected hidden style="display: none" value="placeholder">Selezionare una careprovider..</option>';
                                         for($i = 0; $i < $n_v; $i +=3 ){
                                             if($SelfCareproviderId == $array_careprovider[$i+0])
                                                 echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';

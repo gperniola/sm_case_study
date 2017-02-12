@@ -45,12 +45,22 @@ function statoChange(){
     }
 }
 
-function validateRichiesta(){
+function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
+    var isValid = true;
 
+    if (tipo == '') isValid = false; //tipo vuoto
+    if (motivo == "placeholder" ||
+        (motivo == '' && motivoAltro == '')) isValid = false; //motivo placeholder or empty
+    if(careprovider == "placeholder" ||
+        (careprovider == '' && careproviderAltro == '')) isValid = false; //care placeholder or empty
 
+    return isValid;
 }
 
-function validateProgrammata(){
+function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro){
+
+    var isValid = validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro);
+
 
 
 }
@@ -104,42 +114,51 @@ $(document).ready(function(){
 	
 	$("#concludi").click(function(){
 	
-		var tipo = $("#tipoIndagine").val();
-		var motivo = $("#motivoIndagine_new").val();
-        var careprovider = $("#careproviderIndagine_new").val();
-        var stato = $("#statoIndagine_new").val();
-        var centro = $("#centroIndagine_new").val();
-        var data = $("#data").val();
-		var referto = $("#referto").val();
-		var allegato = $("#allegato").val();
+		var tipoValue = $("#tipoIndagine").val();
+		var motivoValue = $("#motivoIndagine_new").val();
+		var motivoAltroValue = $("#motivoAltro_new").val();
+        var careproviderValue = $("#careproviderIndagine_new").val();
+        var careproviderAltroValue = $("#careproviderAltro_new").val();
+        var statoValue = $("#statoIndagine_new").val();
+        var centroValue = $("#centroIndagine_new").val();
+        var dataValue = $("#data").val();
+		var refertoValue = $("#referto").val();
+		var allegatoValue = $("#allegato").val();
 
 		alert(
-		    "tipo: " + tipo + ", " +
-            "motivo: " + motivo + ", " +
-            "careprovider: " + careprovider + ", " +
-            "stato: " + stato + ", " +
-            "centro: " + centro + ", " +
-            "data: " + data + ", " +
-            "referto: " + referto + ", " +
-            "allegato: " + allegato + ", "
+		    "tipo: " + tipoValue + ", " +
+            "motivo: " + motivoValue + ", " +
+            "careprovider: " + careproviderValue + ", " +
+            "stato: " + statoValue + ", " +
+            "centro: " + centroValue + ", " +
+            "data: " + dataValue + ", " +
+            "referto: " + refertoValue + ", " +
+            "allegato: " + allegatoValue + ", "
         );
 
-        var fieldsValid = false;
-        switch(stato){
+        /*if(tipo.trim()=='') alert("tipo is empty");
+        else alert("tipo is NOT empty");
+
+        if(motivo = "placeholder") alert("motivo is placeholder");
+        else alert("motivo is NOT placeholder");*/
+
+        var formIsValid = false;
+        switch(statoValue){
             case "0":
-                alert("is 0");
-                //fieldsValid = validateRichiesta();
+                //alert("is 0");
+                formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
                 break;
             case "1":
                 alert("is 1");
-                //fieldsValid = validateProgrammata();
+                //formIsValid = validateProgrammata();
                 break;
             case "2":
                 alert("is 2");
-                //fieldsValid = validateCompletata();
+                //formIsValid = validateCompletata();
                 break;
         }
-
+        if(formIsValid) alert("form is valid");
+        else alert("form is NOT valid");
 
 
         /*

@@ -47,27 +47,25 @@ function statoChange(){
 
 function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
     var isValid = true;
-
     if (tipo == '') isValid = false; //tipo vuoto
     if (motivo == "placeholder" ||
         (motivo == '' && motivoAltro == '')) isValid = false; //motivo placeholder or empty
     if(careprovider == "placeholder" ||
         (careprovider == '' && careproviderAltro == '')) isValid = false; //care placeholder or empty
-
     return isValid;
 }
 
 function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro){
-
     var isValid = validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro);
-
-
-
+    if(data == '') isValid = false;  //data is empty
+    if(centro == "placeholder") isValid = false; //centro is empty
+    return isValid;
 }
 
-function validateCompletata(){
-
-
+function validateCompletata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro, referto, allegato){
+    var isValid = validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro);
+    if(referto == '') isValid = false; //referto is empty
+    return isValid;
 }
 
 
@@ -114,18 +112,18 @@ $(document).ready(function(){
 	
 	$("#concludi").click(function(){
 	
-		var tipoValue = $("#tipoIndagine").val();
-		var motivoValue = $("#motivoIndagine_new").val();
-		var motivoAltroValue = $("#motivoAltro_new").val();
-        var careproviderValue = $("#careproviderIndagine_new").val();
-        var careproviderAltroValue = $("#careproviderAltro_new").val();
-        var statoValue = $("#statoIndagine_new").val();
-        var centroValue = $("#centroIndagine_new").val();
-        var dataValue = $("#data").val();
-		var refertoValue = $("#referto").val();
-		var allegatoValue = $("#allegato").val();
+		var tipoValue = $("#tipoIndagine").val().trim();
+		var motivoValue = $("#motivoIndagine_new").val().trim();
+		var motivoAltroValue = $("#motivoAltro_new").val().trim();
+        var careproviderValue = $("#careproviderIndagine_new").val().trim();
+        var careproviderAltroValue = $("#careproviderAltro_new").val().trim();
+        var statoValue = $("#statoIndagine_new").val().trim();
+        var centroValue = $("#centroIndagine_new").val().trim();
+        var dataValue = $("#data").val().trim();
+		var refertoValue = $("#referto").val().trim();
+		var allegatoValue = $("#allegato").val().trim();
 
-		alert(
+		/*alert(
 		    "tipo: " + tipoValue + ", " +
             "motivo: " + motivoValue + ", " +
             "careprovider: " + careproviderValue + ", " +
@@ -149,12 +147,12 @@ $(document).ready(function(){
                 formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
                 break;
             case "1":
-                alert("is 1");
-                //formIsValid = validateProgrammata();
+                //alert("is 1");
+                formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
                 break;
             case "2":
-                alert("is 2");
-                //formIsValid = validateCompletata();
+                //alert("is 2");
+                formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
                 break;
         }
         if(formIsValid) alert("form is valid");

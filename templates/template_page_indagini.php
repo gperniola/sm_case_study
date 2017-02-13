@@ -338,7 +338,7 @@ else
                                     <label class="control-label col-lg-4">Centro:</label>
                                     <div class="col-lg-4">
                                         <select id="centroIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value=''>Selezionare un centro..</option>
+                                            <option selected hidden style='display: none' value="placeholder">Selezionare un centro..</option>
                                             <?php
                                             for($i = 0; $i < $n_s; $i +=9 ){
                                                 echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .',  '

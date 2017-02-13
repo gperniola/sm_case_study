@@ -30,3 +30,4 @@ formscripts/*
 !formscripts/indagini.js
 !formscripts/vaccinazioni.js
 !formscripts/nuovaVaccinazione.php
+!formscripts/nuovaIndagine.php

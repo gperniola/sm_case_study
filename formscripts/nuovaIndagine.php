@@ -27,8 +27,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		else 
 			$id_prop = $id_Pz;
 
-	
-	echo nuovaIndagine($idPaziente,$idDiagnosi,$motivo,$tipo,$data,$referto,$allegato);
+
+	//TODO: check if the ids are ok?
+	//TODO: check data again?
+	//TODO: get careprovider's name and diagnosi with the id if not nulls, then call the db function to make insertion
+	//TODO: change datains and dataagg to timestamp format
+
+	if($careprovider != '')
+		$careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
+            getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
+	else $careproviderNome = $careproviderAltro;
+
+	if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
+	else $motivo = $motivoAltro;
+
+	if($stato == "0"){
+        echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
+	}
+
+
+
+
 
 
 }

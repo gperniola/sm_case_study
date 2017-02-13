@@ -111,7 +111,9 @@ $(document).ready(function(){
     });
 	
 	$("#concludi").click(function(){
-	
+
+	    var idPaziente = $("#idPaziente").val().trim();
+	    var idCareprovider = $("#cpId").val().trim();
 		var tipoValue = $("#tipoIndagine").val().trim();
 		var motivoValue = $("#motivoIndagine_new").val().trim();
 		var motivoAltroValue = $("#motivoAltro_new").val().trim();
@@ -157,12 +159,29 @@ $(document).ready(function(){
         }
         if(formIsValid){
             alert("form is valid");
-
-
+            $.post("formscripts/nuovaIndagine.php",
+                {
+                    idPaziente:     idPaziente,
+                    idCare:         idCareprovider,
+                    tipo:           tipoValue,
+                    idMotivo:       motivoValue,
+                    motivoAltro:    motivoAltroValue,
+                    careprovider:   careproviderValue,
+                    careproviderAltro: careproviderAltroValue,
+                    stato:          statoValue,
+                    centro:         centroValue,
+                    data:           dataValue,
+                    referto:        refertoValue,
+                    allegato:       allegatoValue
+                },
+                function(status){
+                    $('#formIndagini')[0].reset();
+                    alert("Status: " + status);
+                    //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
+                });
         }
         else{
             alert("form is NOT valid");
-
         }
         /*
 		

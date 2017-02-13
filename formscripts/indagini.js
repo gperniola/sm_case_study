@@ -155,10 +155,15 @@ $(document).ready(function(){
                 formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
                 break;
         }
-        if(formIsValid) alert("form is valid");
-        else alert("form is NOT valid");
+        if(formIsValid){
+            alert("form is valid");
 
 
+        }
+        else{
+            alert("form is NOT valid");
+
+        }
         /*
 		
 		

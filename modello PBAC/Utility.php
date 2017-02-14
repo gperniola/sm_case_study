@@ -2257,12 +2257,14 @@ function getCpId($nome, $cognome, $pzId){
 	return $idCp;
 }
 
-function nuovaIndagine($idPaziente,$idDiagnosi,$motivo,$tipo,$data,$referto,$allegato){
+function nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
 	global $database;
+	$query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento)
+              values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP)';
 
-	$p = 'insert into indagini (idStudioIndagini, idDiagnosi, idpaziente, data, stato, motivo, tipoIndagine, referto, allegato) values (1,'.$idDiagnosi.','.$idPaziente.',"'.$data.'","conclusa","'.$motivo.'", "'.$tipo.'","'.$referto.'","'.$allegato.'")';
-	 executeQuery($p);
-	 return $p;
+	//$p = 'insert into indagini (idStudioIndagini, idDiagnosi, idpaziente, data, stato, motivo, tipoIndagine, referto, allegato) values (1,'.$idDiagnosi.','.$idPaziente.',"'.$data.'","conclusa","'.$motivo.'", "'.$tipo.'","'.$referto.'","'.$allegato.'")';
+	 executeQuery($query);
+	 return $query;
 	
 }
 function nuovaDiagnosi($idPaziente,$patologia,$stato,$conf,$idCareProvider, $careProvider){

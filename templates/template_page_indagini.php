@@ -208,10 +208,25 @@ else
         // --------------------------------------
         ?>
 
+        <!-- <link rel="stylesheet" href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="formscripts/jquery.js"></script>
+        <script src="assets/js/moment.js"></script>
+        <!-- <script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
+         <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="formscripts/jquery-ui.js"></script>
+        <script src="formscripts/indagini.js"></script> -->
+
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="assets/js/moment-with-locales.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
         <script src="formscripts/jquery-ui.js"></script>
         <script src="formscripts/indagini.js"></script>
+
 
         <h2>Indagini diagnostiche</h2><hr>
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
@@ -353,8 +368,17 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Data:</label>
                                     <div class="col-lg-4">
-                                        <input id="data" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
+                                        <input id="data" type="text" class="form-control"/>
                                     </div>
+                                      <script>
+                                        var $j = jQuery.noConflict();
+                                        $j(document).ready(function() {
+                                            $j('#data').datetimepicker({
+                                                locale:'it',
+                                                sideBySide:true
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </div>
                             <div class="col-lg-12" id="divReferto_new" style="display:none;">

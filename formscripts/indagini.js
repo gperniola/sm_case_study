@@ -68,7 +68,6 @@ function validateCompletata(tipo, motivo, motivoAltro, careprovider, careprovide
     return isValid;
 }
 
-
 $(document).ready(function(){
 
     $(window).load(function() {
@@ -76,7 +75,6 @@ $(document).ready(function(){
         $("[id^=statoIndagine]").each(statoChange);
         $("[id^=careproviderIndagine]").each(careproviderChange);
     });
-
     $("[id^=motivoIndagine]").change(motivoChange);
     $("[id^=statoIndagine]").change(statoChange);
     $("[id^=careproviderIndagine]").change(careproviderChange);

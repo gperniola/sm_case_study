@@ -43,7 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	if($stato == "0"){
         echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
-	}
+	}else if ($stato == "1"){
+        echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
+    }
 
 
 

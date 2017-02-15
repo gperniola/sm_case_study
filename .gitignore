@@ -34,6 +34,6 @@ formscripts/*
 
 !assets/
 assets/*
-!assets/js
-assets/js*
+!assets/js/
+assets/js/*
 !assets/js/moment-with-locales.min.js

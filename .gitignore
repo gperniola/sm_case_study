@@ -31,3 +31,5 @@ formscripts/*
 !formscripts/vaccinazioni.js
 !formscripts/nuovaVaccinazione.php
 !formscripts/nuovaIndagine.php
+
+!assets/js/moment-with-locales.min.js

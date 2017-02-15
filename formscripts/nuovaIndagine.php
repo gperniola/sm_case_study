@@ -36,10 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	if($careprovider != '')
 		$careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
             getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
-	else $careproviderNome = $careproviderAltro;
+    else{
+    	$careprovider = "NULL";
+        $careproviderNome = $careproviderAltro;
+	}
 
 	if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
-	else $motivo = $motivoAltro;
+	else{
+        $idMotivo = "NULL";
+        $motivo = $motivoAltro;
+	}
 
 	if($stato == "0"){
         echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);

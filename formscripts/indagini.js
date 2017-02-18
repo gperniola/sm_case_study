@@ -119,9 +119,11 @@ $(document).ready(function(){
         var careproviderAltroValue = $("#careproviderAltro_new").val().trim();
         var statoValue = $("#statoIndagine_new").val().trim();
         var centroValue = $("#centroIndagine_new").val().trim();
-        var dataValue = $("#data").val().trim().toString();
 		var refertoValue = $("#referto").val().trim();
 		var allegatoValue = $("#allegato").val().trim();
+
+        var dataMoment = $j("#data").data("DateTimePicker").date();
+		var dataValue = dataMoment.format("YYYY-MM-DD HH:mm:ss").toString();
 
 		 //alert(dataValue);
 		/*alert(

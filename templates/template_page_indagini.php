@@ -368,7 +368,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Data:</label>
                                     <div class="col-lg-4">
-                                        <input id="data" type="text" class="form-control"/>
+                                        <input id="data" type="text" placeholder="Selezionare una data.." class="form-control"/>
                                     </div>
                                       <script>
                                         var $j = jQuery.noConflict();
@@ -558,9 +558,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_richieste[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
+                                                                        <input id="data'.$array_richieste[$i+0].'" type="text" placeholder="Selezionare una data.."  class="form-control"
                                                                         value ="'.$array_richieste[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_richieste[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
@@ -711,9 +719,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_programmate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_programmate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control" 
+                                                                        <input id="data'.$array_programmate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control" 
                                                                         value ="'.$array_programmate[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_programmate[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
@@ -862,9 +878,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_completate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
+                                                                        <input id="data'.$array_completate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control"
                                                                             value ="'.$array_completate[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_completate[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'">

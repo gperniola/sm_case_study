@@ -45,6 +45,7 @@ function statoChange(){
     }
 }
 
+
 function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
     var isValid = true;
     if (tipo == '') isValid = false; //tipo vuoto
@@ -124,6 +125,8 @@ $(document).ready(function(){
 
         var dataMoment = $j("#data").data("DateTimePicker").date();
 		var dataValue = dataMoment.format("YYYY-MM-DD HH:mm:ss").toString();
+
+		//TODO: FIX DATAVALUE FORMAT IF DATAMOMENT IS EMPTY
 
 		 //alert(dataValue);
 		/*alert(

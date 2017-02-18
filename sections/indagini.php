@@ -51,7 +51,7 @@ $pag_indagini -> set_var('mioCpCognome', $cpCognome);
  ******************************************************************************/
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiData = getArray('DATE(dataIndagine)', 'indagini', 'idPaziente='.$idPaziente);
+$indaginiData = getArray('dataIndagine', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiReferto = getArray('referto', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiAllegato = getArray('allegato', 'indagini', 'idPaziente='.$idPaziente);
 $indaginiCp = getArray('idcpp', 'indagini', 'idPaziente='.$idPaziente);
@@ -64,7 +64,11 @@ $n = count($indaginiId);
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
-    $newDate = date("d/m/Y H:i", strtotime($indaginiData[$i]));
+    if ($indaginiData[$i] != NULL)
+        //$newDate = date("d/m/Y H:i", strtotime($indaginiData[$i]));
+        $newDate = (new DateTime($indaginiData[$i]))->format('d/m/Y H:i');
+    else
+        $newDate = "";
     $pag_indagini -> set_var('ind.data.'.$i, $newDate);
     $pag_indagini -> set_var('ind.referto.'.$i, $indaginiReferto[$i]);
     $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);

@@ -58,7 +58,8 @@ function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careprovider
 
 function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro){
     var isValid = validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro);
-    if(data == '') isValid = false;  //data is empty
+    alert("date: " + data);
+    if(data == "") isValid = false;  //data is empty
     if(centro == "placeholder") isValid = false; //centro is empty
     return isValid;
 }
@@ -124,9 +125,10 @@ $(document).ready(function(){
 		var allegatoValue = $("#allegato").val().trim();
 
         var dataMoment = $j("#data").data("DateTimePicker").date();
-		var dataValue = dataMoment.format("YYYY-MM-DD HH:mm:ss").toString();
-
-		//TODO: FIX DATAVALUE FORMAT IF DATAMOMENT IS EMPTY
+        if(dataMoment != null && $("#data").val() != "")
+            var dataValue = dataMoment.format("YYYY-MM-DD HH:mm:ss").toString();
+        else
+            var dataValue = "";
 
 		 //alert(dataValue);
 		/*alert(

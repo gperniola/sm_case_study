@@ -49,17 +49,17 @@ $pag_indagini -> set_var('mioCpCognome', $cpCognome);
  * - careprovider che ha richiesto l'indagine
  * - centro in cui si effettua l'indagine
  ******************************************************************************/
-$indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiData = getArray('dataIndagine', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiReferto = getArray('referto', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiAllegato = getArray('allegato', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiCp = getArray('idcpp', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente);
-$indaginiIdDiagnosi = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente);
-$indaginiCareprovider = getArray('careprovider', 'indagini','idPaziente='.$idPaziente);
+$indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiData = getArray('dataIndagine', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiReferto = getArray('referto', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiAllegato = getArray('allegato', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiCp = getArray('idcpp', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiIdDiagnosi = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiCareprovider = getArray('careprovider', 'indagini','idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $n = count($indaginiId);
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
@@ -142,10 +142,10 @@ $pag_indagini -> set_var('centriNum', $m);
 /******************************************************************************
  * ESTRAGGO LE DIAGNOSI COLLEGATE AL PAZIENTE
  ******************************************************************************/
-$diagnosiId = getArray('id', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
-$diagnosiData = getArray('dataIns', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
-$diagnosiPatologia = getArray('patologia', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
-$diagnosiConf = getArray('conf', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente);
+$diagnosiId = getArray('id', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
+$diagnosiData = getArray('dataIns', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
+$diagnosiPatologia = getArray('patologia', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
+$diagnosiConf = getArray('conf', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
 $z = count($diagnosiId);
 for($i=0; $i<$z; $i++){
     $pag_indagini -> set_var('diagnosi.id.'.$i, $diagnosiId[$i]);

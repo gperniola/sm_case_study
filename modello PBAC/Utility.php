@@ -2261,21 +2261,22 @@ function nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $
 	global $database;
 	$query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento)
               values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP)';
-
-	//$p = 'insert into indagini (idStudioIndagini, idDiagnosi, idpaziente, data, stato, motivo, tipoIndagine, referto, allegato) values (1,'.$idDiagnosi.','.$idPaziente.',"'.$data.'","conclusa","'.$motivo.'", "'.$tipo.'","'.$referto.'","'.$allegato.'")';
-	 executeQuery($query);
+    executeQuery($query);
 	 return $query;
 }
 
 function nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro){
     global $database;
-    //$dataSQL = date("Y-m-d H:i:s", strtotime($data));
-
-
     $query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento, dataIndagine, idStudioIndagini)
               values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP,\''.$data.'\','.$centro.')';
+    executeQuery($query);
+    return $query;
+}
 
-    //$p = 'insert into indagini (idStudioIndagini, idDiagnosi, idpaziente, data, stato, motivo, tipoIndagine, referto, allegato) values (1,'.$idDiagnosi.','.$idPaziente.',"'.$data.'","conclusa","'.$motivo.'", "'.$tipo.'","'.$referto.'","'.$allegato.'")';
+function nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro, $referto, $allegato){
+    global $database;
+    $query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento, dataIndagine, idStudioIndagini, referto, allegato)
+              values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP,\''.$data.'\','.$centro.',"'.$referto.'","'.$allegato.'")';
     executeQuery($query);
     return $query;
 }

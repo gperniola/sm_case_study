@@ -51,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
 	}else if ($stato == "1"){
         echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
+    }else if  ($stato == "2") {
+        echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "conclusa", $tipo, $data, $centro, $referto, $allegato);
     }
 
 

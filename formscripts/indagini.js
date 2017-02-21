@@ -130,23 +130,6 @@ $(document).ready(function(){
         else
             var dataValue = "";
 
-		 //alert(dataValue);
-		/*alert(
-		    "tipo: " + tipoValue + ", " +
-            "motivo: " + motivoValue + ", " +
-            "careprovider: " + careproviderValue + ", " +
-            "stato: " + statoValue + ", " +
-            "centro: " + centroValue + ", " +
-            "data: " + dataValue + ", " +
-            "referto: " + refertoValue + ", " +
-            "allegato: " + allegatoValue + ", "
-        );
-
-        /*if(tipo.trim()=='') alert("tipo is empty");
-        else alert("tipo is NOT empty");
-
-        if(motivo = "placeholder") alert("motivo is placeholder");
-        else alert("motivo is NOT placeholder");*/
 
         var formIsValid = false;
         switch(statoValue){
@@ -164,7 +147,6 @@ $(document).ready(function(){
                 break;
         }
         if(formIsValid){
-            alert("form is valid");
             $.post("formscripts/nuovaIndagine.php",
                 {
                     idPaziente:     idPaziente,
@@ -183,11 +165,13 @@ $(document).ready(function(){
                 function(status){
                     $('#formIndagini')[0].reset();
                     alert("Status: " + status);
+                    location.reload();
+                    $("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
                 });
         }
         else{
-            alert("form is NOT valid");
+            alert("ATTENZIONE: Compilare correttamente tutti i campi.");
         }
         /*
 		

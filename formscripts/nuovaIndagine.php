@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	session_start(); 
 	$id_Pz = $_SESSION['pz_Id'];
+
+    // Partendo dall'id utente ($id_Pz) ottengo il relativo id paziente
+    $idPazienteConnesso = getInfo('id', 'pazienti', 'idutente = '.$id_Pz);
 	if (isset ($_SESSION['cp_Id']))
 		{
 			$id_Cp = $_SESSION['cp_Id'];
@@ -28,38 +31,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			$id_prop = $id_Pz;
 
 
-	//TODO: check if the ids are ok?
 	//TODO: check data again?
-	//TODO: get careprovider's name and diagnosi with the id if not nulls, then call the db function to make insertion
-	//TODO: change datains and dataagg to timestamp format
 
-	if($careprovider != '')
-		$careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
-            getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
-    else{
-    	$careprovider = "NULL";
-        $careproviderNome = $careproviderAltro;
-	}
+	/*echo'
+	<script>
+	alert("id_Pz: '.$id_Pz.' id_Cp: '.$id_Cp.' id_prop: '.$id_prop.' idPaziente: '.$idPaziente.' idCare: '.$idCare.'");
+	</script>
+	';*/
 
-	if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
-	else{
-        $idMotivo = "NULL";
-        $motivo = $motivoAltro;
-	}
-
-	if($stato == "0"){
-        echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
-	}else if ($stato == "1"){
-        echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
-    }else if  ($stato == "2") {
-        echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "conclusa", $tipo, $data, $centro, $referto, $allegato);
+	if ($idPazienteConnesso == $idPaziente){
+        if($careprovider != '')
+			$careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
+            	getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
+    	else{
+    		$careprovider = "NULL";
+        	$careproviderNome = $careproviderAltro;
+		}
+		if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
+		else{
+        	$idMotivo = "NULL";
+        	$motivo = $motivoAltro;
+		}
+		if($stato == "0"){
+        	echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
+			}else if ($stato == "1"){
+        		echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
+    			}else if  ($stato == "2") {
+        			echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "conclusa", $tipo, $data, $centro, $referto, $allegato);
+    			}
     }
-
-
-
-
-
-
+    else
+        echo'<script>alert("Errore: il paziente in modifica non corrisponde al paziente connesso");</script>';
 }
-
 ?>

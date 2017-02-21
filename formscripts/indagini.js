@@ -239,6 +239,49 @@ $(document).ready(function(){
         $(id).hide(200);
     });
 
+    /* PULSANTE [conferma] PRESENTE IN OGNI FORM DI RIGA */
+    $(document).on('click', "a.conferma", function () {
+
+        var id = $(this).attr('id');
+        var idPaziente = $("#idPaziente").val().trim();
+        var idCareprovider = $("#cpId").val().trim();
+        var tipoValue = $("#tipoIndagine" + id).val().trim();
+        var motivoValue = $("#motivoIndagine_" + id).val().trim();
+        var motivoAltroValue = $("#motivoAltro_" + id).val().trim();
+        var careproviderValue = $("#careproviderIndagine_" + id).val().trim();
+        var careproviderAltroValue = $("#careproviderAltro_" + id).val().trim();
+        var statoValue = $("#statoIndagine_" + id).val().trim();
+        var centroValue = $("#centroIndagine" + id).val().trim();
+        var refertoValue = $("#referto" + id).val().trim();
+        var allegatoValue = $("#allegato" + id).val().trim();
+
+        var dataMoment = $j("#data" + id).data("DateTimePicker").date();
+        if(dataMoment != null && $("#data" + id).val() != "")
+            var dataValue = dataMoment.format("YYYY-MM-DD HH:mm:ss").toString();
+        else
+            var dataValue = "";
+
+
+        alert(
+            "idpaz: " + idPaziente + ", " +
+            "idcp: " + idCareprovider + ", " +
+            "tipo: " + tipoValue + ", " +
+            "motivo: " + motivoValue + ", " +
+            "motivoAltro: " + motivoAltroValue + ", " +
+            "careprovider: " + careproviderValue + ", " +
+            "careproviderAltro: " + careproviderAltroValue + ", " +
+            "stato: " + statoValue + ", " +
+            "centro: " + centroValue + ", " +
+            "data: " + dataValue + ", " +
+            "referto: " + refertoValue + ", " +
+            "allegato: " + allegatoValue + ", "
+        );
+
+
+
+    });
+
+
 
 });
 

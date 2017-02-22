@@ -263,6 +263,7 @@ $(document).ready(function(){
 
 
         alert(
+            "id indagine: " + id + ", " +
             "idpaz: " + idPaziente + ", " +
             "idcp: " + idCareprovider + ", " +
             "tipo: " + tipoValue + ", " +
@@ -296,6 +297,7 @@ $(document).ready(function(){
         if(formIsValid){
             $.post("formscripts/modificaIndagine.php",
                 {
+                    idIndagine:     id,
                     idPaziente:     idPaziente,
                     idCare:         idCareprovider,
                     tipo:           tipoValue,

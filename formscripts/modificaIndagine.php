@@ -4,6 +4,7 @@ include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Login/Database.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $idIndagine = $_POST['idIndagine'];
     $idPaziente = $_POST['idPaziente'];
     $idCare = $_POST['idCare'];
     $tipo = $_POST['tipo'];
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 }
-
+//TODO: check idIndagine
 
 
 ?>

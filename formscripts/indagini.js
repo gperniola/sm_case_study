@@ -166,7 +166,7 @@ $(document).ready(function(){
                     $('#formIndagini')[0].reset();
                     alert("Status: " + status);
                     location.reload();
-                    $("#collapse1").collapse('show');
+                    //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
                 });
         }
@@ -277,7 +277,49 @@ $(document).ready(function(){
             "allegato: " + allegatoValue + ", "
         );
 
+        var formIsValid = false;
+        switch(statoValue){
+            case "0":
+                //alert("is 0");
+                formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
+                break;
+            case "1":
+                //alert("is 1");
+                formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
+                break;
+            case "2":
+                //alert("is 2");
+                formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
+                break;
+        }
 
+        if(formIsValid){
+            $.post("formscripts/modificaIndagine.php",
+                {
+                    idPaziente:     idPaziente,
+                    idCare:         idCareprovider,
+                    tipo:           tipoValue,
+                    idMotivo:       motivoValue,
+                    motivoAltro:    motivoAltroValue,
+                    careprovider:   careproviderValue,
+                    careproviderAltro: careproviderAltroValue,
+                    stato:          statoValue,
+                    centro:         centroValue,
+                    data:           dataValue,
+                    referto:        refertoValue,
+                    allegato:       allegatoValue
+                },
+                function(status){
+                    $('#formIndagini')[0].reset();
+                    alert("Status: " + status);
+                    location.reload();
+                    //$("#collapse1").collapse('show');
+                    //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
+                });
+        }
+        else{
+            alert("ATTENZIONE: Compilare correttamente tutti i campi.");
+        }
 
     });
 

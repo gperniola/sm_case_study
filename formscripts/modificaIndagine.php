@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idPazienteIndagine = getInfo('idpaziente', 'indagini', 'id = ' .$idIndagine);
 
 
-    echo'<script>alert("idPaz='.$idPaziente.' PazConn='.$idPazienteConnesso.' PazInd='.$idPazienteIndagine.' IdInd='.$idIndagine.'");</script>';
+    //echo'<script>alert("idPaz='.$idPaziente.' PazConn='.$idPazienteConnesso.' PazInd='.$idPazienteIndagine.' IdInd='.$idIndagine.'");</script>';
 
     if (isset ($_SESSION['cp_Id'])) {
         $id_Cp = $_SESSION['cp_Id'];

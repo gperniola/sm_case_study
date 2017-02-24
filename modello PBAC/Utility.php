@@ -2306,6 +2306,21 @@ function modificaIndagineCompletata($idIndagine, $careprovider, $careproviderNom
     return $query;
 }
 
+function modificaStatoIndagine($id,$stato){
+    global $database;
+    $q = 'update indagini set stato="'.$stato.'" where id='.$id;
+    executeQuery($q);
+}
+
+function eliminaIndagine($id, $idutente){
+    global $database;
+    $query = 'insert into indaginiEliminate (idutente, indagine_id) values ('.$idutente.','.$id.')';
+    executeQuery($query);
+    return $query;
+}
+
+
+
 
 
 function nuovaDiagnosi($idPaziente,$patologia,$stato,$conf,$idCareProvider, $careProvider){

@@ -32,6 +32,7 @@ formscripts/*
 !formscripts/nuovaVaccinazione.php
 !formscripts/nuovaIndagine.php
 !formscripts/modificaIndagine.php
+!formscripts/eliminaIndagine.php
 
 !assets/
 assets/*

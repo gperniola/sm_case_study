@@ -229,6 +229,28 @@ $(document).ready(function(){
         $(id).show(200);
     });
 
+    $(document).on('click', "button.elimina", function () {
+        if (confirm("Eliminare l'indagine?")){
+            $.post("formscripts/eliminaIndagine.php",
+                {
+                    idIndagine: $(this).attr('id')
+                },
+                function(status){
+                    //$('#formD')[0].reset();
+                    //alert("Status: " + status);
+                });
+
+            //var id = $(this).attr('id');
+            //var riga = "#r"+id;
+            //$(riga).hide(250);
+            //riga = "#riga"+id;
+            //$(riga).hide(250);
+        }
+
+
+    });
+
+
 
 	/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
     $(document).on('click', "a.annulla", function () {

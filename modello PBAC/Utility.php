@@ -2308,13 +2308,13 @@ function modificaIndagineCompletata($idIndagine, $careprovider, $careproviderNom
 
 function modificaStatoIndagine($id,$stato){
     global $database;
-    $q = 'update indagini set stato="'.$stato.'" where id='.$id;
-    executeQuery($q);
+    $query = 'update indagini set stato="'.$stato.'" where id='.$id;
+    executeQuery($query);
 }
 
 function eliminaIndagine($id, $idutente){
     global $database;
-    $query = 'insert into indaginiEliminate (idutente, indagine_id) values ('.$idutente.','.$id.')';
+    $query = 'insert into indaginieliminate (idutente, indagine_id) values ('.$idutente.','.$id.')';
     executeQuery($query);
     return $query;
 }

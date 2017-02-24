@@ -2281,6 +2281,30 @@ function nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, 
     return $query;
 }
 
+function modificaIndagineRichiesta($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
+    global $database;
+    $query = 'UPDATE indagini SET idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'" WHERE id='.$idIndagine;
+    executeQuery($query);
+    //$result = mysqli_query($query) or trigger_error(mysqli_error()." ".$query);
+    return $query;
+}
+
+function modificaIndagineProgrammata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro){
+    global $database;
+    $query = 'update indagini set idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'",dataAggiornamento=CURRENT_TIMESTAMP,dataIndagine=\''.$data.'\',idStudioIndagini='.$centro.' where id='.$idIndagine;
+    executeQuery($query);
+    return $query;
+}
+
+function modificaIndagineCompletata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro, $referto, $allegato){
+    global $database;
+    $query = 'update indagini set idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'",dataAggiornamento=CURRENT_TIMESTAMP,dataIndagine=\''.$data.'\',idStudioIndagini='.$centro.',referto="'.$referto.'",allegato="'.$allegato.'" where id='.$idIndagine;
+    executeQuery($query);
+    return $query;
+}
 
 
 

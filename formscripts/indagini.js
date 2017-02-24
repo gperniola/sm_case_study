@@ -58,9 +58,9 @@ function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careprovider
 
 function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro){
     var isValid = validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro);
-    alert("date: " + data);
+    //alert("date: " + data);
     if(data == "") isValid = false;  //data is empty
-    if(centro == "placeholder") isValid = false; //centro is empty
+    if(centro == "placeholder" || centro == "") isValid = false; //centro is empty
     return isValid;
 }
 
@@ -262,7 +262,7 @@ $(document).ready(function(){
             var dataValue = "";
 
 
-        alert(
+       /* alert(
             "id indagine: " + id + ", " +
             "idpaz: " + idPaziente + ", " +
             "idcp: " + idCareprovider + ", " +
@@ -276,7 +276,7 @@ $(document).ready(function(){
             "data: " + dataValue + ", " +
             "referto: " + refertoValue + ", " +
             "allegato: " + allegatoValue + ", "
-        );
+        );*/
 
         var formIsValid = false;
         switch(statoValue){
@@ -313,7 +313,8 @@ $(document).ready(function(){
                 },
                 function(status){
                     $('#formIndagini')[0].reset();
-                    alert("Status: " + status);
+                    //alert("Status: " + status);
+                    //html5.append(status);
                     location.reload();
                     //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');

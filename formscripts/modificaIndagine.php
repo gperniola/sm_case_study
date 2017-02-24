@@ -22,12 +22,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_Pz = $_SESSION['pz_Id'];
 
     // Partendo dall'id utente ($id_Pz) ottengo il relativo id paziente
-    $idPazienteConnesso = getInfo('id', 'pazienti', 'idutente = ' . $id_Pz);
+    $idPazienteConnesso = getInfo('id', 'pazienti', 'idutente = ' .$id_Pz);
+
+    // Prendo l'id del paziente a cui è assegnata l'indagine
+    $idPazienteIndagine = getInfo('idpaziente', 'indagini', 'id = ' .$idIndagine);
+
+
+    echo'<script>alert("idPaz='.$idPaziente.' PazConn='.$idPazienteConnesso.' PazInd='.$idPazienteIndagine.' IdInd='.$idIndagine.'");</script>';
+
     if (isset ($_SESSION['cp_Id'])) {
         $id_Cp = $_SESSION['cp_Id'];
         $id_prop = $id_Cp;
     } else
         $id_prop = $id_Pz;
+
+    if ($idPazienteConnesso == $idPaziente){
+        if($idPazienteConnesso == $idPazienteIndagine){
+            if($careprovider != '')
+                $careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
+                    getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
+            else{
+                $careprovider = "NULL";
+                $careproviderNome = $careproviderAltro;
+            }
+            if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
+            else{
+                $idMotivo = "NULL";
+                $motivo = $motivoAltro;
+            }
+            if($stato == "0"){
+                echo modificaIndagineRichiesta($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
+            }else if ($stato == "1"){
+                echo modificaIndagineProgrammata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
+            }else if  ($stato == "2") {
+                echo modificaIndagineCompletata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, "conclusa", $tipo, $data, $centro, $referto, $allegato);
+            }
+        }
+        else
+            echo'<script>alert("Errore: L\'indagine in modifica non appartiene al paziente connesso");</script>';
+    }
+    else
+        echo'<script>alert("Errore: il paziente in modifica non corrisponde al paziente connesso");</script>';
 
 
 }

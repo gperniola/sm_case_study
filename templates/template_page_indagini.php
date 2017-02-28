@@ -23,7 +23,6 @@ else
 ?>
 
 
-
 <div id="content">
     <div class="inner" style="min-height:1200px;">
         <?php
@@ -935,7 +934,22 @@ else
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-
+                                                <?php   //popolamento tabella indagini richieste
+                                                for($i = 0; $i < $n_s; $i+=9) {
+                                                    echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
+                                                    echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
+                                                    echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . ', ' . $array_centri[$i + 3] . '</td>';
+                                                    echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 4] . '</td>';
+                                                    echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
+                                                    <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
+													<i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
+                                                    echo '<td style="text-align:center"><a href="mailto:'. $array_centri[$i + 5].'">
+                                                    <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
+													<i class="icon-envelope"></i></button></a></td>
+													
+													</tr>';
+                                                }
+                                                ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -991,6 +1005,7 @@ else
             </div>
         </div>
         <!-- END ACCORDION -->
+
 
     </div>
 </div>

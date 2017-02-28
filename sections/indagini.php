@@ -129,7 +129,7 @@ for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.via.'.$i, $centriVia[$i]);
     $pag_indagini -> set_var('centro.citta.'.$i, $centriCitta[$i]);
     $pag_indagini -> set_var('centro.tipo.'.$i, $centriTipo[$i]);
-    $pag_indagini -> set_var('centro.mail.'.$i, $indaginiAllegato[$i]);
+    $pag_indagini -> set_var('centro.mail.'.$i, $centriEmail[$i]);
     $pag_indagini -> set_var('centro.responsabileId.'.$i, $centriIdCpp[$i]);
     $responsabileNome = getInfo('nome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);
     $responsabileCognome = getInfo('cognome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);

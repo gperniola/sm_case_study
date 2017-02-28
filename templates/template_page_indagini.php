@@ -1045,7 +1045,6 @@ else
                                     </div>	<!--paneldanger-->
                                 </div>	<!--col lg12-->
                             </div>
-                        </div><br>
                         </div><!--row-->
                     </div>
                 </div>

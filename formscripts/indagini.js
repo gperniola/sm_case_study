@@ -250,6 +250,13 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click', "button.btn-messaggio", function () {
+        var id = $(this).attr('id');
+        var careprovider = document.getElementById("careproviderStudio" + id).getAttribute('data-nome');
+        $('#sendToUser').val(careprovider);
+
+    });
+
 
 
 	/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */

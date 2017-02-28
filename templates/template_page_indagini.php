@@ -174,7 +174,8 @@ else
             $array_centri[$n_s + 6] = $this->get_var('centro.responsabileId.'.$i);
             $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
             $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
-            $n_s = $n_s + 9;
+            $array_centri[$n_s + 9] = $this->get_var('centro.contatti.'.$i);
+            $n_s = $n_s + 10;
         }
 
 
@@ -934,19 +935,20 @@ else
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php   //popolamento tabella indagini richieste
-                                                for($i = 0; $i < $n_s; $i+=9) {
+                                                <?php   //popolamento tabella studi specialistici
+                                                $link = $this->get_var('link_mostratutti');
+                                                for($i = 0; $i < $n_s; $i+=10) {
                                                     echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
                                                     echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
-                                                    echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . ', ' . $array_centri[$i + 3] . '</td>';
-                                                    echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 4] . '</td>';
+                                                    echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . '<br>' . $array_centri[$i + 3] . '</td>';
+                                                    echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 9] . '</td>';
                                                     echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
                                                     <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
 													<i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
-                                                    echo '<td style="text-align:center"><a href="mailto:'. $array_centri[$i + 5].'">
-                                                    <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
-													<i class="icon-envelope"></i></button></a></td>
-													
+                                                    echo '<td ><a data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                    <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
+													<i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
+													<div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"</td>
 													</tr>';
                                                 }
                                                 ?>

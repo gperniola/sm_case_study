@@ -135,6 +135,12 @@ for($i=0; $i<$m; $i++){
     $responsabileCognome = getInfo('cognome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);
     $pag_indagini -> set_var('centro.responsabileNome.'.$i, $responsabileNome);
     $pag_indagini -> set_var('centro.responsabileCognome.'.$i, $responsabileCognome);
+    $contattiTel = getArray('telefono', 'telefonocentriindagini', 'idCentroIndagini=' .$centriId[$i]);
+    $numeriTelefono = "";
+    foreach($contattiTel as $tel)
+        $numeriTelefono = '<a href="tel:'.$tel.'"><i class="glyphicon glyphicon-earphone" ></i> '. $tel . '<br>' . $numeriTelefono;
+
+    $pag_indagini -> set_var('centro.contatti.'.$i, $numeriTelefono);
 }
 $pag_indagini -> set_var('centriNum', $m);
 

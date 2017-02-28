@@ -128,7 +128,14 @@ for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.nome.'.$i, $centriNome[$i]);
     $pag_indagini -> set_var('centro.via.'.$i, $centriVia[$i]);
     $pag_indagini -> set_var('centro.citta.'.$i, $centriCitta[$i]);
-    $pag_indagini -> set_var('centro.tipo.'.$i, $centriTipo[$i]);
+    if ($centriTipo[$i] == "Studio specialistico")
+        $pag_indagini -> set_var('centro.tipo.'.$i, 0);
+    else if ($centriTipo[$i] == "Studio radiologico")
+        $pag_indagini -> set_var('centro.tipo.'.$i, 1);
+    else if ($centriTipo[$i] == "Laboratorio analisi")
+        $pag_indagini -> set_var('centro.tipo.'.$i, 2);
+    else
+        $pag_indagini -> set_var('centro.tipo.'.$i, 3);
     $pag_indagini -> set_var('centro.mail.'.$i, $centriEmail[$i]);
     $pag_indagini -> set_var('centro.responsabileId.'.$i, $centriIdCpp[$i]);
     $responsabileNome = getInfo('nome', 'careproviderpersona', 'id='.$centriIdCpp[$i]);

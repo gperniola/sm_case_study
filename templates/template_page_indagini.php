@@ -207,55 +207,38 @@ else
 
         // --------------------------------------
         ?>
-
-        <!-- <link rel="stylesheet" href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="formscripts/jquery.js"></script>
-        <script src="assets/js/moment.js"></script>
-        <!-- <script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
-         <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src="formscripts/jquery-ui.js"></script>
-        <script src="formscripts/indagini.js"></script> -->
-
-
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="assets/js/moment-with-locales.min.js"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
         <script src="formscripts/jquery-ui.js"></script>
         <script src="formscripts/indagini.js"></script>
 
 
-        <h2>Indagini diagnostiche</h2><hr>
+        <h2>Indagini diagnostiche</h2>
+        <hr>
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
         l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
         <hr/>
        <!-- ACCORDION -->
         <div class="accordion ac" id="accordion">
             <div class="accordion-group">
-                <div class="accordion-heading centered">
-                    <h3>
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            Diario indagini diagnostiche
-                            <span ><i  class="icon-angle-down"></i></span>
-                        </a>
-                    </h3>
-                </div>
+                <h3><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Diario indagini diagnostiche<span ><i  class="icon-angle-down"></i></span></a>
+                </h3>
                 <div id="collapse1" class="acordion-body collapse">
-                    <div class="accordion-inner">
         <div class="row">
             <div class="col-lg-12">
-                <hr>
-
                 <div class="row">
                     <div class="col-lg-12" >
                         <div class="btn-group">
                             <button class="btn btn-primary" id="nuovoFile"><i class="icon-file-text-alt"></i> Nuova indagine</button>
                             <button class="btn btn-primary" id="concludi"><i class="icon-ok-sign"></i> Concludi indagine</button>
                             <button class="btn btn-primary" id="annulla"><i class="icon-trash"></i> Annulla indagine</button>
-                        </div></div></div>
+                        </div>
+                    </div>
+                </div>
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
@@ -925,7 +908,6 @@ else
                 </div><br>
             </div><!--col-lg-12-->
         </div>
-                    </div>
                 </div>
             </div>
         <hr />
@@ -940,32 +922,69 @@ else
                 </div>
                 <div id="collapse2" class="acordion-body collapse">
                     <div class="accordion-inner">
-                        <!--elenco dei careproviders che effettuano indagini diagnostiche-->
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
                                 <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Studi specialistici</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
-                            <div class="col-lg-4">
-                                <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Studi Radiologici</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
-                            <div class="col-lg-4">
-                                <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Laboratori Analisi</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
+                                    <div class="panel-heading">Studi Specialistici</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableStudiSpecialistici">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">Studi Radiologici</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableStudiRadiologici">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">Laboratori Analisi</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableLaboratoriAnalisi">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
+                        </div><br>
                         </div><!--row-->
                     </div>
                 </div>

@@ -115,13 +115,14 @@ $pag_indagini -> set_var('careproviderNum', $v);
 /******************************************************************************
  * ESTRAGGO I CENTRI DIAGNOSTICI
  ******************************************************************************/
-$centriId = getArrayNoCondition('id', 'centriindagini');
-$centriNome = getArrayNoCondition('nomeStudio', 'centriindagini');
-$centriVia = getArrayNoCondition('via', 'centriindagini');
-$centriCitta = getArrayNoCondition('citta', 'centriindagini');
-$centriTipo = getArrayNoCondition('tipoCentro', 'centriindagini');
-$centriEmail = getArrayNoCondition('mail', 'centriindagini');
-$centriIdCpp = getArrayNoCondition('idcpp', 'centriindagini');
+$centriId = getArrayNoCondition('id', 'centriindagini ORDER BY id');
+$centriIdCpp = getArrayNoCondition('idcpp', 'centriindagini ORDER BY id');
+$centriNome = getArrayNoCondition('nomeStudio', 'centriindagini ORDER BY id');
+$centriVia = getArrayNoCondition('via', 'centriindagini ORDER BY id');
+$centriCitta = getArrayNoCondition('citta', 'centriindagini ORDER BY id');
+$centriTipo = getArrayNoCondition('tipoCentro', 'centriindagini ORDER BY id');
+$centriEmail = getArrayNoCondition('mail', 'centriindagini ORDER BY id');
+
 $m = count($centriId);
 for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.id.'.$i, $centriId[$i]);

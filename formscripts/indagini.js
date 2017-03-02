@@ -165,7 +165,6 @@ $(document).ready(function(){
                 function(status){
                     $('#formIndagini')[0].reset();
                     //alert("Status: " + status);
-                    window.location.href = "#collapse1";
                     window.location.reload();
                     //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
@@ -239,6 +238,7 @@ $(document).ready(function(){
                 function(status){
                     //$('#formD')[0].reset();
                     //alert("Status: " + status);
+                    window.location.reload();
                 });
 
             //var id = $(this).attr('id');
@@ -344,7 +344,6 @@ $(document).ready(function(){
                     $('#formIndagini')[0].reset();
                     //alert("Status: " + status);
                     //html5.append(status);
-                    window.location.href = "#collapse1";
                     window.location.reload();
                     //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');

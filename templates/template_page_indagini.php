@@ -216,19 +216,30 @@ else
         <script src="formscripts/indagini.js"></script>
 
 
-        <h2>Indagini diagnostiche</h2>
+
         <hr>
+        <h2>Indagini diagnostiche</h2>
+
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
-        l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
+            l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
         <hr/>
+
        <!-- ACCORDION -->
-        <div class="accordion ac" id="accordion">
-            <div class="accordion-group">
-                <h3><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        Diario indagini diagnostiche<span ><i  class="icon-angle-down"></i></span></a>
-                </h3>
-                <div id="collapse1" class="acordion-body collapse">
-        <div class="row">
+        <div class="panel-group ac" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading row">
+                    <div class="col-lg-6"><h3>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                Diario indagini diagnostiche</a><span ><i style="color:#6b9cea"  class="icon-angle-down"></i></span>
+                        </h3></div>
+                    <div class="col-lg-6"><h3>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            Centri indagini diagnostiche</a><span ><i style="color:#6b9cea" class="icon-angle-down"></i></span>
+                        </h3></div>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <hr/>
+                    <div class="row">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12" >
@@ -913,19 +924,8 @@ else
             </div><!--col-lg-12-->
         </div>
                 </div>
-            </div>
-        <hr />
-            <div class="accordion-group">
-                <div class="accordion-heading centered">
-                    <h3>
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            Centri indagini diagnostiche
-                            <span ><i  class="icon-angle-down"></i></span>
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapse2" class="acordion-body collapse">
-                    <div class="accordion-inner">
+                <div id="collapse2" class="panel-collapse collapse">
+                    <hr/>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-warning">
@@ -1043,7 +1043,6 @@ else
                                 </div>	<!--col lg12-->
                             </div>
                         </div><!--row-->
-                    </div>
                 </div>
             </div>
         </div>

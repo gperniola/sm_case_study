@@ -146,7 +146,7 @@ for($i=0; $i<$m; $i++){
     $contattiTel = getArray('telefono', 'telefonocentriindagini', 'idCentroIndagini=' .$centriId[$i]);
     $numeriTelefono = "";
     foreach($contattiTel as $tel)
-        $numeriTelefono = '<a href="tel:'.$tel.'"><i class="glyphicon glyphicon-earphone" ></i> '. $tel . '<br>' . $numeriTelefono;
+        $numeriTelefono = '<a href="tel:'.$tel.'"><i class="glyphicon glyphicon-earphone" ></i> '. $tel . '</a><br>' . $numeriTelefono;
 
     $pag_indagini -> set_var('centro.contatti.'.$i, $numeriTelefono);
 }

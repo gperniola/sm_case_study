@@ -216,31 +216,30 @@ else
         <script src="formscripts/indagini.js"></script>
 
 
-        <h2>Indagini diagnostiche</h2>
+
         <hr>
+        <h2>Indagini diagnostiche</h2>
+
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
-        l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
+            l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
         <hr/>
-
-
-
-
 
        <!-- ACCORDION -->
         <div class="panel-group ac" id="accordion">
             <div class="panel panel-default">
-                <div class="panel-heading">
-
-                        <h3>
+                <div class="panel-heading row">
+                    <div class="col-lg-6"><h3>
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            Diario indagini diagnostiche</a><span ><i style="color:#6b9cea"  class="icon-angle-down"></i></span>
+                                Diario indagini diagnostiche</a><span ><i style="color:#6b9cea"  class="icon-angle-down"></i></span>
+                        </h3></div>
+                    <div class="col-lg-6"><h3>
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                             Centri indagini diagnostiche</a><span ><i style="color:#6b9cea" class="icon-angle-down"></i></span>
-                        </h3>
-                   
+                        </h3></div>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
-        <div class="row">
+                    <hr/>
+                    <div class="row">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12" >
@@ -926,7 +925,7 @@ else
         </div>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
-                    <div class="accordion-inner">
+                    <hr/>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-warning">
@@ -1044,7 +1043,6 @@ else
                                 </div>	<!--col lg12-->
                             </div>
                         </div><!--row-->
-                    </div>
                 </div>
             </div>
         </div>

@@ -175,13 +175,6 @@ else
             $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
             $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
             $array_centri[$n_s + 9] = $this->get_var('centro.contatti.'.$i);
-
-            echo '<script>alert("'.$array_centri[$n_s + 1].' '.$array_centri[$n_s + 7].' '.$array_centri[$n_s + 8].' ")
-
-</script>';
-
-
-
             $n_s = $n_s + 10;
         }
 
@@ -286,15 +279,17 @@ else
                                     <div class="col-lg-4">
                                         <select id="motivoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
+                                            <optgroup label="Diagnosi del paziente">
                                             <?php
                                             for($i = 0; $i < $n_z; $i +=4 ){
                                                 if($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$i+3] ){
-                                                    echo '<option value="'.$array_diagnosi[$i+0] .'">Diagnosi: ' .$array_diagnosi[$i+2] .'  ('
-                                                        .$array_diagnosi[$i+1].')</option>';
+                                                    echo '<option value="'.$array_diagnosi[$i+0] .'">' .$array_diagnosi[$i+1] .' - '
+                                                        .$array_diagnosi[$i+2].'</option>';
                                                 }
                                             }
                                             ?>
-                                            <option value=''>Altro..</option>
+                                            </optgroup>
+                                            <option value=''>Altra Motivazione..</option>
                                         </select>
                                         <input id="motivoAltro_new" type="text" placeholder="Inserire motivazione.."  class="form-control"/>
                                     </div>
@@ -310,13 +305,15 @@ else
                                         else
                                             echo '<select id="careproviderIndagine_new" class="form-control">';
                                         echo '<option selected hidden style="display: none" value="placeholder">Selezionare una careprovider..</option>';
+                                        echo '<optgroup label="Careproviders registrati">';
                                         for($i = 0; $i < $n_v; $i +=3 ){
                                             if($SelfCareproviderId == $array_careprovider[$i+0])
                                                 echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
                                             else
                                                 echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
                                         }
-                                        echo '<option value="">Altro..</option></select>';
+                                        echo '</optgroup>';
+                                        echo '<option value="">Nuovo careprovider..</option></select>';
                                         if ($role == "cp")
                                             echo '<input disabled id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>';
                                         else
@@ -345,7 +342,7 @@ else
                                         <select id="centroIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="placeholder">Selezionare un centro..</option>
                                             <?php
-                                            for($i = 0; $i < $n_s; $i +=9 ){
+                                            for($i = 0; $i < $n_s; $i +=10 ){
                                                 echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .',  '
                                                     .$array_centri[$i+3].'</option>';
                                             }
@@ -481,13 +478,13 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
+                                                                            <option selected value=\'\'>Altra motivazione..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_richieste[$i + 15])
-                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                             else
-                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                         }
                                                                                     }
                                                                                 echo '
@@ -535,7 +532,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                                                        for($k = 0; $k < $n_s; $k +=9 ){
+                                                                        for($k = 0; $k < $n_s; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_richieste[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -617,7 +614,7 @@ else
                                             echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
                                             echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+16] . '</td>';
                                             echo '<td id="dataProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+4] . '</td>';
-                                            echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . ' - ' .
+                                            echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . '<br>' .
                                                 $array_programmate[$i+14] . '</td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
@@ -646,9 +643,9 @@ else
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_programmate[$i + 15])
-                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                             else
-                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                         }
                                                                                     }
                                                                                 echo '
@@ -696,7 +693,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
                                                                         <option selected hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
-                                                                            for($k = 0; $k < $n_s; $k +=9 ){
+                                                                            for($k = 0; $k < $n_s; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_programmate[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -805,9 +802,9 @@ else
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_completate[$i + 15])
-                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                             else
-                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
                                                                                         }
                                                                                     }
                                                                                 echo '
@@ -855,7 +852,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                            for($k = 0; $k < $n_s; $k +=9 ){
+                                            for($k = 0; $k < $n_s; $k +=10 ){
                                                 if( $array_centri[$k+0] == $array_completate[$i+11])
                                                     echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                 else
@@ -953,10 +950,10 @@ else
                                                         echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
                                                         <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
                                                         <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
-                                                        echo '<td ><a data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
                                                         <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
                                                         <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
-                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"</td>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
                                                         </tr>';
                                                     }
                                                 }
@@ -992,10 +989,10 @@ else
                                                         echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
                                                         <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
                                                         <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
-                                                        echo '<td ><a data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
                                                         <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
                                                         <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
-                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"</td>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
                                                         </tr>';
                                                     }
                                                 }
@@ -1031,10 +1028,10 @@ else
                                                         echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
                                                         <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
                                                         <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
-                                                        echo '<td ><a data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
                                                         <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
                                                         <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
-                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"</td>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
                                                         </tr>';
                                                     }
                                                 }

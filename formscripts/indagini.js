@@ -164,8 +164,9 @@ $(document).ready(function(){
                 },
                 function(status){
                     $('#formIndagini')[0].reset();
-                    alert("Status: " + status);
-                    location.reload();
+                    //alert("Status: " + status);
+                    window.location.href = "#collapse1";
+                    window.location.reload();
                     //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
                 });
@@ -250,11 +251,10 @@ $(document).ready(function(){
 
     });
 
-    $(document).on('click', "button.btn-messaggio", function () {
+    $(document).on('click', "a.a-messaggio", function () {
         var id = $(this).attr('id');
         var careprovider = document.getElementById("careproviderStudio" + id).getAttribute('data-nome');
         $('#sendToUser').val(careprovider);
-
     });
 
 
@@ -344,7 +344,8 @@ $(document).ready(function(){
                     $('#formIndagini')[0].reset();
                     //alert("Status: " + status);
                     //html5.append(status);
-                    location.reload();
+                    window.location.href = "#collapse1";
+                    window.location.reload();
                     //$("#collapse1").collapse('show');
                     //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
                 });

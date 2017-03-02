@@ -66,7 +66,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
     if ($indaginiData[$i] != NULL)
         //$newDate = date("d/m/Y H:i", strtotime($indaginiData[$i]));
-        $newDate = (new DateTime($indaginiData[$i]))->format('d/m/Y H:i');
+        $newDate = (new DateTime($indaginiData[$i]))->format('d/m/Y<\b\r>H:i');
     else
         $newDate = "";
     $pag_indagini -> set_var('ind.data.'.$i, $newDate);
@@ -163,7 +163,8 @@ $diagnosiConf = getArray('conf', 'diagnosi','stato < 3 AND idPaziente='.$idPazie
 $z = count($diagnosiId);
 for($i=0; $i<$z; $i++){
     $pag_indagini -> set_var('diagnosi.id.'.$i, $diagnosiId[$i]);
-    $pag_indagini -> set_var('diagnosi.data.'.$i,  italianFormat($diagnosiData[$i]));
+    $newDate = (new DateTime($diagnosiData[$i]))->format('d/m/y');
+    $pag_indagini -> set_var('diagnosi.data.'.$i,  $newDate);
     $pag_indagini -> set_var('diagnosi.patologia.'.$i, $diagnosiPatologia[$i]);
     $pag_indagini -> set_var('diagnosi.conf.'.$i, $diagnosiConf[$i]);
 }

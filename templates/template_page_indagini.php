@@ -221,6 +221,45 @@ else
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
         l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
         <hr/>
+
+
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            Collapsible Group 1</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            Collapsible Group 2</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            Collapsible Group 3</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.</div>
+                </div>
+
+
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.</div>
+                </div>
+
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.</div>
+                </div>
+            </div>
+        </div>
+
+
        <!-- ACCORDION -->
         <div class="accordion ac" id="accordion">
             <div class="accordion-group">

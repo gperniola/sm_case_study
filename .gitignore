@@ -16,6 +16,7 @@ templates/*
 !templates/template_menu.php
 !templates/template_page_indagini.php
 !templates/template_page_vaccinazioni.php
+!templates/template_page_files.php
 
 !modello PBAC/
 modello PBAC/*

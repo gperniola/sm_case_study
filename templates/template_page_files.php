@@ -225,12 +225,12 @@
 															<br><br>
 															<label for "conf_1">visibilità</label>
 															<select name="conf_1">
-																	<option value="nessuna">nessuna restrizione</option>
-																	<option value="basso">basso</option>
-																	<option value="moderato">moderato</option>
-																	<option value="normale" >normale</option>
-																	<option value="riservato" selected = "true">riservato</option>
-																	<option value="strettamente"> strettamente riservato</option>
+																	<option value="1">nessuna restrizione</option>
+																	<option value="2">basso</option>
+																	<option value="3">moderato</option>
+																	<option value="4" >normale</option>
+																	<option value="5" selected = "true">riservato</option>
+																	<option value="6"> strettamente riservato</option>
 															  </select>
 															  <br> <br>
 															<input  type = "hidden" name = "fileClass1" value = "1"/> <!--classe per le foto -->
@@ -261,12 +261,12 @@
 														<br><br>
 														<label for "conf_1">visibilità</label>
 														<select name="conf_1">
-																<option value="nessuna">nessuna restrizione</option>
-																<option value="basso">basso</option>
-																<option value="moderato">moderato</option>
-																<option value="normale" >normale</option>
-																<option value="riservato" selected = "true">riservato</option>
-																<option value="strettamente"> strettamente riservato</option>
+																<option value="1">nessuna restrizione</option>
+																<option value="2">basso</option>
+																<option value="3">moderato</option>
+																<option value="4" >normale</option>
+																<option value="5" selected = "true">riservato</option>
+																<option value="6"> strettamente riservato</option>
 														  </select>
 														  <br> <br>
 														<input  type = "hidden" name = "fileClass2" value = "2"/> <!--classe per i video non diagnostici -->
@@ -300,12 +300,12 @@
 															<br><br>
 															<label for "conf_1">visibilità</label>
 															<select name="conf_1">
-																	<option value="nessuna">nessuna restrizione</option>
-																	<option value="basso">basso</option>
-																	<option value="moderato">moderato</option>
-																	<option value="normale" >normale</option>
-																	<option value="riservato" selected = "true">riservato</option>
-																	<option value="strettamente"> strettamente riservato</option>
+																	<option value="1">nessuna restrizione</option>
+																	<option value="2">basso</option>
+																	<option value="3">moderato</option>
+																	<option value="4" >normale</option>
+																	<option value="5" selected = "true">riservato</option>
+																	<option value="6"> strettamente riservato</option>
 															  </select>
 															  <br> <br>
 															<input  type = "hidden" name = "fileClass3" value = "3"/> <!--classe per le registrazioni -->
@@ -336,12 +336,12 @@
 														<br><br>
 														<label for "conf_1">visibilità</label>
 														<select name="conf_1">
-																<option value="nessuna">nessuna restrizione</option>
-																<option value="basso">basso</option>
-																<option value="moderato">moderato</option>
-																<option value="normale" >normale</option>
-																<option value="riservato" selected = "true">riservato</option>
-																<option value="strettamente"> strettamente riservato</option>
+																<option value="1">nessuna restrizione</option>
+																<option value="2">basso</option>
+																<option value="3">moderato</option>
+																<option value="4" >normale</option>
+																<option value="5" selected = "true">riservato</option>
+																<option value="6"> strettamente riservato</option>
 														  </select>
 														  <br> <br>
 														<input  type = "hidden" name = "fileClass5" value = "5"/> <!--classe per video diagnostici -->
@@ -377,12 +377,12 @@
 													<br><br>
 													<label for "conf_1">visibilità</label>
 													<select name="conf_1">
-															<option value="nessuna">nessuna restrizione</option>
-															<option value="basso">basso</option>
-															<option value="moderato">moderato</option>
-															<option value="normale" >normale</option>
-															<option value="riservato" selected = "true">riservato</option>
-															<option value="strettamente"> strettamente riservato</option>
+															<option value="1">nessuna restrizione</option>
+															<option value="2">basso</option>
+															<option value="3">moderato</option>
+															<option value="4" >normale</option>
+															<option value="5" selected = "true">riservato</option>
+															<option value="6"> strettamente riservato</option>
 													  </select>
 													  <br> <br>
 													<input  type = "hidden" name = "fileClass4" value = "4"/> <!--classe per files dicom -->
@@ -416,12 +416,12 @@
 												<br><br>
 												<label for "conf_1">visibilità</label>
 												<select name="conf_1">
-														<option value="nessuna">nessuna restrizione</option>
-														<option value="basso">basso</option>
-														<option value="moderato">moderato</option>
-														<option value="normale" >normale</option>
-														<option value="riservato" selected = "true">riservato</option>
-														<option value="strettamente"> strettamente riservato</option>
+														<option value="1">nessuna restrizione</option>
+														<option value="2">basso</option>
+														<option value="3">moderato</option>
+														<option value="4" >normale</option>
+														<option value="5" selected = "true">riservato</option>
+														<option value="6"> strettamente riservato</option>
 												  </select>
 												  <br> <br>
 												<input  type = "hidden" name = "fileClass6" value = "6"/> <!--classe per scansioni referti, lettere di dimissioni -->

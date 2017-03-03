@@ -205,6 +205,12 @@
 											<h2>Documenti di testo</h2>
 										</a>
 									</div><!--col-lg-4-->
+                                    <hr>
+                                    <div class="col-lg-4">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#collapseTwo_A" href="#collapseReferti">
+                                            <h2>Referti indagini diagn.</h2>
+                                        </a>
+                                    </div><!--col-lg-4-->
 									
 								</div><!--row-->
 								
@@ -434,6 +440,48 @@
 								</div>	<!--panelwarning-->	
 							</div>	<!--col lg12-->	
 							</div> <!--collapse Documents-->
+
+                            <div id = "collapseReferti" class="accordion-body collapse" >
+                                <div class="col-lg-12">
+                                    <div class="panel panel-info">
+                                        <div class="panel-body">
+                                            <h3>referti-lettere di dimissione</h3>
+                                            <h4>scansione di documenti clinici</h4>
+                                            <p>accetta i formati: pdf, doc, docx ,txt, odt.
+                                                Nel caso i files contengano informazioni sensibili &egrave raccomandata la protezione con password.</p>
+                                            <hr/>
+                                            <form method = "post" action = "../files/uploadFiles.php" enctype = "multipart/form-data">
+                                                <input  type = "file" name = "nomefile"/>
+                                                <br>
+                                                <label for "comm">Note sul file caricato:
+                                                </label>
+                                                <textarea name="comm"  cols = "60" rows = "2"  >
+												</textarea>
+                                                <br><br>
+                                                <label for "conf_1">visibilità</label>
+                                                <select name="conf_1">
+                                                    <option value="1">nessuna restrizione</option>
+                                                    <option value="2">basso</option>
+                                                    <option value="3">moderato</option>
+                                                    <option value="4" >normale</option>
+                                                    <option value="5" selected = "true">riservato</option>
+                                                    <option value="6"> strettamente riservato</option>
+                                                </select>
+                                                <br> <br>
+                                                <input  type = "hidden" name = "fileClass6" value = "6"/> <!--classe per scansioni referti, lettere di dimissioni -->
+                                                <input  type = "hidden" name = "idPaz" value = "<?php echo $pz_id; ?>" />
+                                                <input  type = "hidden" name = "id_prop" value = "<?php echo $id_prop; ?>"  />
+                                                <input type = "submit" name = "invia" value = "Invia"/>
+                                                <input type='reset' value='Reset' name='reset'>
+                                            </form>
+                                        </div>	<!--panelbody-->
+                                    </div>	<!--panelwarning-->
+                                </div>	<!--col lg12-->
+                            </div> <!--collapse Documents-->
+
+
+
+
 						</div>	<!--row-->
 							</div><!--fine accordion heading centered collapseTwo_A-->
 						</div><!--fine accordion-group collapseTwo_A-->

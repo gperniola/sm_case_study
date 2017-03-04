@@ -52,8 +52,8 @@ $pag_indagini -> set_var('mioCpCognome', $cpCognome);
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiData = getArray('dataIndagine', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
-$indaginiReferto = getArray('referto', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
-$indaginiAllegato = getArray('allegato', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiRefertoId = getArray('referto', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
+$indaginiAllegatoId = getArray('allegato', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiCp = getArray('idcpp', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiCentro = getArray('idStudioIndagini', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiMotivo = getArray('motivo', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
@@ -64,14 +64,34 @@ $n = count($indaginiId);
 for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
+
     if ($indaginiData[$i] != NULL)
         //$newDate = date("d/m/Y H:i", strtotime($indaginiData[$i]));
         $newDate = (new DateTime($indaginiData[$i]))->format('d/m/Y<\b\r>H:i');
     else
         $newDate = "";
     $pag_indagini -> set_var('ind.data.'.$i, $newDate);
-    $pag_indagini -> set_var('ind.referto.'.$i, $indaginiReferto[$i]);
-    $pag_indagini -> set_var('ind.allegato.'.$i, $indaginiAllegato[$i]);
+
+    $refertoNome = getInfo('nomeFile', 'files', 'idFiles='.$indaginiRefertoId[$i]);
+    $refertoData = getInfo('dataCreazione', 'files', 'idFiles='.$indaginiRefertoId[$i]);
+    $refertoPath = getInfo('path', 'files', 'idFiles='.$indaginiRefertoId[$i]);
+    $refertoConf = getInfo('codConfidenzialita', 'files', 'idFiles='.$indaginiRefertoId[$i]);
+    $pag_indagini -> set_var('ind.refertoId.'.$i, $indaginiRefertoId[$i]);
+    $pag_indagini -> set_var('ind.refertoNome.'.$i, $refertoNome);
+    $pag_indagini -> set_var('ind.refertoData.'.$i, $refertoData);
+    $pag_indagini -> set_var('ind.refertoPath.'.$i, $refertoPath);
+    $pag_indagini -> set_var('ind.refertoConc.'.$i, $refertoConf);
+
+    $allegatoNome = getInfo('nomeFile', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
+    $allegatoData = getInfo('dataCreazione', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
+    $allegatoPath = getInfo('path', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
+    $allegatoConf = getInfo('codConfidenzialita', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
+    $pag_indagini -> set_var('ind.allegatoId.'.$i, $indaginiAllegatoId[$i]);
+    $pag_indagini -> set_var('ind.allegatoNome.'.$i, $allegatoNome);
+    $pag_indagini -> set_var('ind.allegatoData.'.$i, $allegatoData);
+    $pag_indagini -> set_var('ind.allegatoPath.'.$i, $allegatoPath);
+    $pag_indagini -> set_var('ind.allegatoConc.'.$i, $allegatoConf);
+
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
     $pag_indagini -> set_var('ind.careprovider.'.$i, $indaginiCareprovider[$i]);
     $careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$indaginiCp[$i]);
@@ -80,6 +100,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.cpNome.'.$i, $careproviderNome);
     $pag_indagini -> set_var('ind.cpCognome.'.$i, $careproviderCognome);
     $pag_indagini -> set_var('ind.cpRep.'.$i, $careproviderRep);
+
     $pag_indagini -> set_var('ind.centroId.'.$i, $indaginiCentro[$i]);
     $centroNome = getInfo('nomeStudio', 'centriindagini', 'id='.$indaginiCentro[$i]);
     $centroVia = getInfo('via', 'centriindagini', 'id='.$indaginiCentro[$i]);
@@ -87,6 +108,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.centroNome.'.$i, $centroNome);
     $pag_indagini -> set_var('ind.centroVia.'.$i, $centroVia);
     $pag_indagini -> set_var('ind.centroCitta.'.$i, $centroCitta);
+
     $pag_indagini -> set_var('ind.motivo.'.$i, $indaginiMotivo[$i]);
     $pag_indagini -> set_var('ind.stato.'.$i, $indaginiStato[$i]);
     $pag_indagini -> set_var('ind.idDiagno.'.$i, $indaginiIdDiagnosi[$i]);
@@ -169,6 +191,28 @@ for($i=0; $i<$z; $i++){
     $pag_indagini -> set_var('diagnosi.conf.'.$i, $diagnosiConf[$i]);
 }
 $pag_indagini -> set_var('diagnosiNum', $z);
+
+
+/******************************************************************************
+ * ESTRAGGO FILE E REFERTI COLLEGATI AL PAZIENTE
+ ******************************************************************************/
+$filesId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
+$filesData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
+$filesConf = getArray('codConfidenzialita', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
+$filesNome = getArray('nomeFile', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
+$filesPath = getArray('path', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
+$f = count($filesId);
+
+for($i=0; $i<$f; $i++){
+    $pag_indagini -> set_var('files.id.'.$i, $filesId[$i]);
+    $newDate = (new DateTime($filesData[$i]))->format('d/m/y');
+    $pag_indagini -> set_var('files.data.'.$i,  $newDate);
+    $pag_indagini -> set_var('files.conf.'.$i, $filesConf[$i]);
+    $pag_indagini -> set_var('files.nome.'.$i, $filesNome[$i]);
+    $pag_indagini -> set_var('files.path.'.$i, $filesPath[$i]);
+}
+$pag_indagini -> set_var('filesNum', $f);
+
 
 
 

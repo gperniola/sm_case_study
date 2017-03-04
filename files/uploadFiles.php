@@ -50,6 +50,8 @@ $username = empty($_POST['username']) ? '' : $_POST['username'];
 			$fileClass = 5;	
 		if ( isset ($_POST["fileClass6"]))
 			$fileClass = 6;
+        if ( isset ($_POST["fileClass7"]))
+            $fileClass = 7;
 		
 		if ( isset ($_POST["conf_1"])) 
 			$conf = $_POST["conf_1"]; // viene settata la riservatezza con le stringhe passate col post
@@ -102,6 +104,12 @@ $username = empty($_POST['username']) ? '' : $_POST['username'];
 				$uploadPath = $uploadPath . "scansioni/";
 			else $formatoErrato = TRUE;
 			break;
+
+            case 7 :
+                if ( controllaFormato($nome, 7) )
+                    $uploadPath = $uploadPath . "refertiIndagini/";
+                else $formatoErrato = TRUE;
+                break;
 			
 		}//fine del switch $fileClass
 		

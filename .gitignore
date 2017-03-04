@@ -50,5 +50,6 @@ files/*
 !files/uploads/
 files/uploads/*
 !files/uploads/refertiIndagini/
-
+files/uploads/refertiIndagini/*
+!files/uploads/refertiIndagini/.gitkeep
 

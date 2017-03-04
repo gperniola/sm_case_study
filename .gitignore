@@ -41,3 +41,8 @@ assets/*
 !assets/js/
 assets/js/*
 !assets/js/moment-with-locales.min.js
+
+!files/
+files/*
+files/uploads/*
+!files/uploadFiles.php

@@ -35,6 +35,7 @@ function controllaFormato ( $nomeFile,$fileClass ){
 	global $formato_class4;
 	global $formato_class5;
 	global $formato_class6;
+	global $formato_class7; // referti indagini diagnostiche
 	
 	switch ( $fileClass)
 	{
@@ -89,6 +90,16 @@ function controllaFormato ( $nomeFile,$fileClass ){
 					return TRUE;
 			}	 
 				return FALSE;
+        /**
+         * Added 04/03/17 per modulo indagini: controllo file per referti indagini
+         */
+        case 7 :
+            foreach ( $formato_class7 as $formato)
+            {
+                if (strrpos($nomeFile, $formato))
+                    return TRUE;
+            }
+            return FALSE;
 	}
 	
 }//fine di controllaFormato

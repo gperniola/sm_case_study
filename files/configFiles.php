@@ -16,6 +16,10 @@
 	$formato_class4 = array ( ".exe",".bat" );//da verificare non avendo trovato un'estensione per dicom si escludono le estensione .exe e .bat
 	$formato_class5 = array (".3gp", ".DivX", ".MPEG", ".MOV", ".wlmp",".wmv" );
 	$formato_class6 = array ( ".pdf", ".doc", ".docx" ,".txt", ".odt");
+/**
+ * Added 04/03/17 per modulo indagini: class7 per referti indagini
+ */
+    $formato_class7 = array ( ".pdf", ".doc", ".docx" ,".txt", ".odt");
 	
 	$tipo_immagine = array ("jpeg","gif", "png" , "JPG" , ".jpg" );
 ?>

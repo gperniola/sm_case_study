@@ -445,8 +445,7 @@
                                 <div class="col-lg-12">
                                     <div class="panel panel-info">
                                         <div class="panel-body">
-                                            <h3>referti-lettere di dimissione</h3>
-                                            <h4>scansione di documenti clinici</h4>
+                                            <h3>Referti per indagini diagnostiche</h3>
                                             <p>accetta i formati: pdf, doc, docx ,txt, odt.
                                                 Nel caso i files contengano informazioni sensibili &egrave raccomandata la protezione con password.</p>
                                             <hr/>
@@ -468,7 +467,7 @@
                                                     <option value="6"> strettamente riservato</option>
                                                 </select>
                                                 <br> <br>
-                                                <input  type = "hidden" name = "fileClass6" value = "6"/> <!--classe per scansioni referti, lettere di dimissioni -->
+                                                <input  type = "hidden" name = "fileClass7" value = "7"/> <!--classe per scansioni referti, lettere di dimissioni -->
                                                 <input  type = "hidden" name = "idPaz" value = "<?php echo $pz_id; ?>" />
                                                 <input  type = "hidden" name = "id_prop" value = "<?php echo $id_prop; ?>"  />
                                                 <input type = "submit" name = "invia" value = "Invia"/>

@@ -46,3 +46,5 @@ assets/js/*
 files/*
 files/uploads/*
 !files/uploadFiles.php
+!files/funzioniFiles.php
+!files/configFiles.php

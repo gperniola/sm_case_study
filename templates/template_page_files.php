@@ -441,6 +441,7 @@
 							</div>	<!--col lg12-->	
 							</div> <!--collapse Documents-->
 
+                            <!-- ADDED 04/03/17 per modulo indagini: div per inserimento referti indagini diagnostiche -->
                             <div id = "collapseReferti" class="accordion-body collapse" >
                                 <div class="col-lg-12">
                                     <div class="panel panel-info">

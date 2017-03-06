@@ -229,18 +229,20 @@ else
         for ($i = 0; $i < $n_files; $i++) {
             $filePath = $this->get_var('files.path.'.$i);
             if($filePath == "uploads/refertiIndagini/"){
-                $array_referti[$n_f + 0] = $this->get_var('files.id.'.$i);
-                $array_referti[$n_f + 1] = $this->get_var('files.data.'.$i);
-                $array_referti[$n_f + 2] = $this->get_var('files.nome.'.$i);
-                $array_referti[$n_f + 3] = $filePath;
-                $n_ref = $n_ref + 4;
+                $array_referti[$n_ref + 0] = $this->get_var('files.id.'.$i);
+                $array_referti[$n_ref + 1] = $this->get_var('files.data.'.$i);
+                $array_referti[$n_ref + 2] = $this->get_var('files.nome.'.$i);
+                $array_referti[$n_ref + 3] = $filePath;
+                $array_referti[$n_ref + 4] = $this->get_var('files.conf.'.$i);
+                $n_ref = $n_ref + 5;
             }
             else{
-                $array_allegati[$n_f + 0] = $this->get_var('files.id.'.$i);
-                $array_allegati[$n_f + 1] = $this->get_var('files.data.'.$i);
-                $array_allegati[$n_f + 2] = $this->get_var('files.nome.'.$i);
-                $array_allegati[$n_f + 3] = $filePath;
-                $n_all = $n_all + 4;
+                $array_allegati[$n_all + 0] = $this->get_var('files.id.'.$i);
+                $array_allegati[$n_all + 1] = $this->get_var('files.data.'.$i);
+                $array_allegati[$n_all + 2] = $this->get_var('files.nome.'.$i);
+                $array_allegati[$n_all + 3] = $filePath;
+                $array_allegati[$n_all + 4] = $this->get_var('files.conf.'.$i);
+                $n_all = $n_all + 5;
             }
         }
 
@@ -430,7 +432,18 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
                                     <div class="col-lg-4" >
-                                        <input id="referto" type="text"  class="form-control"/>
+                                        <select id="referto_new" class="form-control">
+                                            <option selected hidden style='display: none' value="">Selezionare un file..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_ref; $i +=5 ){
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_referti[$i+4] ){
+                                                    echo '<option value="'.$array_referti[$i+0] .'">' .$array_referti[$i+1] .' - '
+                                                        .$array_referti[$i+2].'</option>';
+                                                }
+                                            }
+                                            ?>
+                                            <option value="">Nessuno</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -438,58 +451,32 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Allegato:</label>
                                     <div class="col-lg-4">
-                                        <input id="allegato" type="text"  class="form-control"y/>
+                                        <select id="allegato_new" class="form-control">
+                                            <option selected hidden style='display: none' value="" >Selezionare un file..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_all; $i +=5 ){
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$i+4] ){
+                                                    echo '<option value="'.$array_allegati[$i+0] .'">' .$array_allegati[$i+1] .' - '
+                                                        .$array_allegati[$i+2].'</option>';
+                                                }
+                                            }
+                                            ?>
+                                            <option value="">Nessuno</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
+                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                    preventivamente nella sezione <strong>Files</strong>.
                                 </div>
                             </div>
-                            <!-- <div id="da_eliminare" style="display:none;">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Care provider:</label>
-                                        <div class="col-lg-4">
-                                            <?php/*
-                                            $sp = ' ';
-                                            if($cp_id != NULL){ // Se sono un care provider
-                                                // Il mio nome è pre-inserito e non può essere cambiato
-                                                echo '<select id="cpD" class="form-control"><option selected value="'.$mioCpId.'">'.$mioCpNome.$sp.$mioCpCognome.'</option></select>';
-                                            }else{
-                                                echo '<select id="cpD" class="form-control">';
-                                                for($i=0; $i<$nCps; $i++){
-                                                    echo '<option value='.$myCpId[$i].'>'.$myCpNome[$i].$sp.$myCpCognome[$i].'</option>';
-                                                }
-                                                echo '<option style="font-style:italic;"value=-1>Inserisci manualmente...</option>';
-                                                echo '</select>';
-                                            }
-                                            */?>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Nome cp:</label>
-                                        <div class="col-lg-4">
-                                            <input id="nomeCp" type="text" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Cognome cp:</label>
-                                        <div class="col-lg-4">
-                                            <input id="cognomeCp" type="text" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> -->
-
-
                         </div>
+
                     </div>
-                </form><br>
+
+                </form>
+
+                <br>
 
 
                 <div id="info_diagnosi" align="center"><h4> <?php echo $stringa_diagnosi; ?></h4></div>

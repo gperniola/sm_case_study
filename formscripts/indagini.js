@@ -225,12 +225,13 @@ $(document).ready(function(){
 	/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
     $(document).on('click', "button.modifica", function () {
         $(this).prop('disabled', true);
+        $('#'+$(this).attr('id')+'.elimina').prop('disabled', true);
         var id = '#riga'+$(this).attr('id');
         $(id).show(200);
     });
 
     $(document).on('click', "button.elimina", function () {
-        if (confirm("Eliminare l'indagine?")){
+        if (confirm("Sei sicuro di voler eliminare l'indagine?")){
             $.post("formscripts/eliminaIndagine.php",
                 {
                     idIndagine: $(this).attr('id')
@@ -263,7 +264,7 @@ $(document).ready(function(){
     $(document).on('click', "a.annulla", function () {
         var but = '#'+$(this).attr('id');
         $(but+'.modifica').prop('disabled', false);
-
+        $('#'+$(this).attr('id')+'.elimina').prop('disabled', false);
         var id = '#riga'+$(this).attr('id');
         $(id).hide(200);
     });

@@ -220,6 +220,33 @@ else
             $n_v =  $n_v + 3;
         }
 
+        $array_referti = array();
+        $array_allegati = array();
+        global $n_file;
+        $n_files = $this->get_var('filesNum');
+        $n_ref = 0;
+        $n_all = 0;
+        for ($i = 0; $i < $n_files; $i++) {
+            $filePath = $this->get_var('files.path.'.$i);
+            if($filePath == "uploads/refertiIndagini/"){
+                $array_referti[$n_f + 0] = $this->get_var('files.id.'.$i);
+                $array_referti[$n_f + 1] = $this->get_var('files.data.'.$i);
+                $array_referti[$n_f + 2] = $this->get_var('files.nome.'.$i);
+                $array_referti[$n_f + 3] = $filePath;
+                $n_ref = $n_ref + 4;
+            }
+            else{
+                $array_allegati[$n_f + 0] = $this->get_var('files.id.'.$i);
+                $array_allegati[$n_f + 1] = $this->get_var('files.data.'.$i);
+                $array_allegati[$n_f + 2] = $this->get_var('files.nome.'.$i);
+                $array_allegati[$n_f + 3] = $filePath;
+                $n_all = $n_all + 4;
+            }
+        }
+
+
+
+
         $mioCpNome = $this->get_var('mioCpNome');
         $mioCpCognome = $this->get_var('mioCpCognome');
 

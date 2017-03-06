@@ -79,7 +79,7 @@ else
         $n_r = 0;               //numero indagini richieste
         $n_p = 0;             //numero indagini programmate
         $n_c = 0;              //numero completate
-        global $offset; $offset = 18;
+        global $offset; $offset = 24;
         global $n_indagini;             //numero totale di indagini
         $n_indagini = $this->get_var('indaginiNum');
         $SelfCareproviderId =  $this->get_var('idUtenteCp');
@@ -97,8 +97,8 @@ else
                             $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
                             $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
                             $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_richieste[$n_r + 5] = $this->get_var('ind.referto.' . $i);
-                            $array_richieste[$n_r + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_richieste[$n_r + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_richieste[$n_r + 6] = $this->get_var('ind.allegatoId.' . $i);
                             $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
                             $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
                             $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
@@ -110,6 +110,12 @@ else
                             $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
                             $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                             $array_richieste[$n_r + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_richieste[$n_r + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_richieste[$n_r + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_richieste[$n_r + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_richieste[$n_r + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_richieste[$n_r + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_richieste[$n_r + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
                             $n_r = $n_r + $offset;
                             break;
                         case $stato_programmata:
@@ -118,8 +124,8 @@ else
                             $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
                             $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
                             $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_programmate[$n_p + 5] = $this->get_var('ind.referto.' . $i);
-                            $array_programmate[$n_p + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_programmate[$n_p + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_programmate[$n_p + 6] = $this->get_var('ind.allegatoId.' . $i);
                             $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
                             $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
                             $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
@@ -131,6 +137,12 @@ else
                             $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
                             $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                             $array_programmate[$n_p + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_programmate[$n_p + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_programmate[$n_p + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_programmate[$n_p + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_programmate[$n_p + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_programmate[$n_p + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_programmate[$n_p + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
                             $n_p = $n_p + $offset;
                             break;
                         case $stato_completata:
@@ -139,8 +151,8 @@ else
                             $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
                             $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
                             $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_completate[$n_c + 5] = $this->get_var('ind.referto.' . $i);
-                            $array_completate[$n_c + 6] = $this->get_var('ind.allegato.' . $i);
+                            $array_completate[$n_c + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_completate[$n_c + 6] = $this->get_var('ind.allegatoId.' . $i);
                             $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
                             $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
                             $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
@@ -152,6 +164,12 @@ else
                             $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
                             $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
                             $array_completate[$n_c + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_completate[$n_c + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_completate[$n_c + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_completate[$n_c + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_completate[$n_c + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_completate[$n_c + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_completate[$n_c + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
                             $n_c = $n_c + $offset;
                             break;
                     }
@@ -205,7 +223,7 @@ else
         $mioCpNome = $this->get_var('mioCpNome');
         $mioCpCognome = $this->get_var('mioCpCognome');
 
-        
+
 
         // --------------------------------------
         ?>
@@ -231,12 +249,12 @@ else
             <div class="panel panel-default">
                 <div class="panel-heading row">
                     <div class="col-lg-6"><h3>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                Diario indagini diagnostiche</a><span ><i style="color:#6b9cea"  class="icon-angle-down"></i></span>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="icon-book"></i>
+                                Diario indagini diagnostiche</a>
                         </h3></div>
                     <div class="col-lg-6"><h3>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            Centri indagini diagnostiche</a><span ><i style="color:#6b9cea" class="icon-angle-down"></i></span>
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="icon-map-marker"></i>
+                            Centri indagini diagnostiche</a>
                         </h3></div>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
@@ -775,7 +793,7 @@ else
                                         <thead>
                                         <tr>
                                             <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
-                                            <th>Referto</th><th>Allegati</th><th style="text-align:center">Opzioni</th>
+                                            <th style="text-align:center">Referto</th><th style="text-align:center">Allegati</th><th style="text-align:center">Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -786,8 +804,16 @@ else
                                             echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
                                             echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+16] . '</td>';
                                             echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
-                                            echo '<td id="refertoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+5] . '</td>';
-                                            echo '<td id="allegatoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+6] . '</td>';
+                                            echo '<td  id="refertoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
+                                            if ($array_completate[$i + 5] != null)
+                                                echo '<a href="'. $array_completate[$i + 19].'" target="_blank"><button class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
+                                            echo '</div></td>';
+                                            echo '<td id="allegatoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
+                                            if ($array_completate[$i + 6] != null)
+                                                echo '<a href="'. $array_completate[$i + 22].'" target="_blank"><button class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
+                                            echo '</div></td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
 												<button id='.$array_completate[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>

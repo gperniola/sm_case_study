@@ -80,7 +80,8 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.refertoNome.'.$i, $refertoNome);
     $pag_indagini -> set_var('ind.refertoData.'.$i, $refertoData);
     $pag_indagini -> set_var('ind.refertoPath.'.$i, $refertoPath);
-    $pag_indagini -> set_var('ind.refertoConc.'.$i, $refertoConf);
+    $pag_indagini -> set_var('ind.refertoConf.'.$i, $refertoConf);
+    $pag_indagini -> set_var('ind.refertoFullpath.'.$i, "files/" . $refertoPath . $refertoNome);
 
     $allegatoNome = getInfo('nomeFile', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
     $allegatoData = getInfo('dataCreazione', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
@@ -90,7 +91,8 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.allegatoNome.'.$i, $allegatoNome);
     $pag_indagini -> set_var('ind.allegatoData.'.$i, $allegatoData);
     $pag_indagini -> set_var('ind.allegatoPath.'.$i, $allegatoPath);
-    $pag_indagini -> set_var('ind.allegatoConc.'.$i, $allegatoConf);
+    $pag_indagini -> set_var('ind.allegatoConf.'.$i, $allegatoConf);
+    $pag_indagini -> set_var('ind.allegatoFullpath.'.$i, "files/" . $allegatoPath . $allegatoNome);
 
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
     $pag_indagini -> set_var('ind.careprovider.'.$i, $indaginiCareprovider[$i]);

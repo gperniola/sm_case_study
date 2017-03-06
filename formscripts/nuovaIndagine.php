@@ -53,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         	$motivo = $motivoAltro;
 		}
 		if($stato == "0"){
-        	echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "richiesta", $tipo);
+        	echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 0, $tipo);
 			}else if ($stato == "1"){
-        		echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "programmata", $tipo, $data, $centro);
+        		echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 1, $tipo, $data, $centro);
     			}else if  ($stato == "2") {
-        			echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, "conclusa", $tipo, $data, $centro, $referto, $allegato);
+        			echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 2, $tipo, $data, $centro, $referto, $allegato);
     			}
     }
     else

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_prop = $id_Pz;
 
     if($idPazienteConnesso == $idPazienteIndagine){
-        modificaStatoIndagine($idIndagine, "eliminata");
+        modificaStatoIndagine($idIndagine, 3);
         eliminaIndagine($idIndagine, $id_prop);
     }
     else

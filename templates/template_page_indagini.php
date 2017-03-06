@@ -70,9 +70,9 @@ else
         echo '<div id="menu_mode" data-menu="' . $accesso_da_menu . '"></div>';
 
         // ------ DATA FROM diagnosi.php --------
-        $stato_richiesta = "richiesta";
-        $stato_programmata = "programmata";
-        $stato_completata = "conclusa";
+        $stato_richiesta = 0;
+        $stato_programmata = 1;
+        $stato_completata = 2;
         $array_richieste = array();      //array indagini richieste
         $array_programmate = array();   //array indagini programmate
         $array_completate = array();    //array indagini completate
@@ -204,6 +204,8 @@ else
 
         $mioCpNome = $this->get_var('mioCpNome');
         $mioCpCognome = $this->get_var('mioCpCognome');
+
+        
 
         // --------------------------------------
         ?>

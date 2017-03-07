@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$stato			= $_POST['stato'];
 	$centro			= $_POST['centro'];
 	$data			= $_POST['data'];
-	$referto    	= $_POST['referto'];
-	$allegato   	= $_POST['allegato'];
+	$idReferto    	= $_POST['referto'];
+	$idAllegato   	= $_POST['allegato'];
 
 	session_start(); 
 	$id_Pz = $_SESSION['pz_Id'];
@@ -52,12 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         	$idMotivo = "NULL";
         	$motivo = $motivoAltro;
 		}
+		if($idReferto == '') $idReferto = "NULL";
+        if($idAllegato == '') $idAllegato = "NULL";
 		if($stato == "0"){
         	echo nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 0, $tipo);
 			}else if ($stato == "1"){
         		echo nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 1, $tipo, $data, $centro);
     			}else if  ($stato == "2") {
-        			echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 2, $tipo, $data, $centro, $referto, $allegato);
+        			echo nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, 2, $tipo, $data, $centro, $idReferto, $idAllegato);
     			}
     }
     else

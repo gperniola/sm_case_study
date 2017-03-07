@@ -874,10 +874,16 @@ else
                                             if ($array_completate[$i + 5] != null)
                                                 echo '<a href="'. $array_completate[$i + 19].'" target="_blank"><button class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
                                                 <i class="icon-file-text"></i></button></a>';
+                                            else
+                                                echo '<a href="" target="_blank"><button disabled class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
                                             echo '</div></td>';
                                             echo '<td id="allegatoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
                                             if ($array_completate[$i + 6] != null)
                                                 echo '<a href="'. $array_completate[$i + 22].'" target="_blank"><button class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
+                                            else
+                                                echo '<a href="" target="_blank"><button disabled class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
                                                 <i class="icon-file-text"></i></button></a>';
                                             echo '</div></td>';
                                             echo '<td style="text-align:center">

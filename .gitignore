@@ -2,6 +2,7 @@
 !.gitignore
 !README.md
 !indagini.sql
+!indaginieliminate.sql
 
 #deal with subs
 !sections/
@@ -15,6 +16,7 @@ templates/*
 !templates/template_menu.php
 !templates/template_page_indagini.php
 !templates/template_page_vaccinazioni.php
+!templates/template_page_files.php
 
 !modello PBAC/
 modello PBAC/*
@@ -30,3 +32,24 @@ formscripts/*
 !formscripts/indagini.js
 !formscripts/vaccinazioni.js
 !formscripts/nuovaVaccinazione.php
+!formscripts/nuovaIndagine.php
+!formscripts/modificaIndagine.php
+!formscripts/eliminaIndagine.php
+
+!assets/
+assets/*
+!assets/js/
+assets/js/*
+!assets/js/moment-with-locales.min.js
+
+!files/
+files/*
+!files/uploadFiles.php
+!files/funzioniFiles.php
+!files/configFiles.php
+!files/uploads/
+files/uploads/*
+!files/uploads/refertiIndagini/
+files/uploads/refertiIndagini/*
+!files/uploads/refertiIndagini/.gitkeep
+

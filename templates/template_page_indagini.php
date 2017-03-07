@@ -23,14 +23,13 @@ else
 ?>
 
 
-
 <div id="content">
     <div class="inner" style="min-height:1200px;">
         <?php
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Utility.php');
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Login/Database.php');
 
-        global $accesso_da_menu;
+        $accesso_da_menu;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -71,86 +70,112 @@ else
         echo '<div id="menu_mode" data-menu="' . $accesso_da_menu . '"></div>';
 
         // ------ DATA FROM diagnosi.php --------
-        $stato_richiesta = "richiesta";
-        $stato_programmata = "programmata";
-        $stato_completata = "conclusa";
+        $stato_richiesta = 0;
+        $stato_programmata = 1;
+        $stato_completata = 2;
         $array_richieste = array();      //array indagini richieste
         $array_programmate = array();   //array indagini programmate
         $array_completate = array();    //array indagini completate
         $n_r = 0;               //numero indagini richieste
         $n_p = 0;             //numero indagini programmate
         $n_c = 0;              //numero completate
-        global $offset; $offset = 17;
+        global $offset; $offset = 24;
         global $n_indagini;             //numero totale di indagini
         $n_indagini = $this->get_var('indaginiNum');
+        $SelfCareproviderId =  $this->get_var('idUtenteCp');
+        $SelfcareproviderConf = $this->get_var('confidenzialita');
 
         for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
-            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi ) {    //se ho effettuato l'accesso dal menu principale
+            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi  ) {    //se ho effettuato l'accesso dal menu principale
                                                                                             //o se il motivo dell'indagine è associato alla diagnosi...
-                $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
-                switch ($stato) {
-                    case $stato_richiesta:
-                        $array_richieste[$n_r + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_richieste[$n_r + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_richieste[$n_r + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_r = $n_r + $offset;
-                        break;
-                    case $stato_programmata:
-                        $array_programmate[$n_p + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_programmate[$n_p + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_programmate[$n_p + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_p = $n_p + $offset;
-                        break;
-                    case $stato_completata:
-                        $array_completate[$n_c + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                        $array_completate[$n_c + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                        $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                        $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                        $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                        $array_completate[$n_c + 5] = $this->get_var('ind.referto.' . $i);
-                        $array_completate[$n_c + 6] = $this->get_var('ind.allegato.' . $i);
-                        $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                        $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                        $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                        $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                        $array_completate[$n_c + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                        $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                        $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                        $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                        $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                        $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                        $n_c = $n_c + $offset;
-                        break;
+                if($role == "pz" || $SelfcareproviderConf >= $this->get_var('ind.conf.'.$i)){
+                    $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
+                    switch ($stato) {
+                        case $stato_richiesta:
+                            $array_richieste[$n_r + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_richieste[$n_r + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_richieste[$n_r + 6] = $this->get_var('ind.allegatoId.' . $i);
+                            $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $array_richieste[$n_r + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_richieste[$n_r + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_richieste[$n_r + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_richieste[$n_r + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_richieste[$n_r + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_richieste[$n_r + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_richieste[$n_r + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
+                            $n_r = $n_r + $offset;
+                            break;
+                        case $stato_programmata:
+                            $array_programmate[$n_p + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_programmate[$n_p + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_programmate[$n_p + 6] = $this->get_var('ind.allegatoId.' . $i);
+                            $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $array_programmate[$n_p + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_programmate[$n_p + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_programmate[$n_p + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_programmate[$n_p + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_programmate[$n_p + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_programmate[$n_p + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_programmate[$n_p + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
+                            $n_p = $n_p + $offset;
+                            break;
+                        case $stato_completata:
+                            $array_completate[$n_c + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_completate[$n_c + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_completate[$n_c + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_completate[$n_c + 6] = $this->get_var('ind.allegatoId.' . $i);
+                            $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_completate[$n_c + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $array_completate[$n_c + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_completate[$n_c + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_completate[$n_c + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_completate[$n_c + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_completate[$n_c + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_completate[$n_c + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_completate[$n_c + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
+                            $n_c = $n_c + $offset;
+                            break;
+                    }
                 }
             }
+
          }
 
         $array_centri = array();
@@ -167,7 +192,8 @@ else
             $array_centri[$n_s + 6] = $this->get_var('centro.responsabileId.'.$i);
             $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
             $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
-            $n_s = $n_s + 9;
+            $array_centri[$n_s + 9] = $this->get_var('centro.contatti.'.$i);
+            $n_s = $n_s + 10;
         }
 
 
@@ -194,49 +220,89 @@ else
             $n_v =  $n_v + 3;
         }
 
+        $array_referti = array();
+        $array_allegati = array();
+        global $n_file;
+        $n_files = $this->get_var('filesNum');
+        $n_ref = 0;
+        $n_all = 0;
+        for ($i = 0; $i < $n_files; $i++) {
+            $filePath = $this->get_var('files.path.'.$i);
+            if($filePath == "uploads/refertiIndagini/"){
+                $array_referti[$n_ref + 0] = $this->get_var('files.id.'.$i);
+                $array_referti[$n_ref + 1] = $this->get_var('files.data.'.$i);
+                $array_referti[$n_ref + 2] = $this->get_var('files.nome.'.$i);
+                $array_referti[$n_ref + 3] = $filePath;
+                $array_referti[$n_ref + 4] = $this->get_var('files.conf.'.$i);
+                $n_ref = $n_ref + 5;
+            }
+            else{
+                $array_allegati[$n_all + 0] = $this->get_var('files.id.'.$i);
+                $array_allegati[$n_all + 1] = $this->get_var('files.data.'.$i);
+                $array_allegati[$n_all + 2] = $this->get_var('files.nome.'.$i);
+                $array_allegati[$n_all + 3] = $filePath;
+                $array_allegati[$n_all + 4] = $this->get_var('files.conf.'.$i);
+                $n_all = $n_all + 5;
+            }
+        }
+
+
+
+
         $mioCpNome = $this->get_var('mioCpNome');
         $mioCpCognome = $this->get_var('mioCpCognome');
 
+
+
         // --------------------------------------
         ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="formscripts/jquery.js"></script>
+        <script src="assets/js/moment-with-locales.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
         <script src="formscripts/jquery-ui.js"></script>
         <script src="formscripts/indagini.js"></script>
 
-        <h2>Indagini diagnostiche</h2><hr>
-        <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
-        l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
-        <hr/>
-       <!-- ACCORDION -->
-        <div class="accordion ac" id="accordion">
-            <div class="accordion-group">
-                <div class="accordion-heading centered">
-                    <h3>
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            Diario indagini diagnostiche
-                            <span ><i  class="icon-angle-down"></i></span>
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapse1" class="acordion-body collapse">
-                    <div class="accordion-inner">
-        <div class="row">
-            <div class="col-lg-12">
-                <hr>
 
+
+        <hr>
+        <h2>Indagini diagnostiche</h2>
+
+        <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
+            l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
+        <hr/>
+
+       <!-- ACCORDION -->
+        <div class="panel-group ac" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading row">
+                    <div class="col-lg-6"><h3>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="icon-book"></i>
+                                Diario indagini diagnostiche</a>
+                        </h3></div>
+                    <div class="col-lg-6"><h3>
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="icon-map-marker"></i>
+                            Centri indagini diagnostiche</a>
+                        </h3></div>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <hr/>
+                    <div class="row">
+            <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12" >
                         <div class="btn-group">
                             <button class="btn btn-primary" id="nuovoFile"><i class="icon-file-text-alt"></i> Nuova indagine</button>
                             <button class="btn btn-primary" id="concludi"><i class="icon-ok-sign"></i> Concludi indagine</button>
                             <button class="btn btn-primary" id="annulla"><i class="icon-trash"></i> Annulla indagine</button>
-                        </div></div></div>
+                        </div>
+                    </div>
+                </div>
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
                         <div class="row"> <!-- Hidden row -->
-                            <div style="display:none;" >
+                             <div style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label col-lg-4">ID Paziente:</label>
@@ -251,7 +317,7 @@ else
                                         <div class="col-lg-4">
                                             <input id="cpId" type="text"  readonly class="form-control"
                                             <?php
-                                            if ($cp_id != NULL) {echo 'value="'.$this -> get_var('idUtenteCp').'" ';}
+                                            if ($role == "cp") {echo 'value="'.$SelfCareproviderId.'"';}
                                             else {echo 'value="-1"';}
                                             ?>
                                             />
@@ -272,14 +338,18 @@ else
                                     <label class="control-label col-lg-4">Motivo:</label>
                                     <div class="col-lg-4">
                                         <select id="motivoIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
+                                            <option selected hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
+                                            <optgroup label="Diagnosi del paziente">
                                             <?php
                                             for($i = 0; $i < $n_z; $i +=4 ){
-                                                echo '<option value="'.$array_diagnosi[$i+0] .'">Diagnosi: ' .$array_diagnosi[$i+2] .'  ('
-                                                    .$array_diagnosi[$i+1].')</option>';
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$i+3] ){
+                                                    echo '<option value="'.$array_diagnosi[$i+0] .'">' .$array_diagnosi[$i+1] .' - '
+                                                        .$array_diagnosi[$i+2].'</option>';
+                                                }
                                             }
                                             ?>
-                                            <option value=''>Altro..</option>
+                                            </optgroup>
+                                            <option value=''>Altra Motivazione..</option>
                                         </select>
                                         <input id="motivoAltro_new" type="text" placeholder="Inserire motivazione.."  class="form-control"/>
                                     </div>
@@ -289,19 +359,27 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Care provider:</label>
                                     <div class="col-lg-4">
-                                        <select id="careproviderIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value="placeholder">Selezionare una careprovider..</option>
-                                            <?php
-                                            for($i = 0; $i < $n_v; $i +=3 ){
-                                                if($cp_id == $array_careprovider[$i+0])
-                                                    echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
-                                                 else
-                                                    echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
-                                            }
-                                            ?>
-                                            <option value=''>Altro..</option>
-                                        </select>
-                                        <input id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>
+                                        <?php
+                                        if ($role == "cp")
+                                            echo ' <select disabled id="careproviderIndagine_new" class="form-control">';
+                                        else
+                                            echo '<select id="careproviderIndagine_new" class="form-control">';
+                                        echo '<option selected hidden style="display: none" value="placeholder">Selezionare una careprovider..</option>';
+                                        echo '<optgroup label="Careproviders registrati">';
+                                        for($i = 0; $i < $n_v; $i +=3 ){
+                                            if($SelfCareproviderId == $array_careprovider[$i+0])
+                                                echo '<option selected value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                            else
+                                                echo '<option value="'.$array_careprovider[$i+0] .'">' .$array_careprovider[$i+1] .' ' .$array_careprovider[$i+2].'</option>';
+                                        }
+                                        echo '</optgroup>';
+                                        echo '<option value="">Nuovo careprovider..</option></select>';
+                                        if ($role == "cp")
+                                            echo '<input disabled id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>';
+                                        else
+                                            echo '<input id="careproviderAltro_new" type="text" placeholder="Inserire careprovider.."  class="form-control"/>';
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -322,9 +400,9 @@ else
                                     <label class="control-label col-lg-4">Centro:</label>
                                     <div class="col-lg-4">
                                         <select id="centroIndagine_new" class="form-control">
-                                            <option selected disabled hidden style='display: none' value=''>Selezionare un centro..</option>
+                                            <option selected hidden style='display: none' value="placeholder">Selezionare un centro..</option>
                                             <?php
-                                            for($i = 0; $i < $n_s; $i +=9 ){
+                                            for($i = 0; $i < $n_s; $i +=10 ){
                                                 echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .',  '
                                                     .$array_centri[$i+3].'</option>';
                                             }
@@ -337,15 +415,35 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Data:</label>
                                     <div class="col-lg-4">
-                                        <input id="data" type="date" placeholder="aaaa-mm-gg" class="form-control"/>
+                                        <input id="data" type="text" placeholder="Selezionare una data.." class="form-control"/>
                                     </div>
+                                      <script>
+                                        var $j = jQuery.noConflict();
+                                        $j(document).ready(function() {
+                                            $j('#data').datetimepicker({
+                                                locale:'it',
+                                                sideBySide:true
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </div>
                             <div class="col-lg-12" id="divReferto_new" style="display:none;">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
                                     <div class="col-lg-4" >
-                                        <input id="referto" type="text"  class="form-control"/>
+                                        <select id="referto_new" class="form-control">
+                                            <option selected hidden style='display: none' value="">Selezionare un file..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_ref; $i +=5 ){
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_referti[$i+4] ){
+                                                    echo '<option value="'.$array_referti[$i+0] .'">' .$array_referti[$i+1] .' - '
+                                                        .$array_referti[$i+2].'</option>';
+                                                }
+                                            }
+                                            ?>
+                                            <option value="">Nessuno</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -353,58 +451,32 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Allegato:</label>
                                     <div class="col-lg-4">
-                                        <input id="allegato" type="text"  class="form-control"y/>
+                                        <select id="allegato_new" class="form-control">
+                                            <option selected hidden style='display: none' value="" >Selezionare un file..</option>
+                                            <?php
+                                            for($i = 0; $i < $n_all; $i +=5 ){
+                                                if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$i+4] ){
+                                                    echo '<option value="'.$array_allegati[$i+0] .'">' .$array_allegati[$i+1] .' - '
+                                                        .$array_allegati[$i+2].'</option>';
+                                                }
+                                            }
+                                            ?>
+                                            <option value="">Nessuno</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
+                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                    preventivamente nella sezione <strong>Files</strong>.
                                 </div>
                             </div>
-                            <!-- <div id="da_eliminare" style="display:none;">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Care provider:</label>
-                                        <div class="col-lg-4">
-                                            <?php/*
-                                            $sp = ' ';
-                                            if($cp_id != NULL){ // Se sono un care provider
-                                                // Il mio nome è pre-inserito e non può essere cambiato
-                                                echo '<select id="cpD" class="form-control"><option selected value="'.$mioCpId.'">'.$mioCpNome.$sp.$mioCpCognome.'</option></select>';
-                                            }else{
-                                                echo '<select id="cpD" class="form-control">';
-                                                for($i=0; $i<$nCps; $i++){
-                                                    echo '<option value='.$myCpId[$i].'>'.$myCpNome[$i].$sp.$myCpCognome[$i].'</option>';
-                                                }
-                                                echo '<option style="font-style:italic;"value=-1>Inserisci manualmente...</option>';
-                                                echo '</select>';
-                                            }
-                                            */?>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Nome cp:</label>
-                                        <div class="col-lg-4">
-                                            <input id="nomeCp" type="text" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-lg-4">Cognome cp:</label>
-                                        <div class="col-lg-4">
-                                            <input id="cognomeCp" type="text" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> -->
-
-
                         </div>
+
                     </div>
-                </form><br>
+
+                </form>
+
+                <br>
 
 
                 <div id="info_diagnosi" align="center"><h4> <?php echo $stringa_diagnosi; ?></h4></div>
@@ -451,12 +523,14 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
+                                                                            <option selected value=\'\'>Altra motivazione..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($array_diagnosi[$k+0] == $array_richieste[$i+15])
-                                                                                            echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                            if ($array_diagnosi[$k + 0] == $array_richieste[$i + 15])
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                            else
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                        }
                                                                                     }
                                                                                 echo '
                                                                         </select>
@@ -466,19 +540,25 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_richieste[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>
-                                                                    </div>
+                                                                    <div class="col-lg-4">';
+                                                                        if ($role == "cp")
+                                                                            echo '<select disabled id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        else
+                                                                            echo '<select id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">';
+                                                                        echo ' <option selected value=\'\'>Altro..</option>';
+                                                                        for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                            if ($array_careprovider[$k+0] == $array_richieste[$i+7])
+                                                                                echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                            else
+                                                                                echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        }
+                                                                        echo '</select>';
+                                                                        if ($role == "cp")
+                                                                            echo '<input disabled id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>';
+                                                                        else
+                                                                            echo '<input id="careproviderAltro_'.$array_richieste[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_richieste[$i+16] .'"/>';
+                                                                        echo'
+                                                                        </div>
                                                                  </div>
                                                              </div>
                                                             <div class="col-lg-12">
@@ -496,8 +576,8 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">
-                                                                            <option selected disabled hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                                                        for($k = 0; $k < $n_s; $k +=9 ){
+                                                                            <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
+                                                                        for($k = 0; $k < $n_s; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_richieste[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -510,9 +590,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_richieste[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
+                                                                        <input id="data'.$array_richieste[$i+0].'" type="text" placeholder="Selezionare una data.."  class="form-control"
                                                                         value ="'.$array_richieste[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_richieste[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
@@ -571,7 +659,7 @@ else
                                             echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
                                             echo '<td id="careProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+16] . '</td>';
                                             echo '<td id="dataProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+4] . '</td>';
-                                            echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . ' - ' .
+                                            echo '<td id="centroProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+12] . '<br>' . $array_programmate[$i+13] . '<br>' .
                                                 $array_programmate[$i+14] . '</td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
@@ -598,10 +686,12 @@ else
                                                                         <select id="motivoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($array_diagnosi[$k+0] == $array_programmate[$i+15])
-                                                                                            echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                            if ($array_diagnosi[$k + 0] == $array_programmate[$i + 15])
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                            else
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                        }
                                                                                     }
                                                                                 echo '
                                                                         </select>
@@ -611,18 +701,24 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_programmate[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>
+                                                                    <div class="col-lg-4">';
+                                                                    if ($role == "cp")
+                                                                        echo '<select disabled id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">';
+                                                                    else
+                                                                        echo'<select id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">';
+                                                                    echo '<option selected value=\'\'>Altro..</option>';
+                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                        if ($array_careprovider[$k+0] == $array_programmate[$i+7])
+                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        else
+                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                    }
+                                                                    echo '</select>';
+                                                                    if ($role == "cp")
+                                                                        echo '<input disabled id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>';
+                                                                    else
+                                                                        echo '<input id="careproviderAltro_'.$array_programmate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_programmate[$i+16] .'"/>';
+                                                                    echo '              
                                                                     </div>
                                                                  </div>
                                                              </div>
@@ -641,8 +737,8 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
-                                                                        <option selected disabled hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
-                                                                            for($k = 0; $k < $n_s; $k +=9 ){
+                                                                        <option selected hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
+                                                                            for($k = 0; $k < $n_s; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_programmate[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -655,9 +751,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_programmate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_programmate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control" 
+                                                                        <input id="data'.$array_programmate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control" 
                                                                         value ="'.$array_programmate[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_programmate[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
@@ -703,7 +807,7 @@ else
                                         <thead>
                                         <tr>
                                             <th>Indagine</th><th>Motivo</th><th>Care provider</th><th>Data</th>
-                                            <th>Referto</th><th>Allegati</th><th style="text-align:center">Opzioni</th>
+                                            <th style="text-align:center">Referto</th><th style="text-align:center">Allegati</th><th style="text-align:center">Opzioni</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -714,8 +818,16 @@ else
                                             echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
                                             echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+16] . '</td>';
                                             echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
-                                            echo '<td id="refertoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+5] . '</td>';
-                                            echo '<td id="allegatoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+6] . '</td>';
+                                            echo '<td  id="refertoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
+                                            if ($array_completate[$i + 5] != null)
+                                                echo '<a href="'. $array_completate[$i + 19].'" target="_blank"><button class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
+                                            echo '</div></td>';
+                                            echo '<td id="allegatoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
+                                            if ($array_completate[$i + 6] != null)
+                                                echo '<a href="'. $array_completate[$i + 22].'" target="_blank"><button class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button></a>';
+                                            echo '</div></td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
 												<button id='.$array_completate[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
@@ -741,10 +853,12 @@ else
                                                                         <select id="motivoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
                                                                                     for($k = 0; $k < $n_z; $k +=4 ) {
-                                                                                        if ($array_diagnosi[$k+0] == $array_completate[$i+15])
-                                                                                            echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>Diagnosi: ' . $array_diagnosi[$k + 2] . '  (' . $array_diagnosi[$k + 1] . ')</option>';
+                                                                                        if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
+                                                                                            if ($array_diagnosi[$k + 0] == $array_completate[$i + 15])
+                                                                                                echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                            else
+                                                                                                echo '<option value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
+                                                                                        }
                                                                                     }
                                                                                 echo '
                                                                         </select>
@@ -754,18 +868,24 @@ else
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">
-                                                                            <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_v; $k +=3 ) {
-                                                                                        if ($array_careprovider[$k+0] == $array_completate[$i+7])
-                                                                                            echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                        else
-                                                                                            echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
-                                                                                    }
-                                                                                echo '
-                                                                        </select>
-                                                                        <input id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>
+                                                                    <div class="col-lg-4">';
+                                                                        if ($role == "cp")
+                                                                            echo '<select disabled id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">';
+                                                                        else
+                                                                            echo '<select id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">';
+                                                                        echo '<option selected value=\'\'>Altro..</option>';
+                                                                        for($k = 0; $k < $n_v; $k +=3 ) {
+                                                                            if ($array_careprovider[$k+0] == $array_completate[$i+7])
+                                                                                echo '<option selected value=\'' . $array_careprovider[$k + 0] . '\'>' . $array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                            else
+                                                                                echo '<option value=\'' . $array_careprovider[$k + 0] . '\'>' .$array_careprovider[$k+1] . ' ' . $array_careprovider[$k+2] . '</option>';
+                                                                        }
+                                                                        echo '</select>';
+                                                                        if ($role == "cp")
+                                                                            echo '<input disabled id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>';
+                                                                        else
+                                                                            echo '<input id="careproviderAltro_'.$array_completate[$i+0].'" type="text" placeholder="Inserire careprovider.."  class="form-control" value="'. $array_completate[$i+16] .'"/>';
+                                                                        echo '
                                                                     </div>
                                                                  </div>
                                                              </div>
@@ -784,8 +904,8 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">
-                                                                            <option selected disabled hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                            for($k = 0; $k < $n_s; $k +=9 ){
+                                                                            <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
+                                            for($k = 0; $k < $n_s; $k +=10 ){
                                                 if( $array_centri[$k+0] == $array_completate[$i+11])
                                                     echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                 else
@@ -798,9 +918,17 @@ else
                                                              <div class="col-lg-12" id="divData_'.$array_completate[$i+0].'">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Data:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="data'.$array_completate[$i+0].'" type="date" placeholder="aaaa-mm-gg" class="form-control"
+                                                                        <input id="data'.$array_completate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control"
                                                                             value ="'.$array_completate[$i+4].'"/>
                                                                     </div>
+                                                                    <script>
+                                                                        $j(document).ready(function() {
+                                                                            $j(\'#data'.$array_completate[$i+0].'\').datetimepicker({
+                                                                                locale:\'it\',
+                                                                                sideBySide:true
+                                                                            });
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'">
@@ -837,53 +965,131 @@ else
                 </div><br>
             </div><!--col-lg-12-->
         </div>
-                    </div>
                 </div>
-            </div>
-        <hr />
-            <div class="accordion-group">
-                <div class="accordion-heading centered">
-                    <h3>
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            Centri indagini diagnostiche
-                            <span ><i  class="icon-angle-down"></i></span>
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapse2" class="acordion-body collapse">
-                    <div class="accordion-inner">
-                        <!--elenco dei careproviders che effettuano indagini diagnostiche-->
+                <div id="collapse2" class="panel-collapse collapse">
+                    <hr/>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
                                 <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Studi specialistici</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
-                            <div class="col-lg-4">
-                                <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Studi Radiologici</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
-                            <div class="col-lg-4">
-                                <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <h3>Laboratori Analisi</h3>
-                                        <hr/>
-                                    </div>	<!--panelbody-->
-                                </div>	<!--panelwarning-->
-                            </div>	<!--col lg4-->
+                                    <div class="panel-heading">Studi Specialistici</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableStudiSpecialistici">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php   //popolamento tabella studi specialistici
+                                                $link = $this->get_var('link_mostratutti');
+                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                    if ($array_centri[$i + 4] == 0){
+                                                        echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
+                                                        echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
+                                                        echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . '<br>' . $array_centri[$i + 3] . '</td>';
+                                                        echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 9] . '</td>';
+                                                        echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
+                                                        <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
+                                                        <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
+                                                        <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
+                                                        </tr>';
+                                                    }
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">Studi Radiologici</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableStudiRadiologici">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php   //popolamento tabella studi radiologici
+                                                $link = $this->get_var('link_mostratutti');
+                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                    if ($array_centri[$i + 4] == 1){
+                                                        echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
+                                                        echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
+                                                        echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . '<br>' . $array_centri[$i + 3] . '</td>';
+                                                        echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 9] . '</td>';
+                                                        echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
+                                                        <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
+                                                        <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
+                                                        <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
+                                                        </tr>';
+                                                    }
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">Laboratori Analisi</div>
+                                    <div class=" panel-body">
+                                        <div class="table-responsive" >
+                                            <table class="table" id="tableLaboratoriAnalisi">
+                                                <thead>
+                                                <tr>
+                                                    <th>Studio</th><th>Sede</th><th>Contatti</th><th>Mail</th><th style="text-align:center">Messaggio FSEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php   //popolamento tabella laboratori analisi
+                                                $link = $this->get_var('link_mostratutti');
+                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                    if ($array_centri[$i + 4] == 2){
+                                                        echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
+                                                        echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
+                                                        echo '<td id="sedeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 2] . '<br>' . $array_centri[$i + 3] . '</td>';
+                                                        echo '<td id="contattiStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 9] . '</td>';
+                                                        echo '<td><a href="mailto:'. $array_centri[$i + 5].'">
+                                                        <button class="btn btn-warning"  type="button" id="mailStudioSpecialistico'. $array_centri[$i + 0] .'">
+                                                        <i class="icon-envelope"></i></button> '. $array_centri[$i + 5].'</a></td>';
+                                                        echo '<td ><a class="a-messaggio" id="'. $array_centri[$i + 0] .'" data-toggle="modal" data-target="#messageModal" href="' .$link .'" >
+                                                        <button class="btn-messaggio btn"  type="button" id="'. $array_centri[$i + 0] .'">
+                                                        <i class="icon_custom-chat"></i></button> '. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'</a>
+                                                        <div id="careproviderStudio'. $array_centri[$i + 0] .'" data-nome="'. $array_centri[$i + 7] .' '. $array_centri[$i + 8] .'"></div></td>
+                                                        </tr>';
+                                                    }
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>	<!--paneldanger-->
+                                </div>	<!--col lg12-->
+                            </div>
                         </div><!--row-->
-                    </div>
                 </div>
             </div>
         </div>
         <!-- END ACCORDION -->
+
 
     </div>
 </div>

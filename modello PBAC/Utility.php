@@ -2257,14 +2257,72 @@ function getCpId($nome, $cognome, $pzId){
 	return $idCp;
 }
 
-function nuovaIndagine($idPaziente,$idDiagnosi,$motivo,$tipo,$data,$referto,$allegato){
+function nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
 	global $database;
-
-	$p = 'insert into indagini (idStudioIndagini, idDiagnosi, idpaziente, data, stato, motivo, tipoIndagine, referto, allegato) values (1,'.$idDiagnosi.','.$idPaziente.',"'.$data.'","conclusa","'.$motivo.'", "'.$tipo.'","'.$referto.'","'.$allegato.'")';
-	 executeQuery($p);
-	 return $p;
-	
+	$query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento)
+              values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP)';
+    executeQuery($query);
+	 return $query;
 }
+
+function nuovaIndagineProgrammata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro){
+    global $database;
+    $query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento, dataIndagine, idStudioIndagini)
+              values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP,\''.$data.'\','.$centro.')';
+    executeQuery($query);
+    return $query;
+}
+
+function nuovaIndagineCompletata($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro, $referto, $allegato){
+    global $database;
+    $query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento, dataIndagine, idStudioIndagini, referto, allegato)
+              values ('.$idPaziente.','.$careprovider.',"'.$careproviderNome.'",'.$idMotivo.',"'.$motivo.'","'.$stato.'","'.$tipo.'",CURRENT_TIMESTAMP,\''.$data.'\','.$centro.',"'.$referto.'","'.$allegato.'")';
+    executeQuery($query);
+    return $query;
+}
+
+function modificaIndagineRichiesta($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
+    global $database;
+    $query = 'UPDATE indagini SET idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'" WHERE id='.$idIndagine;
+    executeQuery($query);
+    //$result = mysqli_query($query) or trigger_error(mysqli_error()." ".$query);
+    return $query;
+}
+
+function modificaIndagineProgrammata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro){
+    global $database;
+    $query = 'update indagini set idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'",dataAggiornamento=CURRENT_TIMESTAMP,dataIndagine=\''.$data.'\',idStudioIndagini='.$centro.' where id='.$idIndagine;
+    executeQuery($query);
+    return $query;
+}
+
+function modificaIndagineCompletata($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo, $data, $centro, $referto, $allegato){
+    global $database;
+    $query = 'update indagini set idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
+    stato="'.$stato.'",tipoIndagine="'.$tipo.'",dataAggiornamento=CURRENT_TIMESTAMP,dataIndagine=\''.$data.'\',idStudioIndagini='.$centro.',referto="'.$referto.'",allegato="'.$allegato.'" where id='.$idIndagine;
+    executeQuery($query);
+    return $query;
+}
+
+function modificaStatoIndagine($id,$stato){
+    global $database;
+    $query = 'update indagini set stato="'.$stato.'" where id='.$id;
+    executeQuery($query);
+}
+
+function eliminaIndagine($id, $idutente){
+    global $database;
+    $query = 'insert into indaginieliminate (idutente, indagine_id) values ('.$idutente.','.$id.')';
+    executeQuery($query);
+    return $query;
+}
+
+
+
+
+
 function nuovaDiagnosi($idPaziente,$patologia,$stato,$conf,$idCareProvider, $careProvider){
 	global $database;
 

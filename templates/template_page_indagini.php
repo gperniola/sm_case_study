@@ -605,8 +605,13 @@ else
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="refertoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_richieste[$i + 5] != null && $SelfcareproviderConf < $array_richieste[$i + 20])
+                                                                            echo '<select disabled id="refertoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_richieste[$i + 5] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else{
+                                                                        echo '<select id="refertoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
                                                                                     for($k = 0; $k < $n_ref; $k +=5 ) {
                                                                                         if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
@@ -618,26 +623,35 @@ else
                                                                                     }
                                                                                 echo '
                                                                             <option value="">Nessuno</option>
-                                                                        </select>
+                                                                            </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="allegatoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_richieste[$i + 6] != null && $SelfcareproviderConf < $array_richieste[$i + 23])
+                                                                            echo '<select disabled id="allegatoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_richieste[$i + 6] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else {
+                                                                            echo ' <select id="allegatoIndagine_' . $array_richieste[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
-                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
-                                                                                            if ($array_allegati[$k + 0] == $array_richieste[$i + 6])
-                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                            else
-                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                        }
-                                                                                    }
-                                                                                echo '
+                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                                if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
+                                                                                    if ($array_allegati[$k + 0] == $array_richieste[$i + 6])
+                                                                                        echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                    else
+                                                                                        echo '<option value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                }
+                                                                            }
+                                                                            echo '
                                                                             <option value="">Nessuno</option>
-                                                                         </select>
+                                                                         </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
@@ -791,8 +805,13 @@ else
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="refertoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_programmate[$i + 5] != null && $SelfcareproviderConf < $array_programmate[$i + 20])
+                                                                            echo '<select disabled id="refertoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_programmate[$i + 5] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else{
+                                                                        echo '<select id="refertoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
                                                                                     for($k = 0; $k < $n_ref; $k +=5 ) {
                                                                                         if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
@@ -804,26 +823,35 @@ else
                                                                                     }
                                                                                 echo '
                                                                             <option value="">Nessuno</option>
-                                                                        </select>
+                                                                            </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="allegatoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_programmate[$i + 6] != null && $SelfcareproviderConf < $array_programmate[$i + 23])
+                                                                            echo '<select disabled id="allegatoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_programmate[$i + 6] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else {
+                                                                            echo ' <select id="allegatoIndagine_' . $array_programmate[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
-                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
-                                                                                            if ($array_allegati[$k + 0] == $array_programmate[$i + 6])
-                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                            else
-                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                        }
-                                                                                    }
-                                                                                echo '
+                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                                if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
+                                                                                    if ($array_allegati[$k + 0] == $array_programmate[$i + 6])
+                                                                                        echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                    else
+                                                                                        echo '<option value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                }
+                                                                            }
+                                                                            echo '
                                                                             <option value="">Nessuno</option>
-                                                                         </select>
+                                                                         </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
@@ -871,20 +899,20 @@ else
                                             echo '<td id="careCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+16] . '</td>';
                                             echo '<td id="dataCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+4] . '</td>';
                                             echo '<td  id="refertoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
-                                            if ($array_completate[$i + 5] != null)
+                                            if ($array_completate[$i + 5] != null && ($role == "pz" || $SelfcareproviderConf >= $array_completate[$i + 20]))
                                                 echo '<a href="'. $array_completate[$i + 19].'" target="_blank"><button class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
                                                 <i class="icon-file-text"></i></button></a>';
                                             else
-                                                echo '<a href="" target="_blank"><button disabled class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
-                                                <i class="icon-file-text"></i></button></a>';
+                                                echo '<button disabled class="btn btn-info"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button>';
                                             echo '</div></td>';
                                             echo '<td id="allegatoCompletata'.$array_completate[$i+0].'" style="text-align:center"><div id="btn-group">';
-                                            if ($array_completate[$i + 6] != null)
+                                            if ($array_completate[$i + 6] != null && ($role == "pz" || $SelfcareproviderConf >= $array_completate[$i + 23]))
                                                 echo '<a href="'. $array_completate[$i + 22].'" target="_blank"><button class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
                                                 <i class="icon-file-text"></i></button></a>';
                                             else
-                                                echo '<a href="" target="_blank"><button disabled class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
-                                                <i class="icon-file-text"></i></button></a>';
+                                                echo '<button disabled class="btn"  type="button" id="refertoButton'. $array_completate[$i + 0] .'">
+                                                <i class="icon-file-text"></i></button>';
                                             echo '</div></td>';
                                             echo '<td style="text-align:center">
 												<div id="btn-group">
@@ -991,8 +1019,13 @@ else
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="refertoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_completate[$i + 5] != null && $SelfcareproviderConf < $array_completate[$i + 20])
+                                                                            echo '<select disabled id="refertoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_completate[$i + 5] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else{
+                                                                        echo '<select id="refertoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
                                                                                     for($k = 0; $k < $n_ref; $k +=5 ) {
                                                                                         if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
@@ -1004,26 +1037,35 @@ else
                                                                                     }
                                                                                 echo '
                                                                             <option value="">Nessuno</option>
-                                                                        </select>
+                                                                            </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_completate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
-                                                                    <div class="col-lg-4">
-                                                                        <select id="allegatoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                    <div class="col-lg-4">';
+                                                                        if($role != "pz" && $array_completate[$i + 6] != null && $SelfcareproviderConf < $array_completate[$i + 23])
+                                                                            echo '<select disabled id="allegatoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                                    <option selected value="'.$array_completate[$i + 6] .'">RISERVATO</option>
+                                                                                  </select>';
+                                                                        else {
+                                                                            echo ' <select id="allegatoIndagine_' . $array_completate[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
-                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
-                                                                                            if ($array_allegati[$k + 0] == $array_completate[$i + 6])
-                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                            else
-                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
-                                                                                        }
-                                                                                    }
-                                                                                echo '
+                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                                if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
+                                                                                    if ($array_allegati[$k + 0] == $array_completate[$i + 6])
+                                                                                        echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                    else
+                                                                                        echo '<option value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
+                                                                                }
+                                                                            }
+                                                                            echo '
                                                                             <option value="">Nessuno</option>
-                                                                         </select>
+                                                                         </select>';
+                                                                        }
+                                                                        echo '
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >

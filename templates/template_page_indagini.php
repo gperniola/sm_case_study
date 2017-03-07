@@ -432,7 +432,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Referto:</label>
                                     <div class="col-lg-4" >
-                                        <select id="referto_new" class="form-control">
+                                        <select id="refertoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="">Selezionare un file..</option>
                                             <?php
                                             for($i = 0; $i < $n_ref; $i +=5 ){
@@ -451,7 +451,7 @@ else
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Allegato:</label>
                                     <div class="col-lg-4">
-                                        <select id="allegato_new" class="form-control">
+                                        <select id="allegatoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="" >Selezionare un file..</option>
                                             <?php
                                             for($i = 0; $i < $n_all; $i +=5 ){
@@ -606,20 +606,45 @@ else
                                                             <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="referto'.$array_richieste[$i+0].'" type="text"  class="form-control" value ="'.$array_richieste[$i+5].'"/>
-                                                                      
+                                                                        <select id="refertoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
+                                                                                            if ($array_referti[$k + 0] == $array_richieste[$i + 5])
+                                                                                                echo '<option selected value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_richieste[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="allegato'.$array_richieste[$i+0].'" type="text"  class="form-control" value ="'.$array_richieste[$i+6].'"/>
-                                                                  
+                                                                        <select id="allegatoIndagine_'.$array_richieste[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
+                                                                                            if ($array_allegati[$k + 0] == $array_richieste[$i + 6])
+                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
+                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                </div>
                                                             </div>
-                                
 					                                    </div>
 			                                        </form>
 			                                        <div style="text-align:right;">
@@ -767,18 +792,45 @@ else
                                                             <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="referto'.$array_programmate[$i+0].'" type="text"  class="form-control" value ="'.$array_programmate[$i+5].'"/>        
+                                                                        <select id="refertoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
+                                                                                            if ($array_referti[$k + 0] == $array_programmate[$i + 5])
+                                                                                                echo '<option selected value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_programmate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="allegato'.$array_programmate[$i+0].'" type="text"  class="form-control" value ="'.$array_programmate[$i+6].'"/>
+                                                                        <select id="allegatoIndagine_'.$array_programmate[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
+                                                                                            if ($array_allegati[$k + 0] == $array_programmate[$i + 6])
+                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
+                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                </div>
                                                             </div>
-                                
 					                                    </div>
 			                                        </form>
 			                                        <div style="text-align:right;">
@@ -931,21 +983,48 @@ else
                                                                     </script>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'">
+                                                            <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="referto'.$array_completate[$i+0].'" type="text"  class="form-control" value ="'.$array_completate[$i+5].'"/>
+                                                                        <select id="refertoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_referti[$k+4] ){
+                                                                                            if ($array_referti[$k + 0] == $array_completate[$i + 5])
+                                                                                                echo '<option selected value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_referti[$k+0] .'">' .$array_referti[$k+1] .' - ' .$array_referti[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-12" id="divAllegato_'.$array_completate[$i+0].'">
+                                                            <div class="col-lg-12" id="divAllegato_'.$array_completate[$i+0].'" style="display:none;">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
                                                                     <div class="col-lg-4">
-                                                                        <input id="allegato'.$array_completate[$i+0].'" type="text"  class="form-control" value ="'.$array_completate[$i+6].'"/>
+                                                                        <select id="allegatoIndagine_'.$array_completate[$i+0].'" class="form-control">
+                                                                            <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
+                                                                                    for($k = 0; $k < $n_ref; $k +=5 ) {
+                                                                                        if($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k+4] ){
+                                                                                            if ($array_allegati[$k + 0] == $array_completate[$i + 6])
+                                                                                                echo '<option selected value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                            else
+                                                                                                echo '<option value="'.$array_allegati[$k+0] .'">' .$array_allegati[$k+1] .' - ' .$array_allegati[$k+2].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                echo '
+                                                                            <option value="">Nessuno</option>
+                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
+                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                </div>
                                                             </div>
-                                
 					                                    </div>
 			                                        </form>
 			                                        <div style="text-align:right;">

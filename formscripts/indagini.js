@@ -66,7 +66,7 @@ function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careprovid
 
 function validateCompletata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro, referto, allegato){
     var isValid = validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro);
-    if(referto == '') isValid = false; //referto is empty
+    //if(referto == '') isValid = false; //referto is empty
     return isValid;
 }
 
@@ -121,8 +121,8 @@ $(document).ready(function(){
         var careproviderAltroValue = $("#careproviderAltro_new").val().trim();
         var statoValue = $("#statoIndagine_new").val().trim();
         var centroValue = $("#centroIndagine_new").val().trim();
-		var refertoValue = $("#referto").val().trim();
-		var allegatoValue = $("#allegato").val().trim();
+		var refertoValue = $("#refertoIndagine_new").val().trim();
+		var allegatoValue = $("#allegatoIndagine_new").val().trim();
 
         var dataMoment = $j("#data").data("DateTimePicker").date();
         if(dataMoment != null && $("#data").val() != "")
@@ -282,8 +282,8 @@ $(document).ready(function(){
         var careproviderAltroValue = $("#careproviderAltro_" + id).val().trim();
         var statoValue = $("#statoIndagine_" + id).val().trim();
         var centroValue = $("#centroIndagine" + id).val().trim();
-        var refertoValue = $("#referto" + id).val().trim();
-        var allegatoValue = $("#allegato" + id).val().trim();
+        var refertoValue = $("#refertoIndagine_" + id).val().trim();
+        var allegatoValue = $("#allegatoIndagine_" + id).val().trim();
 
         var dataMoment = $j("#data" + id).data("DateTimePicker").date();
         if(dataMoment != null && $("#data" + id).val() != "")

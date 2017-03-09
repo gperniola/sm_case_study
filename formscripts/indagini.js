@@ -45,8 +45,14 @@ function statoChange(){
     }
 }
 
+function setError(id){
+    $(id).closest(".form-group").addClass('has-error');
+}
+function unsetError(id){
+    $(id).closest(".form-group").removeClass('has-error');
+}
 
-function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
+/*function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
     var isValid = true;
     if (tipo == '') isValid = false; //tipo vuoto
     if (motivo == "placeholder" ||
@@ -54,13 +60,51 @@ function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careprovider
     if(careprovider == "placeholder" ||
         (careprovider == '' && careproviderAltro == '')) isValid = false; //care placeholder or empty
     return isValid;
+}*/
+function validateRichiesta(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId) {
+
+    var isValid = true;
+    var tipo = $(tipoId).val().trim();
+    var motivo = $(motivoId).val().trim();
+    var motivoAltro = $(motivoAltroId).val().trim();
+    var careprovider = $(careproviderId).val().trim();
+    var careproviderAltro = $(careproviderAltroId).val().trim();
+
+    if (tipo == ''){
+        isValid = false; //tipo vuoto
+        setError(tipoId);
+    } else unsetError(tipoId);
+
+    if (motivo == "placeholder" || (motivo == '' && motivoAltro == '')){
+        isValid = false; //motivo placeholder or empty
+        setError(motivoId);
+    } else unsetError(motivoId);
+
+    if (careprovider == "placeholder" || (careprovider == '' && careproviderAltro == '')){
+        isValid = false; //care placeholder or empty
+        setError(careproviderId);
+    } else unsetError(careproviderId);
+
+    return isValid;
 }
 
-function validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro){
-    var isValid = validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro);
-    //alert("date: " + data);
-    if(data == "") isValid = false;  //data is empty
-    if(centro == "placeholder" || centro == "") isValid = false; //centro is empty
+
+function validateProgrammata(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId, dataId, centroId){
+
+    var isValid = validateRichiesta(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId);
+    var centro = $(centroId).val().trim();
+    var dataMoment = $j(dataId).data("DateTimePicker").date();
+
+    if(dataMoment == null && $(dataId).val() == ""){
+        isValid = false;  //data is empty
+        setError(dataId);
+    } else unsetError(dataId);
+
+    if(centro == "placeholder" || centro == "") {
+        isValid = false; //centro is empty
+        setError(centroId);
+    } else unsetError(centroId);
+
     return isValid;
 }
 
@@ -134,16 +178,18 @@ $(document).ready(function(){
         var formIsValid = false;
         switch(statoValue){
             case "0":
-                //alert("is 0");
-                formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
+                //formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
+                formIsValid = validateRichiesta("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new");
                 break;
             case "1":
                 //alert("is 1");
-                formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
+                //formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
+                formIsValid = validateProgrammata("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new", "#data", "#centroIndagine_new");
                 break;
             case "2":
                 //alert("is 2");
-                formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
+                //formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
+                formIsValid = validateCompletata("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new", "#data", "#centroIndagine_new", "#refertoIndagine_new", "#allegatoIndagine_new");
                 break;
         }
         if(formIsValid){
@@ -312,15 +358,15 @@ $(document).ready(function(){
         switch(statoValue){
             case "0":
                 //alert("is 0");
-                formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
+                formIsValid = validateRichiesta("#tipoIndagine"+id, "#motivoIndagine_"+id, "#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id);
                 break;
             case "1":
                 //alert("is 1");
-                formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
+                formIsValid = validateProgrammata("#tipoIndagine"+id,"#motivoIndagine_"+id,"#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id,"#data"+id,"#centroIndagine"+id);
                 break;
             case "2":
                 //alert("is 2");
-                formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
+                formIsValid = validateCompletata("#tipoIndagine"+id,"#motivoIndagine_"+id,"#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id,"#data"+id,"#centroIndagine"+id,"#refertoIndagine_"+id,"#allegatoIndagine_"+id);
                 break;
         }
 

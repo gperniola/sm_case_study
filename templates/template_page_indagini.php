@@ -513,7 +513,7 @@ else
 												 </div></td></tr>';
                                             echo '
                                             <tr id="riga'.$array_richieste[$i+0].'" style="display:none">
-		                                        <td colspan="5">';
+		                                        <td colspan="4">';
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
@@ -721,7 +721,7 @@ else
 												</div></td></tr>';
                                             echo '
                                             <tr id="riga'.$array_programmate[$i+0].'" style="display:none">
-		                                        <td colspan="5">';
+		                                        <td colspan="6">';
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
@@ -943,7 +943,7 @@ else
 												</div></td></tr>';
                                             echo '
                                             <tr id="riga'.$array_completate[$i+0].'" style="display:none">
-		                                        <td colspan="5">';
+		                                        <td colspan="7">';
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">

@@ -52,4 +52,7 @@ files/uploads/*
 !files/uploads/refertiIndagini/
 files/uploads/refertiIndagini/*
 !files/uploads/refertiIndagini/.gitkeep
+!files/uploads/allegatiIndagini/
+files/uploads/allegatiIndagini/*
+!files/uploads/allegatiIndagini/.gitkeep
 

@@ -325,7 +325,7 @@ else
                             </div> <!-- End hidden row -->
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Tipo indagine:</label>
+                                    <label class="control-label col-lg-4">Tipo indagine *</label>
                                     <div class="col-lg-4">
                                         <input id="tipoIndagine" type="text"  class="form-control"/>
                                     </div>
@@ -333,7 +333,7 @@ else
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Motivo:</label>
+                                    <label class="control-label col-lg-4">Motivo *</label>
                                     <div class="col-lg-4">
                                         <select id="motivoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
@@ -355,7 +355,7 @@ else
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Care provider:</label>
+                                    <label class="control-label col-lg-4">Care provider *</label>
                                     <div class="col-lg-4">
                                         <?php
                                         if ($role == "cp")
@@ -383,7 +383,7 @@ else
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Stato:</label>
+                                    <label class="control-label col-lg-4">Stato *</label>
                                     <div class="col-lg-4">
                                         <select id="statoIndagine_new" class="form-control">
                                             <option selected value="0">Richiesta</option>
@@ -395,7 +395,7 @@ else
                             </div>
                             <div class="col-lg-12" id="divCentro_new" style="display:none;">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Centro:</label>
+                                    <label class="control-label col-lg-4">Centro *</label>
                                     <div class="col-lg-4">
                                         <select id="centroIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="placeholder">Selezionare un centro..</option>
@@ -411,7 +411,7 @@ else
                             </div>
                             <div class="col-lg-12" id="divData_new" style="display:none;">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Data:</label>
+                                    <label class="control-label col-lg-4">Data*</label>
                                     <div class="col-lg-4">
                                         <input id="data" type="text" placeholder="Selezionare una data.." class="form-control"/>
                                     </div>
@@ -428,7 +428,7 @@ else
                             </div>
                             <div class="col-lg-12" id="divReferto_new" style="display:none;">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Referto:</label>
+                                    <label class="control-label col-lg-4">Referto</label>
                                     <div class="col-lg-4" >
                                         <select id="refertoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="">Selezionare un file..</option>
@@ -447,7 +447,7 @@ else
                             </div>
                             <div class="col-lg-12" id="divAllegato_new" style="display:none;">
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Allegato:</label>
+                                    <label class="control-label col-lg-4">Allegato</label>
                                     <div class="col-lg-4">
                                         <select id="allegatoIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="" >Selezionare un file..</option>
@@ -510,7 +510,7 @@ else
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="tipoIndagine'.$array_richieste[$i+0].'" type="text"  class="form-control"
                                                                             value ="'.$array_richieste[$i+1].'"/>
@@ -518,7 +518,7 @@ else
                                                                 </div>
 					                                        </div>
 					                                        <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altra motivazione..</option>';
@@ -537,7 +537,7 @@ else
                                                                  </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider *</label>
                                                                     <div class="col-lg-4">';
                                                                         if ($role == "cp")
                                                                             echo '<select disabled id="careproviderIndagine_'.$array_richieste[$i+0].'" class="form-control">';
@@ -560,7 +560,7 @@ else
                                                                  </div>
                                                              </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Stato *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="statoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected value="0">Richiesta</option>
@@ -571,7 +571,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divCentro_'.$array_richieste[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Centro *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
@@ -586,7 +586,7 @@ else
                                                                 </div>
                                                             </div>
                                                              <div class="col-lg-12" id="divData_'.$array_richieste[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Data:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Data *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="data'.$array_richieste[$i+0].'" type="text" placeholder="Selezionare una data.."  class="form-control"
                                                                         value ="'.$array_richieste[$i+4].'"/>
@@ -602,7 +602,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_richieste[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Referto</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_richieste[$i + 5] != null && $SelfcareproviderConf < $array_richieste[$i + 20])
                                                                             echo '<select disabled id="refertoIndagine_'.$array_richieste[$i+0].'" class="form-control">
@@ -628,7 +628,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_richieste[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_richieste[$i + 6] != null && $SelfcareproviderConf < $array_richieste[$i + 23])
                                                                             echo '<select disabled id="allegatoIndagine_'.$array_richieste[$i+0].'" class="form-control">
@@ -710,7 +710,7 @@ else
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="tipoIndagine'.$array_programmate[$i+0].'" type="text"  class="form-control"
                                                                             value ="'.$array_programmate[$i+1].'"/>
@@ -718,7 +718,7 @@ else
                                                                 </div>
 					                                        </div>
 					                                        <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
@@ -737,7 +737,7 @@ else
                                                                  </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider *</label>
                                                                     <div class="col-lg-4">';
                                                                     if ($role == "cp")
                                                                         echo '<select disabled id="careproviderIndagine_'.$array_programmate[$i+0].'" class="form-control">';
@@ -760,7 +760,7 @@ else
                                                                  </div>
                                                              </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Stato *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="statoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option value="0">Richiesta</option>
@@ -771,7 +771,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divCentro_'.$array_programmate[$i+0].'">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Centro *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
                                                                         <option selected hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
@@ -786,7 +786,7 @@ else
                                                                 </div>
                                                             </div>
                                                              <div class="col-lg-12" id="divData_'.$array_programmate[$i+0].'">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Data:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Data *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="data'.$array_programmate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control" 
                                                                         value ="'.$array_programmate[$i+4].'"/>
@@ -802,7 +802,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_programmate[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Referto</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_programmate[$i + 5] != null && $SelfcareproviderConf < $array_programmate[$i + 20])
                                                                             echo '<select disabled id="refertoIndagine_'.$array_programmate[$i+0].'" class="form-control">
@@ -828,7 +828,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_programmate[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_programmate[$i + 6] != null && $SelfcareproviderConf < $array_programmate[$i + 23])
                                                                             echo '<select disabled id="allegatoIndagine_'.$array_programmate[$i+0].'" class="form-control">
@@ -924,7 +924,7 @@ else
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="tipoIndagine'.$array_completate[$i+0].'" type="text"  class="form-control"
                                                                             value ="'.$array_completate[$i+1].'"/>
@@ -932,7 +932,7 @@ else
                                                                 </div>
 					                                        </div>
 					                                        <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Motivo *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
@@ -951,7 +951,7 @@ else
                                                                  </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Care provider *</label>
                                                                     <div class="col-lg-4">';
                                                                         if ($role == "cp")
                                                                             echo '<select disabled id="careproviderIndagine_'.$array_completate[$i+0].'" class="form-control">';
@@ -974,7 +974,7 @@ else
                                                                  </div>
                                                              </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Stato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Stato *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="statoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option value="0">Richiesta</option>
@@ -985,7 +985,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divCentro_'.$array_completate[$i+0].'">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Centro:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Centro *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
@@ -1000,7 +1000,7 @@ else
                                                                 </div>
                                                             </div>
                                                              <div class="col-lg-12" id="divData_'.$array_completate[$i+0].'">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Data:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Data *</label>
                                                                     <div class="col-lg-4">
                                                                         <input id="data'.$array_completate[$i+0].'" type="text" placeholder="Selezionare una data.." class="form-control"
                                                                             value ="'.$array_completate[$i+4].'"/>
@@ -1016,7 +1016,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divReferto_'.$array_completate[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Referto:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Referto</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_completate[$i + 5] != null && $SelfcareproviderConf < $array_completate[$i + 20])
                                                                             echo '<select disabled id="refertoIndagine_'.$array_completate[$i+0].'" class="form-control">
@@ -1042,7 +1042,7 @@ else
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12" id="divAllegato_'.$array_completate[$i+0].'" style="display:none;">
-                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato:</label>
+                                                                <div class="form-group"><label class="control-label col-lg-4">Allegato</label>
                                                                     <div class="col-lg-4">';
                                                                         if($role != "pz" && $array_completate[$i + 6] != null && $SelfcareproviderConf < $array_completate[$i + 23])
                                                                             echo '<select disabled id="allegatoIndagine_'.$array_completate[$i+0].'" class="form-control">

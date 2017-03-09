@@ -639,7 +639,7 @@ else
                                                                         else {
                                                                             echo ' <select id="allegatoIndagine_' . $array_richieste[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                            for ($k = 0; $k < $n_all; $k += 5) {
                                                                                 if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
                                                                                     if ($array_allegati[$k + 0] == $array_richieste[$i + 6])
                                                                                         echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
@@ -839,7 +839,7 @@ else
                                                                         else {
                                                                             echo ' <select id="allegatoIndagine_' . $array_programmate[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                            for ($k = 0; $k < $n_all; $k += 5) {
                                                                                 if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
                                                                                     if ($array_allegati[$k + 0] == $array_programmate[$i + 6])
                                                                                         echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';
@@ -1053,7 +1053,7 @@ else
                                                                         else {
                                                                             echo ' <select id="allegatoIndagine_' . $array_completate[$i + 0] . '" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value="" >Selezionare un file..</option>';
-                                                                            for ($k = 0; $k < $n_ref; $k += 5) {
+                                                                            for ($k = 0; $k < $n_all; $k += 5) {
                                                                                 if ($role == "pz" || $SelfcareproviderConf >= $array_allegati[$k + 4]) {
                                                                                     if ($array_allegati[$k + 0] == $array_completate[$i + 6])
                                                                                         echo '<option selected value="' . $array_allegati[$k + 0] . '">' . $array_allegati[$k + 1] . ' - ' . $array_allegati[$k + 2] . '</option>';

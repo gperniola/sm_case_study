@@ -36,8 +36,9 @@ function controllaFormato ( $nomeFile,$fileClass ){
 	global $formato_class5;
 	global $formato_class6;
 	global $formato_class7; // referti indagini diagnostiche
-	
-	switch ( $fileClass)
+    global $formato_class8; // allegati indagini diagnostiche
+
+    switch ( $fileClass)
 	{
 		case 0 :
 			return TRUE;
@@ -95,6 +96,13 @@ function controllaFormato ( $nomeFile,$fileClass ){
          */
         case 7 :
             foreach ( $formato_class7 as $formato)
+            {
+                if (strrpos($nomeFile, $formato))
+                    return TRUE;
+            }
+            return FALSE;
+        case 8 :
+            foreach ( $formato_class8 as $formato)
             {
                 if (strrpos($nomeFile, $formato))
                     return TRUE;

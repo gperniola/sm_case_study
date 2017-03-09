@@ -655,13 +655,13 @@ else
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
                                                                     <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
                                                                      preventivamente nella sezione <strong>Files</strong>.
-                                                                </div>
+                                                                </div></br>
                                                             </div>
 					                                    </div>
 			                                        </form>
-			                                        <div style="text-align:right;">
-				                                        <a href="" onclick="return false;" class=annulla id="'.$array_richieste[$i+0].'">[Annulla]</a>
-				                                        <a href="" onclick="return false;" class=conferma id="'.$array_richieste[$i+0].'">[Conferma]</a>
+			                                        <div style="text-align:center;">
+				                                        <a href="" onclick="return false;" class=annulla id="'.$array_richieste[$i+0].'"><button class="btn btn-danger"><i class="icon icon-undo"></i> Annulla modifiche</button></a>
+				                                        <a href="" onclick="return false;" class=conferma id="'.$array_richieste[$i+0].'"><button class="btn btn-success"><i class="icon icon-check"></i> Conferma modifiche</button></a>
 			                                        </div>
 			                                    </td>
 	                                     </tr>';
@@ -855,13 +855,13 @@ else
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
                                                                     <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
                                                                      preventivamente nella sezione <strong>Files</strong>.
-                                                                </div>
+                                                                </div></br>
                                                             </div>
 					                                    </div>
 			                                        </form>
-			                                        <div style="text-align:right;">
-				                                        <a href="" onclick="return false;" class=annulla id="'.$array_programmate[$i+0].'">[Annulla]</a>
-				                                        <a href="" onclick="return false;" class=conferma id="'.$array_programmate[$i+0].'">[Conferma]</a>
+			                                        <div style="text-align:center;">
+				                                        <a href="" onclick="return false;" class=annulla id="'.$array_programmate[$i+0].'"><button class="btn btn-danger"><i class="icon icon-undo"></i> Annulla modifiche</button></a>
+				                                        <a href="" onclick="return false;" class=conferma id="'.$array_programmate[$i+0].'"><button class="btn btn-success"><i class="icon icon-check"></i> Conferma modifiche</button></a>
 			                                        </div>
 			                                    </td>
 	                                     </tr>';
@@ -1069,13 +1069,13 @@ else
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
                                                                     <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
                                                                      preventivamente nella sezione <strong>Files</strong>.
-                                                                </div>
+                                                                </div></br>
                                                             </div>
 					                                    </div>
 			                                        </form>
-			                                        <div style="text-align:right;">
-				                                        <a href="" onclick="return false;" class=annulla id="'.$array_completate[$i+0].'">[Annulla]</a>
-				                                        <a href="" onclick="return false;" class=conferma id="'.$array_completate[$i+0].'">[Conferma]</a>
+			                                        <div style="text-align:center;">
+				                                        <a href="" onclick="return false;" class=annulla id="'.$array_completate[$i+0].'"><button class="btn btn-danger"><i class="icon icon-undo"></i> Annulla modifiche</button></a>
+				                                        <a href="" onclick="return false;" class=conferma id="'.$array_completate[$i+0].'"><button class="btn btn-success"><i class="icon icon-check"></i> Conferma modifiche</button></a>
 			                                        </div>
 			                                    </td>
 	                                     </tr>';

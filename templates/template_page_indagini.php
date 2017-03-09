@@ -222,28 +222,26 @@ else
 
         $array_referti = array();
         $array_allegati = array();
-        global $n_file;
-        $n_files = $this->get_var('filesNum');
+        $n_ref_tot = $this->get_var('refertiNum');
+        $n_all_tot = $this->get_var('allegatiNum');
         $n_ref = 0;
         $n_all = 0;
-        for ($i = 0; $i < $n_files; $i++) {
-            $filePath = $this->get_var('files.path.'.$i);
-            if($filePath == "uploads/refertiIndagini/"){
-                $array_referti[$n_ref + 0] = $this->get_var('files.id.'.$i);
-                $array_referti[$n_ref + 1] = $this->get_var('files.data.'.$i);
-                $array_referti[$n_ref + 2] = $this->get_var('files.nome.'.$i);
-                $array_referti[$n_ref + 3] = $filePath;
-                $array_referti[$n_ref + 4] = $this->get_var('files.conf.'.$i);
-                $n_ref = $n_ref + 5;
-            }
-            else{
-                $array_allegati[$n_all + 0] = $this->get_var('files.id.'.$i);
-                $array_allegati[$n_all + 1] = $this->get_var('files.data.'.$i);
-                $array_allegati[$n_all + 2] = $this->get_var('files.nome.'.$i);
-                $array_allegati[$n_all + 3] = $filePath;
-                $array_allegati[$n_all + 4] = $this->get_var('files.conf.'.$i);
-                $n_all = $n_all + 5;
-            }
+        for ($i = 0; $i < $n_ref_tot; $i++) {
+
+            $array_referti[$n_ref + 0] = $this->get_var('referti.id.' . $i);
+            $array_referti[$n_ref + 1] = $this->get_var('referti.data.' . $i);
+            $array_referti[$n_ref + 2] = $this->get_var('referti.nome.' . $i);
+            $array_referti[$n_ref + 3] = $this->get_var('referti.path.' . $i);
+            $array_referti[$n_ref + 4] = $this->get_var('referti.conf.' . $i);
+            $n_ref = $n_ref + 5;
+        }
+        for ($i = 0; $i < $n_all_tot; $i++) {
+            $array_allegati[$n_all + 0] = $this->get_var('allegati.id.'.$i);
+            $array_allegati[$n_all + 1] = $this->get_var('allegati.data.'.$i);
+            $array_allegati[$n_all + 2] = $this->get_var('allegati.nome.'.$i);
+            $array_allegati[$n_all + 3] = $this->get_var('allegati.path.' . $i);
+            $array_allegati[$n_all + 4] = $this->get_var('allegati.conf.'.$i);
+            $n_all = $n_all + 5;
         }
 
 

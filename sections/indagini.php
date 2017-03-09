@@ -196,25 +196,44 @@ $pag_indagini -> set_var('diagnosiNum', $z);
 
 
 /******************************************************************************
- * ESTRAGGO FILE E REFERTI COLLEGATI AL PAZIENTE
+ * ESTRAGGO I REFERTI COLLEGATI AL PAZIENTE
  ******************************************************************************/
-$filesId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
-$filesData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
-$filesConf = getArray('codConfidenzialita', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
-$filesNome = getArray('nomeFile', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
-$filesPath = getArray('path', 'files','idPaziente='.$pz_id . ' ORDER BY dataCreazione DESC');
-$f = count($filesId);
+$refertiId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
+$refertiData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
+$refertiConf = getArray('codConfidenzialita', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
+$refertiNome = getArray('nomeFile', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
+$refertiPath = getArray('path', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
+$f = count($refertiId);
 
 for($i=0; $i<$f; $i++){
-    $pag_indagini -> set_var('files.id.'.$i, $filesId[$i]);
-    $newDate = (new DateTime($filesData[$i]))->format('d/m/y');
-    $pag_indagini -> set_var('files.data.'.$i,  $newDate);
-    $pag_indagini -> set_var('files.conf.'.$i, $filesConf[$i]);
-    $pag_indagini -> set_var('files.nome.'.$i, $filesNome[$i]);
-    $pag_indagini -> set_var('files.path.'.$i, $filesPath[$i]);
+    $pag_indagini -> set_var('referti.id.'.$i, $refertiId[$i]);
+    $newDate = (new DateTime($refertiData[$i]))->format('d/m/y');
+    $pag_indagini -> set_var('referti.data.'.$i,  $newDate);
+    $pag_indagini -> set_var('referti.conf.'.$i, $refertiConf[$i]);
+    $pag_indagini -> set_var('referti.nome.'.$i, $refertiNome[$i]);
+    $pag_indagini -> set_var('referti.path.'.$i, $refertiPath[$i]);
 }
-$pag_indagini -> set_var('filesNum', $f);
+$pag_indagini -> set_var('refertiNum', $f);
 
+/******************************************************************************
+ * ESTRAGGO GLI ALLEGATI COLLEGATI AL PAZIENTE
+ ******************************************************************************/
+$allegatiId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
+$allegatiData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
+$allegatiConf = getArray('codConfidenzialita', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
+$allegatiNome = getArray('nomeFile', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
+$allegatiPath = getArray('path', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
+$f = count($allegatiId);
+
+for($i=0; $i<$f; $i++){
+    $pag_indagini -> set_var('allegati.id.'.$i, $allegatiId[$i]);
+    $newDate = (new DateTime($allegatiData[$i]))->format('d/m/y');
+    $pag_indagini -> set_var('allegati.data.'.$i,  $newDate);
+    $pag_indagini -> set_var('allegati.conf.'.$i, $allegatiConf[$i]);
+    $pag_indagini -> set_var('allegati.nome.'.$i, $allegatiNome[$i]);
+    $pag_indagini -> set_var('allegati.path.'.$i, $allegatiPath[$i]);
+}
+$pag_indagini -> set_var('allegatiNum', $f);
 
 
 

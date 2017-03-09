@@ -193,6 +193,7 @@ $(document).ready(function(){
                 break;
         }
         if(formIsValid){
+            $("#formAlert_new").collapse();
             $.post("formscripts/nuovaIndagine.php",
                 {
                     idPaziente:     idPaziente,
@@ -217,7 +218,8 @@ $(document).ready(function(){
                 });
         }
         else{
-            alert("ATTENZIONE: Compilare correttamente tutti i campi.");
+            $("#formAlert_new").show();
+            //alert("ATTENZIONE: Compilare correttamente tutti i campi.");
         }
         /*
 		
@@ -371,6 +373,7 @@ $(document).ready(function(){
         }
 
         if(formIsValid){
+            $("#formAlert_"+id).collapse();
             $.post("formscripts/modificaIndagine.php",
                 {
                     idIndagine:     id,
@@ -397,7 +400,8 @@ $(document).ready(function(){
                 });
         }
         else{
-            alert("ATTENZIONE: Compilare correttamente tutti i campi.");
+            $("#formAlert_"+id).show();
+            //alert("ATTENZIONE: Compilare correttamente tutti i campi.");
         }
 
     });

@@ -323,6 +323,12 @@ else
                                     </div>
                                 </div>
                             </div> <!-- End hidden row -->
+                            <div hidden class="col-lg-6 alert alert-danger" id="formAlert_new" role="alert"  style="float: none; margin: 0 auto;">
+                                <div style="text-align: center;">
+                                    <i class="glyphicon glyphicon-exclamation-sign" ></i>
+                                    <strong>Attenzione:</strong> Compilare correttamente i campi bordati in rosso.
+                                </div>
+                            </div></br>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Tipo indagine *</label>
@@ -464,8 +470,10 @@ else
                                     </div>
                                 </div>
                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
-                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
-                                    preventivamente nella sezione <strong>Files</strong>.
+                                    <div style="text-align:center;">
+                                        <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                        preventivamente nella sezione <strong>Files</strong>.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -509,6 +517,12 @@ else
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
+		                                                    <div hidden class="col-lg-6 alert alert-danger" id="formAlert_'.$array_richieste[$i+0].'" role="alert"  style="float: none; margin: 0 auto;">
+                                                                <div style="text-align: center;">
+                                                                    <i class="glyphicon glyphicon-exclamation-sign" ></i>
+                                                                    <strong>Attenzione:</strong> Compilare correttamente i campi bordati in rosso.
+                                                                </div>
+                                                            </div></br>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
@@ -653,8 +667,10 @@ else
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
-                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
-                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                    <div style="text-align:center;">
+                                                                        <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                        preventivamente nella sezione <strong>Files</strong>.
+                                                                    </div>
                                                                 </div></br>
                                                             </div>
 					                                    </div>
@@ -709,6 +725,12 @@ else
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
+		                                                    <div hidden class="col-lg-6 alert alert-danger" id="formAlert_'.$array_programmate[$i+0].'" role="alert"  style="float: none; margin: 0 auto;">
+                                                                <div style="text-align: center;">
+                                                                    <i class="glyphicon glyphicon-exclamation-sign" ></i>
+                                                                    <strong>Attenzione:</strong> Compilare correttamente i campi bordati in rosso.
+                                                                </div>
+                                                            </div></br>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
@@ -853,8 +875,10 @@ else
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
-                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
-                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                    <div style="text-align:center;">
+                                                                        <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                        preventivamente nella sezione <strong>Files</strong>.
+                                                                    </div>
                                                                 </div></br>
                                                             </div>
 					                                    </div>
@@ -923,6 +947,12 @@ else
                                             echo'
 		                                            <form class="form-horizontal">
 		                                                <div class="row">
+		                                                    <div hidden class="col-lg-6 alert alert-danger" id="formAlert_'.$array_completate[$i+0].'" role="alert"  style="float: none; margin: 0 auto;">
+                                                                <div style="text-align: center;">
+                                                                    <i class="glyphicon glyphicon-exclamation-sign" ></i>
+                                                                    <strong>Attenzione:</strong> Compilare correttamente i campi bordati in rosso.
+                                                                </div>
+                                                            </div></br>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group"><label class="control-label col-lg-4">Tipo indagine *</label>
                                                                     <div class="col-lg-4">
@@ -1067,8 +1097,10 @@ else
                                                                     </div>
                                                                 </div>
                                                                 <div class=" col-lg-6 alert alert-info" role="alert" style="float: none; margin: 0 auto;" >
-                                                                    <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
-                                                                     preventivamente nella sezione <strong>Files</strong>.
+                                                                    <div style="text-align:center;">
+                                                                        <strong>Attenzione:</strong> Per selezionare un file come referto o allegato è necessario caricarlo
+                                                                        preventivamente nella sezione <strong>Files</strong>.
+                                                                    </div>
                                                                 </div></br>
                                                             </div>
 					                                    </div>

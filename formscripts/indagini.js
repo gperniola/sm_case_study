@@ -1,3 +1,7 @@
+/**
+ * Funzioni per la visualizzazione dei textbox per motivo e careprovider
+ * nel caso vengano scelti motivazione e careprovider non presenti in db
+ */
 function motivoChange(){
     var index = $(this).attr("id").replace('motivoIndagine','');
     var value = $(document.getElementById("motivoIndagine" + index)).val();
@@ -8,7 +12,6 @@ function motivoChange(){
         document.getElementById("motivoAltro" + index).style.display = "none";
     }
 }
-
 function careproviderChange(){
     var index = $(this).attr("id").replace('careproviderIndagine','');
     var value = $(document.getElementById("careproviderIndagine" + index)).val();
@@ -21,6 +24,9 @@ function careproviderChange(){
 }
 
 
+/**
+ * Funzione per la visualizzazione dei campi appropriati in base allo stato dell'indagine
+ */
 function statoChange(){
     var index = $(this).attr("id").replace('statoIndagine','');
     switch ($(document.getElementById("statoIndagine" + index)).val()){
@@ -45,6 +51,11 @@ function statoChange(){
     }
 }
 
+
+/**
+ * Funzioni per la visualizzazione e rimozione del bordo rosso dei campi del form con errori
+ * @param id : ID del campo da bordare
+ */
 function setError(id){
     $(id).closest(".form-group").addClass('has-error');
 }
@@ -52,15 +63,16 @@ function unsetError(id){
     $(id).closest(".form-group").removeClass('has-error');
 }
 
-/*function validateRichiesta(tipo, motivo, motivoAltro, careprovider, careproviderAltro){
-    var isValid = true;
-    if (tipo == '') isValid = false; //tipo vuoto
-    if (motivo == "placeholder" ||
-        (motivo == '' && motivoAltro == '')) isValid = false; //motivo placeholder or empty
-    if(careprovider == "placeholder" ||
-        (careprovider == '' && careproviderAltro == '')) isValid = false; //care placeholder or empty
-    return isValid;
-}*/
+
+/**
+ * Funzione di validazione di una nuova Indagine con stato "richiesta"
+ * @param tipoId
+ * @param motivoId
+ * @param motivoAltroId
+ * @param careproviderId
+ * @param careproviderAltroId
+ * @returns {boolean} : TRUE se le informazioni inserite sono valide
+ */
 function validateRichiesta(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId) {
 
     var isValid = true;
@@ -89,6 +101,17 @@ function validateRichiesta(tipoId, motivoId, motivoAltroId, careproviderId, care
 }
 
 
+/**
+ * Funzione di validazione di una nuova Indagine con stato "programmata"
+ * @param tipoId
+ * @param motivoId
+ * @param motivoAltroId
+ * @param careproviderId
+ * @param careproviderAltroId
+ * @param dataId
+ * @param centroId
+ * @returns {boolean}
+ */
 function validateProgrammata(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId, dataId, centroId){
 
     var isValid = validateRichiesta(tipoId, motivoId, motivoAltroId, careproviderId, careproviderAltroId);
@@ -108,12 +131,30 @@ function validateProgrammata(tipoId, motivoId, motivoAltroId, careproviderId, ca
     return isValid;
 }
 
+
+/**
+ * Funzione di validazione di una nuova Indagine con stato "completata"
+ * @param tipo
+ * @param motivo
+ * @param motivoAltro
+ * @param careprovider
+ * @param careproviderAltro
+ * @param data
+ * @param centro
+ * @param referto
+ * @param allegato
+ * @returns {boolean}
+ */
 function validateCompletata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro, referto, allegato){
     var isValid = validateProgrammata(tipo, motivo, motivoAltro, careprovider, careproviderAltro, data, centro);
-    //if(referto == '') isValid = false; //referto is empty
+    // NESSUN VINCOLO
     return isValid;
 }
 
+
+/**
+ * Operazioni da svolgere a pagina caricata
+ */
 $(document).ready(function(){
 
     $(window).load(function() {
@@ -125,6 +166,8 @@ $(document).ready(function(){
     $("[id^=statoIndagine]").change(statoChange);
     $("[id^=careproviderIndagine]").change(careproviderChange);
 
+    //se l'accesso alla pagina è eseguito dal menu, abilita i pulsanti per l'inserimento di nuove indagini
+    //se l'accesso è eseguito da un indagine, disabilita i pulsanti
     var menu = document.getElementById("menu_mode").getAttribute('data-menu');
     if(menu){
         $('#nuovoFile').prop('disabled',false);
@@ -138,14 +181,6 @@ $(document).ready(function(){
         $("#collapse1").collapse('show');
     }
 
-
-
-	
-	//$('#nomeCp').prop('disabled',true);
-	//$('#cognomeCp').prop('disabled',true);
-
-
-
     $("#nuovoFile").click(function(){
 		
         $("#formIndagini").show(200);
@@ -153,9 +188,13 @@ $(document).ready(function(){
 		$('#concludi').prop('disabled',false);
 		$('#annulla').prop('disabled',false);
     });
-	
-	$("#concludi").click(function(){
 
+
+    /**
+     * Funzione per click sul pulsante "Concludi indagine": controlla il form e se corretto invia i dati per
+     * l'inserimento in db
+     */
+    $("#concludi").click(function(){
 	    var idPaziente = $("#idPaziente").val().trim();
 	    var idCareprovider = $("#cpId").val().trim();
 		var tipoValue = $("#tipoIndagine").val().trim();
@@ -174,21 +213,17 @@ $(document).ready(function(){
         else
             var dataValue = "";
 
-
+        //CONTROLLO DEL FORM
         var formIsValid = false;
         switch(statoValue){
             case "0":
-                //formIsValid = validateRichiesta(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue);
                 formIsValid = validateRichiesta("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new");
                 break;
             case "1":
-                //alert("is 1");
-                //formIsValid = validateProgrammata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue);
                 formIsValid = validateProgrammata("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new", "#data", "#centroIndagine_new");
                 break;
             case "2":
-                //alert("is 2");
-                //formIsValid = validateCompletata(tipoValue, motivoValue, motivoAltroValue, careproviderValue, careproviderAltroValue, dataValue, centroValue, refertoValue, allegatoValue);
+
                 formIsValid = validateCompletata("#tipoIndagine", "#motivoIndagine_new", "#motivoAltro_new", "#careproviderIndagine_new", "#careproviderAltro_new", "#data", "#centroIndagine_new", "#refertoIndagine_new", "#allegatoIndagine_new");
                 break;
         }
@@ -211,57 +246,19 @@ $(document).ready(function(){
                 },
                 function(status){
                     $('#formIndagini')[0].reset();
-                    //alert("Status: " + status);
-                    window.location.reload();
-                    //$("#collapse1").collapse('show');
-                    //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
+                    window.location.reload();   //RICARICO PAGINA PER AGGIORNARE VALORI
                 });
         }
         else{
             $("#formAlert_new").show();
-            //alert("ATTENZIONE: Compilare correttamente tutti i campi.");
         }
-        /*
-		
-		
-		if(tipo.trim()=='' || data.trim()=='' || referto.trim()=='' || allegato.trim()==''){
-			alert('Tutti i campi sono obbligatori.');
-		}else{
-		
-	$("#formIndagini").hide(200);
-		$('#nuovoFile').prop('disabled',false);
-		$('#concludi').prop('disabled',true);
-		$('#annulla').prop('disabled',true);
-		
-		
-		
-		$.post("formscripts/nuovaIndagine.php",
-			{	
-			
-				idPaziente:  $("#idPaziente").val(),
-				idDiagnosi:  $("#idDiagnosi").val(),
-				motivo:      $("#motivoIndagine").val(),
-				tipo:        $("#tipoIndagine").val(),
-				data:        $("#data").val(),
-				referto:     $("#referto").val(),
-				allegato:    $("#allegato").val(),
-				
-			},
-			function(status){
-				$('#formIndagini')[0].reset();
-    			//alert("Status: " + status);
-				$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
-  			});
-		
-		
-		}*/
-		
-
-
-        
     });
-	
-	$("#annulla").click(function(){
+
+
+    /**
+     * Funzione per click sul pulsante "Annulla indagine": nasconde il form.
+     */
+    $("#annulla").click(function(){
 		
         $("#formIndagini").hide(200);
 		$('#nuovoFile').prop('disabled',false);
@@ -270,7 +267,10 @@ $(document).ready(function(){
     });
 
 
-	/* PULSANTE "MODIFICA" DI OGNI RIGA DELLE TABELLE */
+    /**
+     * Funzione per click sul pulsante "Modifica indagine": presente su ogni riga:
+     * apre un form sotto di esso per la modifica dei dati
+     */
     $(document).on('click', "button.modifica", function () {
         $(this).prop('disabled', true);
         $('#'+$(this).attr('id')+'.elimina').prop('disabled', true);
@@ -278,6 +278,11 @@ $(document).ready(function(){
         $(id).show(200);
     });
 
+
+    /**
+     * Funzione per click sul pulsante "Elimina indagine": presente su ogni riga:
+     * chiede conferma all'utente e in caso affermativo provvede a cancellare l'indagine
+     */
     $(document).on('click', "button.elimina", function () {
         if (confirm("Sei sicuro di voler eliminare l'indagine?")){
             $.post("formscripts/eliminaIndagine.php",
@@ -285,21 +290,16 @@ $(document).ready(function(){
                     idIndagine: $(this).attr('id')
                 },
                 function(status){
-                    //$('#formD')[0].reset();
-                    //alert("Status: " + status);
                     window.location.reload();
                 });
-
-            //var id = $(this).attr('id');
-            //var riga = "#r"+id;
-            //$(riga).hide(250);
-            //riga = "#riga"+id;
-            //$(riga).hide(250);
         }
-
-
     });
 
+
+    /**
+     * Funzione per click sul pulsante "Invia messaggio privato" della tabella centri indagini:
+     * apre una finestra di messaggio inserendo il nome del responsabile nel centro nel campo destinatario
+     */
     $(document).on('click', "a.a-messaggio", function () {
         var id = $(this).attr('id');
         var careprovider = document.getElementById("careproviderStudio" + id).getAttribute('data-nome');
@@ -307,8 +307,10 @@ $(document).ready(function(){
     });
 
 
-
-	/* PULSANTE "[annulla]" PRESENTE IN OGNI FORM DI RIGA */
+    /**
+     * Funzione per click sul pulsante "Annulla modifiche" presente in ogni form di modifica indagine:
+     * nasconde il form di modifica
+     */
     $(document).on('click', "a.annulla", function () {
         var but = '#'+$(this).attr('id');
         $(but+'.modifica').prop('disabled', false);
@@ -317,7 +319,10 @@ $(document).ready(function(){
         $(id).hide(200);
     });
 
-    /* PULSANTE [conferma] PRESENTE IN OGNI FORM DI RIGA */
+    /**
+     * Funzione per click sul pulsante "Conferma modifiche" presente in ogni form di modifica indagine:
+     * controlla che i dati del form siano corretti e li invia per la modifica dei dati nel db
+     */
     $(document).on('click', "a.conferma", function () {
 
         var id = $(this).attr('id');
@@ -339,39 +344,19 @@ $(document).ready(function(){
         else
             var dataValue = "";
 
-
-       /* alert(
-            "id indagine: " + id + ", " +
-            "idpaz: " + idPaziente + ", " +
-            "idcp: " + idCareprovider + ", " +
-            "tipo: " + tipoValue + ", " +
-            "motivo: " + motivoValue + ", " +
-            "motivoAltro: " + motivoAltroValue + ", " +
-            "careprovider: " + careproviderValue + ", " +
-            "careproviderAltro: " + careproviderAltroValue + ", " +
-            "stato: " + statoValue + ", " +
-            "centro: " + centroValue + ", " +
-            "data: " + dataValue + ", " +
-            "referto: " + refertoValue + ", " +
-            "allegato: " + allegatoValue + ", "
-        );*/
-
+        //CONTROLLO DATI
         var formIsValid = false;
         switch(statoValue){
             case "0":
-                //alert("is 0");
                 formIsValid = validateRichiesta("#tipoIndagine"+id, "#motivoIndagine_"+id, "#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id);
                 break;
             case "1":
-                //alert("is 1");
                 formIsValid = validateProgrammata("#tipoIndagine"+id,"#motivoIndagine_"+id,"#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id,"#data"+id,"#centroIndagine"+id);
                 break;
             case "2":
-                //alert("is 2");
                 formIsValid = validateCompletata("#tipoIndagine"+id,"#motivoIndagine_"+id,"#motivoAltro_"+id,"#careproviderIndagine_"+id,"#careproviderAltro_"+id,"#data"+id,"#centroIndagine"+id,"#refertoIndagine_"+id,"#allegatoIndagine_"+id);
                 break;
         }
-
         if(formIsValid){
             $("#formAlert_"+id).collapse();
             $.post("formscripts/modificaIndagine.php",
@@ -392,21 +377,12 @@ $(document).ready(function(){
                 },
                 function(status){
                     $('#formIndagini')[0].reset();
-                    //alert("Status: " + status);
-                    //html5.append(status);
                     window.location.reload();
-                    //$("#collapse1").collapse('show');
-                    //$('#tableIndagini').append('<tr><td>'+data+'</td><td>'+tipo+'</td><td>'+referto+'</td><td>'+allegato+'</td></tr>');
                 });
         }
         else{
             $("#formAlert_"+id).show();
-            //alert("ATTENZIONE: Compilare correttamente tutti i campi.");
         }
-
     });
-
-
-
 });
 

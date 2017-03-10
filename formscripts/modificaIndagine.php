@@ -27,15 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Prendo l'id del paziente a cui è assegnata l'indagine
     $idPazienteIndagine = getInfo('idpaziente', 'indagini', 'id = ' .$idIndagine);
 
-
-    //echo'<script>alert("idPaz='.$idPaziente.' PazConn='.$idPazienteConnesso.' PazInd='.$idPazienteIndagine.' IdInd='.$idIndagine.'");</script>';
-
     if (isset ($_SESSION['cp_Id'])) {
         $id_Cp = $_SESSION['cp_Id'];
         $id_prop = $id_Cp;
     } else
         $id_prop = $id_Pz;
 
+    //Se l'idPaziente passato per la modifica è lo stesso del paziente connesso e del paziente indagine...
     if ($idPazienteConnesso == $idPaziente){
         if($idPazienteConnesso == $idPazienteIndagine){
             if($careprovider != '')
@@ -52,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             if($idReferto == '') $idReferto = "NULL";
             if($idAllegato == '') $idAllegato = "NULL";
+
             if($stato == "0"){
                 echo modificaIndagineRichiesta($idIndagine, $careprovider, $careproviderNome, $idMotivo, $motivo, 0, $tipo);
             }else if ($stato == "1"){

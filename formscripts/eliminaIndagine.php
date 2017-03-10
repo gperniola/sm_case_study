@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_prop = $id_Pz;
 
     if($idPazienteConnesso == $idPazienteIndagine){
-        modificaStatoIndagine($idIndagine, 3);
-        eliminaIndagine($idIndagine, $id_prop);
+        modificaStatoIndagine($idIndagine, 3);  //cambio lo stato dell'indagine senza cancellarla, ponendolo a 3
+        eliminaIndagine($idIndagine, $id_prop); //inserisco l'id dell'indagine cancellata nella tabella indaginiEliminate
     }
     else
         echo'<script>alert("Errore: L\'indagine in eliminazione non appartiene al paziente connesso");</script>';

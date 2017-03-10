@@ -30,25 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		else 
 			$id_prop = $id_Pz;
 
-
-	//TODO: check data again?
-
-	/*echo'
-	<script>
-	alert("id_Pz: '.$id_Pz.' id_Cp: '.$id_Cp.' id_prop: '.$id_prop.' idPaziente: '.$idPaziente.' idCare: '.$idCare.'");
-	</script>
-	';*/
-
+	//Se l'idPaziente passato per la modifica è lo stesso del paziente connesso...
 	if ($idPazienteConnesso == $idPaziente){
-        if($careprovider != '')
+        if($careprovider != '') 	//se ho un ID per un careprovider registrato...
+        	//usando l'ID ne estraggo nome e cognome per l'inserimento in tabella
 			$careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$careprovider) . ' ' .
             	getInfo('cognome', 'careproviderpersona', 'id='.$careprovider);
     	else{
+    		//altrimenti utilizzo il nome passato in input
     		$careprovider = "NULL";
         	$careproviderNome = $careproviderAltro;
 		}
+		//se ho un ID diagnosi per il motivo, ne estraggo il nome
 		if($idMotivo != '') $motivo = getInfo('patologia', 'diagnosi','id='.$idMotivo);
 		else{
+			//altrimenti utilizzo la motivazione passata in input
         	$idMotivo = "NULL";
         	$motivo = $motivoAltro;
 		}

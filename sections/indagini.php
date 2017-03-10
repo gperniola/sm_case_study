@@ -48,6 +48,7 @@ $pag_indagini -> set_var('mioCpCognome', $cpCognome);
  * - diagnosi collegata all'indagine
  * - careprovider che ha richiesto l'indagine
  * - centro in cui si effettua l'indagine
+ * - referto e allegato connessi all'indagine
  ******************************************************************************/
 $indaginiId = getArray('id', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiTipo = getArray('tipoIndagine', 'indagini', 'idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
@@ -61,17 +62,20 @@ $indaginiStato = getArray('stato', 'indagini', 'idPaziente='.$idPaziente . ' ORD
 $indaginiIdDiagnosi = getArray('idDiagnosi', 'indagini','idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $indaginiCareprovider = getArray('careprovider', 'indagini','idPaziente='.$idPaziente . ' ORDER BY dataIndagine ASC');
 $n = count($indaginiId);
-for($i=0; $i<$n; $i++){
+
+
+for($i=0; $i<$n; $i++){     //PER OGNI INDAGINE....
     $pag_indagini -> set_var('ind.id.'.$i, $indaginiId[$i]);
     $pag_indagini -> set_var('ind.tipo.'.$i, $indaginiTipo[$i]);
 
+    //FORMATTO E INSERISCO LA DATA DELL'INDAGINE
     if ($indaginiData[$i] != NULL)
-        //$newDate = date("d/m/Y H:i", strtotime($indaginiData[$i]));
         $newDate = (new DateTime($indaginiData[$i]))->format('d/m/Y<\b\r>H:i');
     else
         $newDate = "";
     $pag_indagini -> set_var('ind.data.'.$i, $newDate);
 
+    //RECUPERO I DATI PER IL REFERTO COLLEGATO ALL'INDAGINE
     $refertoNome = getInfo('nomeFile', 'files', 'idFiles='.$indaginiRefertoId[$i]);
     $refertoData = getInfo('dataCreazione', 'files', 'idFiles='.$indaginiRefertoId[$i]);
     $refertoPath = getInfo('path', 'files', 'idFiles='.$indaginiRefertoId[$i]);
@@ -83,6 +87,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.refertoConf.'.$i, $refertoConf);
     $pag_indagini -> set_var('ind.refertoFullpath.'.$i, "files/" . $refertoPath . $refertoNome);
 
+    //RECUPERO I DATI PER L'ALLEGATO COLLEGATO ALL'INDAGINE
     $allegatoNome = getInfo('nomeFile', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
     $allegatoData = getInfo('dataCreazione', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
     $allegatoPath = getInfo('path', 'files', 'idFiles='.$indaginiAllegatoId[$i]);
@@ -94,6 +99,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.allegatoConf.'.$i, $allegatoConf);
     $pag_indagini -> set_var('ind.allegatoFullpath.'.$i, "files/" . $allegatoPath . $allegatoNome);
 
+    //RECUPERO I DATI PER IL CAREPROVIDER COLLEGATO ALL'INDAGINE
     $pag_indagini -> set_var('ind.cpId.'.$i, $indaginiCp[$i]);
     $pag_indagini -> set_var('ind.careprovider.'.$i, $indaginiCareprovider[$i]);
     $careproviderNome = getInfo('nome', 'careproviderpersona', 'id='.$indaginiCp[$i]);
@@ -103,6 +109,7 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.cpCognome.'.$i, $careproviderCognome);
     $pag_indagini -> set_var('ind.cpRep.'.$i, $careproviderRep);
 
+    //RECUPERO I DATI PER IL CENTRO COLLEGATO ALL'INDAGINE
     $pag_indagini -> set_var('ind.centroId.'.$i, $indaginiCentro[$i]);
     $centroNome = getInfo('nomeStudio', 'centriindagini', 'id='.$indaginiCentro[$i]);
     $centroVia = getInfo('via', 'centriindagini', 'id='.$indaginiCentro[$i]);
@@ -111,17 +118,19 @@ for($i=0; $i<$n; $i++){
     $pag_indagini -> set_var('ind.centroVia.'.$i, $centroVia);
     $pag_indagini -> set_var('ind.centroCitta.'.$i, $centroCitta);
 
+    //RECUPERO I DATI RELATIVI ALLA DIAGNOSI COLLEGATA ALL'INDAGINE
     $pag_indagini -> set_var('ind.motivo.'.$i, $indaginiMotivo[$i]);
     $pag_indagini -> set_var('ind.stato.'.$i, $indaginiStato[$i]);
     $pag_indagini -> set_var('ind.idDiagno.'.$i, $indaginiIdDiagnosi[$i]);
     $conf = getInfo('conf', 'diagnosi', 'id='.$indaginiIdDiagnosi[$i]);
     $pag_indagini -> set_var('ind.conf.'.$i, $conf);
-}
+}   // FINE CICLO PER OGNI INDAGINE
+
 $pag_indagini -> set_var('indaginiNum', $n);
 
 
 /******************************************************************************
- * ESTRAGGO I CAREPROVIDER COLLEGATI ALL'UTENTE
+ * RECUPERO I CAREPROVIDER COLLEGATI ALL'UTENTE
  ******************************************************************************/
 $cpRegistratiIdUtente = getArray('idcpp', 'careproviderpaziente', 'idutente='.$idPaziente);
 $v = count($cpRegistratiIdUtente);
@@ -137,7 +146,7 @@ $pag_indagini -> set_var('careproviderNum', $v);
 
 
 /******************************************************************************
- * ESTRAGGO I CENTRI DIAGNOSTICI
+ * RECUPERO I CENTRI DIAGNOSTICI
  ******************************************************************************/
 $centriId = getArrayNoCondition('id', 'centriindagini ORDER BY id');
 $centriIdCpp = getArrayNoCondition('idcpp', 'centriindagini ORDER BY id');
@@ -169,7 +178,7 @@ for($i=0; $i<$m; $i++){
     $pag_indagini -> set_var('centro.responsabileCognome.'.$i, $responsabileCognome);
     $contattiTel = getArray('telefono', 'telefonocentriindagini', 'idCentroIndagini=' .$centriId[$i]);
     $numeriTelefono = "";
-    foreach($contattiTel as $tel)
+    foreach($contattiTel as $tel)   //RECUPERO TUTTI I CONTATTI TELEFONICI COMBINANDOLI
         $numeriTelefono = '<a href="tel:'.$tel.'"><i class="glyphicon glyphicon-earphone" ></i> '. $tel . '</a><br>' . $numeriTelefono;
 
     $pag_indagini -> set_var('centro.contatti.'.$i, $numeriTelefono);
@@ -178,7 +187,7 @@ $pag_indagini -> set_var('centriNum', $m);
 
 
 /******************************************************************************
- * ESTRAGGO LE DIAGNOSI COLLEGATE AL PAZIENTE
+ * RECUPERO LE DIAGNOSI COLLEGATE AL PAZIENTE
  ******************************************************************************/
 $diagnosiId = getArray('id', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
 $diagnosiData = getArray('dataIns', 'diagnosi','stato < 3 AND idPaziente='.$idPaziente . ' ORDER BY dataIns DESC');
@@ -196,7 +205,7 @@ $pag_indagini -> set_var('diagnosiNum', $z);
 
 
 /******************************************************************************
- * ESTRAGGO I REFERTI COLLEGATI AL PAZIENTE
+ * RECUPERO I REFERTI COLLEGATI AL PAZIENTE
  ******************************************************************************/
 $refertiId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
 $refertiData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' AND path = \'uploads/refertiIndagini/\' ORDER BY dataCreazione DESC');
@@ -215,8 +224,9 @@ for($i=0; $i<$f; $i++){
 }
 $pag_indagini -> set_var('refertiNum', $f);
 
-/******************************************************************************
- * ESTRAGGO GLI ALLEGATI COLLEGATI AL PAZIENTE
+/****
+ **************************************************************************
+ * RECUPERO GLI ALLEGATI COLLEGATI AL PAZIENTE
  ******************************************************************************/
 $allegatiId= getArray('idFiles', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
 $allegatiData = getArray('dataCreazione', 'files','idPaziente='.$pz_id . ' AND path = "uploads/allegatiIndagini/" ORDER BY dataCreazione DESC');
@@ -234,7 +244,6 @@ for($i=0; $i<$f; $i++){
     $pag_indagini -> set_var('allegati.path.'.$i, $allegatiPath[$i]);
 }
 $pag_indagini -> set_var('allegatiNum', $f);
-
 
 
 $pag_indagini->out('template_page_indagini');

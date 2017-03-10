@@ -785,7 +785,6 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Stato *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="statoIndagine_'.$array_programmate[$i+0].'" class="form-control">
-                                                                            <option value="0">Richiesta</option>
                                                                             <option selected value="1">Programmata</option>
                                                                             <option value="2">Completata</option>
                                                                         </select>
@@ -1007,8 +1006,6 @@ else
                                                                 <div class="form-group"><label class="control-label col-lg-4">Stato *</label>
                                                                     <div class="col-lg-4">
                                                                         <select id="statoIndagine_'.$array_completate[$i+0].'" class="form-control">
-                                                                            <option value="0">Richiesta</option>
-                                                                            <option value="1">Programmata</option>
                                                                             <option selected value="2">Completata</option>
                                                                         </select>
                                                                     </div>

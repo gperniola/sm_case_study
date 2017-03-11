@@ -512,6 +512,7 @@ else
 										            <button id='.$array_richieste[$i+0].' class="modifica btn btn-success "><i class="icon-pencil icon-white"></i></button>
 												    <button id='.$array_richieste[$i+0].' class="elimina btn btn-danger"><i class="icon-remove icon-white"></i></button>
 												 </div></td></tr>';
+                                            //inserimento riga con form di modifica indagine
                                             echo '
                                             <tr id="riga'.$array_richieste[$i+0].'" style="display:none">
 		                                        <td colspan="4">';

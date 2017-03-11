@@ -2320,9 +2320,6 @@ function eliminaIndagine($id, $idutente){
 }
 
 
-
-
-
 function nuovaDiagnosi($idPaziente,$patologia,$stato,$conf,$idCareProvider, $careProvider){
 	global $database;
 

@@ -29,19 +29,18 @@ else
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Utility.php');
         include_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Login/Database.php');
 
+        //SE L'ACCESSO VIENE ESEGUITO TRAMITE POST, OVVERO TRAMITE CLICK SU UNA DIAGNOSI...
         $accesso_da_menu;
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+            //RECUPERO I DATI RELATIVI ALLA DIAGNOSI COLLEGATA ALLE INDAGINI
             $idDiagnosi = $_POST["idDiagnosi"];
-
             $idPaziente    = getInfo('idPaziente','diagnosi','id='.$idDiagnosi);
             $nomePatologia = getInfo('patologia','diagnosi','id='.$idDiagnosi);
             $dataDiagnosi  = getInfo('DATE(datains)', 'diagnosi', 'id='.$idDiagnosi);
-
             $accesso_da_menu = false;
             $stringa_diagnosi = "Indagini relative alla diagnosi <b>" . $nomePatologia . "</b> del <b>" . italianFormat($dataDiagnosi) . "</b>";
         }else{
+            //ALTRIMENTI, L'ACCESSO E' AVVENUTO DA MENU...
             $accesso_da_menu = true;
 
             $myRole = getRole(getMyID());
@@ -67,148 +66,157 @@ else
             else echo "<h5>Permesso negato<h5>";
         }
 
+       //VARIABILE PER L'USO NEL FILE .JS
         echo '<div id="menu_mode" data-menu="' . $accesso_da_menu . '"></div>';
 
-        // ------ DATA FROM diagnosi.php --------
+        // ------ CARICAMENTO DATI DA INDAGINI.PHP --------
         $stato_richiesta = 0;
         $stato_programmata = 1;
         $stato_completata = 2;
-        $array_richieste = array();      //array indagini richieste
+        $array_richieste = array();     //array indagini richieste
         $array_programmate = array();   //array indagini programmate
         $array_completate = array();    //array indagini completate
-        $n_r = 0;               //numero indagini richieste
-        $n_p = 0;             //numero indagini programmate
-        $n_c = 0;              //numero completate
-        global $offset; $offset = 24;
-        global $n_indagini;             //numero totale di indagini
-        $n_indagini = $this->get_var('indaginiNum');
+        $nRic = 0;                      //numero indagini richieste
+        $nPro = 0;                      //numero indagini programmate
+        $nCom = 0;                      //numero completate
+        global $offset; $offset = 24;   //offset del vettore per l'inserimento di tutti i dati
+        global $nIndagini;              //numero totale di indagini
+        $nIndagini = $this->get_var('indaginiNum');
+
+        //SE SONO CAREPROVIDER, RECUPERO ID E CONFIDENZIALITA' COL PAZIENTE
         $SelfCareproviderId =  $this->get_var('idUtenteCp');
         $SelfcareproviderConf = $this->get_var('confidenzialita');
 
-        for ($i = 0; $i < $n_indagini; $i++){          //per ogni indagine...
-            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi  ) {    //se ho effettuato l'accesso dal menu principale
-                                                                                            //o se il motivo dell'indagine è associato alla diagnosi...
+        //RECUPERO DATI PER OGNI INDAGINE...
+        for ($i = 0; $i < $nIndagini; $i++){
+            //SE L'ACCESSO E' DA MENU O SE IL MOTIVO DELL'INDAGINE E' ASSOCIATO ALLA DIAGNOSI...
+            if($accesso_da_menu || $this->get_var('ind.idDiagno.'.$i) == $idDiagnosi  ) {
+                //SE SONO IL PAZIENTE O SE SONO UN CAREPROVIDER CON CONFIDENZIALITA' SUFFICIENTE...
                 if($role == "pz" || $SelfcareproviderConf >= $this->get_var('ind.conf.'.$i)){
                     $stato = $this->get_var('ind.stato.' . $i);  //verifica lo stato
                     switch ($stato) {
                         case $stato_richiesta:
-                            $array_richieste[$n_r + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                            $array_richieste[$n_r + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                            $array_richieste[$n_r + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                            $array_richieste[$n_r + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                            $array_richieste[$n_r + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_richieste[$n_r + 5] = $this->get_var('ind.refertoId.' . $i);
-                            $array_richieste[$n_r + 6] = $this->get_var('ind.allegatoId.' . $i);
-                            $array_richieste[$n_r + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                            $array_richieste[$n_r + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                            $array_richieste[$n_r + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                            $array_richieste[$n_r + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                            $array_richieste[$n_r + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                            $array_richieste[$n_r + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                            $array_richieste[$n_r + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                            $array_richieste[$n_r + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                            $array_richieste[$n_r + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                            $array_richieste[$n_r + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                            $array_richieste[$n_r + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
-                            $array_richieste[$n_r + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
-                            $array_richieste[$n_r + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
-                            $array_richieste[$n_r + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
-                            $array_richieste[$n_r + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
-                            $array_richieste[$n_r + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
-                            $array_richieste[$n_r + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
-                            $n_r = $n_r + $offset;
+                            $array_richieste[$nRic + 0] = $this->get_var('ind.id.' . $i);           //id indagine
+                            $array_richieste[$nRic + 1] = $this->get_var('ind.tipo.' . $i);         //tipo indagine
+                            $array_richieste[$nRic + 2] = $this->get_var('ind.motivo.' . $i);       //motivazione
+                            $array_richieste[$nRic + 3] = $this->get_var('ind.stato.' . $i);        //stato indagine
+                            $array_richieste[$nRic + 4] = $this->get_var('ind.data.' . $i);         //data indagine
+                            $array_richieste[$nRic + 5] = $this->get_var('ind.refertoId.' . $i);    //id del referto
+                            $array_richieste[$nRic + 6] = $this->get_var('ind.allegatoId.' . $i);   //id dell'allegato
+                            $array_richieste[$nRic + 7] = $this->get_var('ind.cpId.' . $i);         //id careprovider
+                            $array_richieste[$nRic + 8] = $this->get_var('ind.cpNome.' . $i);       //nome careprovider
+                            $array_richieste[$nRic + 9] = $this->get_var('ind.cpCognome.' . $i);    //cognome careprovider
+                            $array_richieste[$nRic + 10] = $this->get_var('ind.cpRep.' . $i);       //ruolo careprovider
+                            $array_richieste[$nRic + 11] = $this->get_var('ind.centroId.' . $i);    //id centro diagnostico
+                            $array_richieste[$nRic + 12] = $this->get_var('ind.centroNome.' . $i);  //nome centro diagnostico
+                            $array_richieste[$nRic + 13] = $this->get_var('ind.centroVia.' . $i);   //via centro diagnostico
+                            $array_richieste[$nRic + 14] = $this->get_var('ind.centroCitta.' . $i); //citta centro diagnostico
+                            $array_richieste[$nRic + 15] = $this->get_var('ind.idDiagno.' . $i);    //id diagnosi associata
+                            $array_richieste[$nRic + 16] = $this->get_var('ind.careprovider.' . $i);//careprovider non registrato
+                            $array_richieste[$nRic + 17] = $this->get_var('ind.conf.' . $i);        //confidenzialità della diagnosi
+                            $array_richieste[$nRic + 18] = $this->get_var('ind.refertoNome.' . $i); //nome filereferto
+                            $array_richieste[$nRic + 19] = $this->get_var('ind.refertoFullpath.' . $i);//path esteso al referto
+                            $array_richieste[$nRic + 20] = $this->get_var('ind.refertoConf.' . $i); //confidenzialita' referto
+                            $array_richieste[$nRic + 21] = $this->get_var('ind.allegatoNome.' . $i);//nome fileallegato
+                            $array_richieste[$nRic + 22] = $this->get_var('ind.allegatoFullpath.' . $i);//path esteso al allegato
+                            $array_richieste[$nRic + 23] = $this->get_var('ind.allegatoConf.' . $i);//confidenzialita' allegato
+                            $nRic = $nRic + $offset;
                             break;
                         case $stato_programmata:
-                            $array_programmate[$n_p + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                            $array_programmate[$n_p + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                            $array_programmate[$n_p + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                            $array_programmate[$n_p + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                            $array_programmate[$n_p + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_programmate[$n_p + 5] = $this->get_var('ind.refertoId.' . $i);
-                            $array_programmate[$n_p + 6] = $this->get_var('ind.allegatoId.' . $i);
-                            $array_programmate[$n_p + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                            $array_programmate[$n_p + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                            $array_programmate[$n_p + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                            $array_programmate[$n_p + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                            $array_programmate[$n_p + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                            $array_programmate[$n_p + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                            $array_programmate[$n_p + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                            $array_programmate[$n_p + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                            $array_programmate[$n_p + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                            $array_programmate[$n_p + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                            $array_programmate[$n_p + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
-                            $array_programmate[$n_p + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
-                            $array_programmate[$n_p + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
-                            $array_programmate[$n_p + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
-                            $array_programmate[$n_p + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
-                            $array_programmate[$n_p + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
-                            $array_programmate[$n_p + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
-                            $n_p = $n_p + $offset;
+                            $array_programmate[$nPro + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_programmate[$nPro + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_programmate[$nPro + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_programmate[$nPro + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_programmate[$nPro + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_programmate[$nPro + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_programmate[$nPro + 6] = $this->get_var('ind.allegatoId.' . $i);
+                            $array_programmate[$nPro + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_programmate[$nPro + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_programmate[$nPro + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_programmate[$nPro + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_programmate[$nPro + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_programmate[$nPro + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_programmate[$nPro + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_programmate[$nPro + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_programmate[$nPro + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_programmate[$nPro + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $array_programmate[$nPro + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_programmate[$nPro + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_programmate[$nPro + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_programmate[$nPro + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_programmate[$nPro + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_programmate[$nPro + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_programmate[$nPro + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
+                            $nPro = $nPro + $offset;
                             break;
                         case $stato_completata:
-                            $array_completate[$n_c + 0] = $this->get_var('ind.id.' . $i);         //id indagine
-                            $array_completate[$n_c + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
-                            $array_completate[$n_c + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
-                            $array_completate[$n_c + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
-                            $array_completate[$n_c + 4] = $this->get_var('ind.data.' . $i);       //data indagine
-                            $array_completate[$n_c + 5] = $this->get_var('ind.refertoId.' . $i);
-                            $array_completate[$n_c + 6] = $this->get_var('ind.allegatoId.' . $i);
-                            $array_completate[$n_c + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
-                            $array_completate[$n_c + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
-                            $array_completate[$n_c + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
-                            $array_completate[$n_c + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
-                            $array_completate[$n_c + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
-                            $array_completate[$n_c + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
-                            $array_completate[$n_c + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
-                            $array_completate[$n_c + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
-                            $array_completate[$n_c + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
-                            $array_completate[$n_c + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
-                            $array_completate[$n_c + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
-                            $array_completate[$n_c + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
-                            $array_completate[$n_c + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
-                            $array_completate[$n_c + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
-                            $array_completate[$n_c + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
-                            $array_completate[$n_c + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
-                            $array_completate[$n_c + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
-                            $n_c = $n_c + $offset;
+                            $array_completate[$nCom + 0] = $this->get_var('ind.id.' . $i);         //id indagine
+                            $array_completate[$nCom + 1] = $this->get_var('ind.tipo.' . $i);       //tipo indagine
+                            $array_completate[$nCom + 2] = $this->get_var('ind.motivo.' . $i);     //motivazione
+                            $array_completate[$nCom + 3] = $this->get_var('ind.stato.' . $i);      //stato indagine
+                            $array_completate[$nCom + 4] = $this->get_var('ind.data.' . $i);       //data indagine
+                            $array_completate[$nCom + 5] = $this->get_var('ind.refertoId.' . $i);
+                            $array_completate[$nCom + 6] = $this->get_var('ind.allegatoId.' . $i);
+                            $array_completate[$nCom + 7] = $this->get_var('ind.cpId.' . $i);       //id careprovider
+                            $array_completate[$nCom + 8] = $this->get_var('ind.cpNome.' . $i);     //nome careprovider
+                            $array_completate[$nCom + 9] = $this->get_var('ind.cpCognome.' . $i);  //cognome careprovider
+                            $array_completate[$nCom + 10] = $this->get_var('ind.cpRep.' . $i);     //ruolo careprovider
+                            $array_completate[$nCom + 11] = $this->get_var('ind.centroId.' . $i);  //id centro diagnostico
+                            $array_completate[$nCom + 12] = $this->get_var('ind.centroNome.' . $i);//nome centro diagnostico
+                            $array_completate[$nCom + 13] = $this->get_var('ind.centroVia.' . $i); // via centro diagnostico
+                            $array_completate[$nCom + 14] = $this->get_var('ind.centroCitta.' . $i);   //citta centro diagnostico
+                            $array_completate[$nCom + 15] = $this->get_var('ind.idDiagno.' . $i);   //id diagnosi associata
+                            $array_completate[$nCom + 16] = $this->get_var('ind.careprovider.' . $i);   //careprovider non registrato
+                            $array_completate[$nCom + 17] = $this->get_var('ind.conf.' . $i);   //confidenzialità della diagnosi
+                            $array_completate[$nCom + 18] = $this->get_var('ind.refertoNome.' . $i);   //nome filereferto
+                            $array_completate[$nCom + 19] = $this->get_var('ind.refertoFullpath.' . $i);   //path esteso al referto
+                            $array_completate[$nCom + 20] = $this->get_var('ind.refertoConf.' . $i);   //confidenzialita' referto
+                            $array_completate[$nCom + 21] = $this->get_var('ind.allegatoNome.' . $i);   //nome fileallegato
+                            $array_completate[$nCom + 22] = $this->get_var('ind.allegatoFullpath.' . $i);   //path esteso al allegato
+                            $array_completate[$nCom + 23] = $this->get_var('ind.allegatoConf.' . $i);   //confidenzialita' allegato
+                            $nCom = $nCom + $offset;
                             break;
                     }
                 }
             }
 
-         }
+        }
+        //FINE RECUPERO PER OGNI INDAGINE
 
+
+        //RECUPERO INFORMAZIONI DI TUTTI I CENTRI DIAGNOSTICI...
         $array_centri = array();
-        $n_s = 0;
+        $nCentriIns = 0;
         global $n_centri;             //numero totale di centri
         $n_centri = $this->get_var('centriNum');
         for ($i = 0; $i < $n_centri; $i++) {          //per ogni centro...
-            $array_centri[$n_s + 0] = $this->get_var('centro.id.'.$i);
-            $array_centri[$n_s + 1] = $this->get_var('centro.nome.'.$i);
-            $array_centri[$n_s + 2] = $this->get_var('centro.via.'.$i);
-            $array_centri[$n_s + 3] = $this->get_var('centro.citta.'.$i);
-            $array_centri[$n_s + 4] = $this->get_var('centro.tipo.'.$i);
-            $array_centri[$n_s + 5] = $this->get_var('centro.mail.'.$i);
-            $array_centri[$n_s + 6] = $this->get_var('centro.responsabileId.'.$i);
-            $array_centri[$n_s + 7] = $this->get_var('centro.responsabileNome.'.$i);
-            $array_centri[$n_s + 8] = $this->get_var('centro.responsabileCognome.'.$i);
-            $array_centri[$n_s + 9] = $this->get_var('centro.contatti.'.$i);
-            $n_s = $n_s + 10;
+            $array_centri[$nCentriIns + 0] = $this->get_var('centro.id.'.$i);
+            $array_centri[$nCentriIns + 1] = $this->get_var('centro.nome.'.$i);
+            $array_centri[$nCentriIns + 2] = $this->get_var('centro.via.'.$i);
+            $array_centri[$nCentriIns + 3] = $this->get_var('centro.citta.'.$i);
+            $array_centri[$nCentriIns + 4] = $this->get_var('centro.tipo.'.$i);
+            $array_centri[$nCentriIns + 5] = $this->get_var('centro.mail.'.$i);
+            $array_centri[$nCentriIns + 6] = $this->get_var('centro.responsabileId.'.$i);
+            $array_centri[$nCentriIns + 7] = $this->get_var('centro.responsabileNome.'.$i);
+            $array_centri[$nCentriIns + 8] = $this->get_var('centro.responsabileCognome.'.$i);
+            $array_centri[$nCentriIns + 9] = $this->get_var('centro.contatti.'.$i);
+            $nCentriIns = $nCentriIns + 10;
         }
 
-
+        //RECUPERO INFORMAZIONI DI TUTTE LE DIAGNOSI COLLEGATE AL PAZIENTE...
         $array_diagnosi = array();
-        $n_z = 0;
+        $nDiagnoIns = 0;
         global $n_diagnosi;
         $n_diagnosi = $this->get_var('diagnosiNum');
         for ($i = 0; $i < $n_diagnosi; $i++) {
-            $array_diagnosi[$n_z + 0] = $this->get_var('diagnosi.id.'.$i);
-            $array_diagnosi[$n_z + 1] = $this->get_var('diagnosi.data.'.$i);
-            $array_diagnosi[$n_z + 2] = $this->get_var('diagnosi.patologia.'.$i);
-            $array_diagnosi[$n_z + 3] = $this->get_var('diagnosi.conf.'.$i);
-            $n_z = $n_z + 4;
+            $array_diagnosi[$nDiagnoIns + 0] = $this->get_var('diagnosi.id.'.$i);
+            $array_diagnosi[$nDiagnoIns + 1] = $this->get_var('diagnosi.data.'.$i);
+            $array_diagnosi[$nDiagnoIns + 2] = $this->get_var('diagnosi.patologia.'.$i);
+            $array_diagnosi[$nDiagnoIns + 3] = $this->get_var('diagnosi.conf.'.$i);
+            $nDiagnoIns = $nDiagnoIns + 4;
         }
 
+        //RECUPERO INFORMAZIONI DI TUTTI I CAREPROVIDER REGISTRATI AL PAZIENTE...
         $array_careprovider = array();
         $n_v = 0;
         global $n_careprovider;
@@ -220,6 +228,7 @@ else
             $n_v =  $n_v + 3;
         }
 
+        //RECUPERO INFORMAZIONI DEI REFERTI E ALLEGATI CARICATI DAL PAZIENTE...
         $array_referti = array();
         $array_allegati = array();
         $n_ref_tot = $this->get_var('refertiNum');
@@ -244,18 +253,13 @@ else
             $n_all = $n_all + 5;
         }
 
-
-
-
         $mioCpNome = $this->get_var('mioCpNome');
         $mioCpCognome = $this->get_var('mioCpCognome');
-
-
-
         // --------------------------------------
         ?>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="assets/js/moment-with-locales.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
@@ -263,10 +267,8 @@ else
         <script src="formscripts/indagini.js"></script>
 
 
-
         <hr>
         <h2>Indagini diagnostiche</h2>
-
         <p>In questa pagina è possibile visualizzare tutti gli esami che un paziente deve effettuare o ha già effettuato e
             l'elenco di tutti gli studi e laboratori dove è possibile effettuare un determinato esame.</p>
         <hr/>
@@ -275,19 +277,20 @@ else
         <div class="panel-group ac" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading row">
-                    <div class="col-lg-6"><h3>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="icon-book"></i>
-                                Diario indagini diagnostiche</a>
-                        </h3></div>
-                    <div class="col-lg-6"><h3>
-                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="icon-map-marker"></i>
-                            Centri indagini diagnostiche</a>
-                        </h3></div>
+                    <div class="col-lg-6">
+                        <h3><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="icon-book"></i>
+                                Diario indagini diagnostiche</a></h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3><a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="icon-map-marker"></i>
+                            Centri indagini diagnostiche</a></h3>
+                    </div>
                 </div>
-                <div id="collapse1" class="panel-collapse collapse in">
-                    <hr/>
-                    <div class="row">
-            <div class="col-lg-12">
+
+                <!-- COLLAPSE DIARIO INDAGINI DIAGNOSTICHE -->
+                <div id="collapse1" class="panel-collapse collapse in"><hr/>
+
+                    <!-- FORM NUOVA INDAGINE -->
                 <div class="row">
                     <div class="col-lg-12" >
                         <div class="btn-group">
@@ -299,7 +302,7 @@ else
                 </div>
                 <form style="display:none;" id="formIndagini" action="formscripts/indagini.php" method="POST" class="form-horizontal" >
                     <div class="tab-content">
-                        <div class="row"> <!-- Hidden row -->
+                        <div class="row">
                              <div style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -345,7 +348,7 @@ else
                                             <option selected hidden style='display: none' value="placeholder">Selezionare una motivazione..</option>
                                             <optgroup label="Diagnosi del paziente">
                                             <?php
-                                            for($i = 0; $i < $n_z; $i +=4 ){
+                                            for($i = 0; $i < $nDiagnoIns; $i +=4 ){
                                                 if($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$i+3] ){
                                                     echo '<option value="'.$array_diagnosi[$i+0] .'">' .$array_diagnosi[$i+1] .' - '
                                                         .$array_diagnosi[$i+2].'</option>';
@@ -406,7 +409,7 @@ else
                                         <select id="centroIndagine_new" class="form-control">
                                             <option selected hidden style='display: none' value="placeholder">Selezionare un centro..</option>
                                             <?php
-                                            for($i = 0; $i < $n_s; $i +=10 ){
+                                            for($i = 0; $i < $nCentriIns; $i +=10 ){
                                                 echo '<option value="'.$array_centri[$i+0] .'">' .$array_centri[$i+1] .',  '
                                                     .$array_centri[$i+3].'</option>';
                                             }
@@ -477,17 +480,15 @@ else
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </form>
-
+                <!-- FINE FORM NUOVA INDAGINE -->
                 <br>
 
-
+                <!-- STRINGA DIAGNOSI SE ACCESSO DA POST -->
                 <div id="info_diagnosi" align="center"><h4> <?php echo $stringa_diagnosi; ?></h4></div>
 
-                <!---------------------INDAGINI RICHIESTE------------------------------------>
+                <!-- TABELLA INDAGINI RICHIESTE -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-warning">
@@ -502,7 +503,7 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini richieste
-                                        for($i = 0; $i < $n_r; $i+=$offset){
+                                        for($i = 0; $i < $nRic; $i+=$offset){
                                             echo '<tr class="info" id="r'.$array_richieste[$i+0].'">';
                                             echo '<td id="tipoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+1] . '</td>';
                                             echo '<td id="motivoRichiesta'.$array_richieste[$i+0].'">' . $array_richieste[$i+2] . '</td>';
@@ -536,7 +537,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altra motivazione..</option>';
-                                                                                    for($k = 0; $k < $n_z; $k +=4 ) {
+                                                                                    for($k = 0; $k < $nDiagnoIns; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_richieste[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
@@ -589,7 +590,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_richieste[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                                                        for($k = 0; $k < $n_s; $k +=10 ){
+                                                                        for($k = 0; $k < $nCentriIns; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_richieste[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -690,7 +691,7 @@ else
                         </div>	<!--col lg12-->
                     </div>
                 </div><br>
-                <!---------------------INDAGINI PROGRAMMATE------------------------------------>
+                <!-- TABELLA INDAGINI PROGRAMMATE -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-danger">
@@ -706,7 +707,7 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini programmate
-                                        for($i = 0; $i < $n_p; $i+=$offset){
+                                        for($i = 0; $i < $nPro; $i+=$offset){
                                             echo '<tr class="info" id="r'.$array_programmate[$i+0].'">';
                                             echo '<td id="tipoProgrammata'.$array_programmate[$i+0].'">' . $array_programmate[$i+1] . '</td>';
                                             echo '<td id="motivoProgrammata'.$array_programmate[$i+0].'">'. $array_programmate[$i+2] . '</td>';
@@ -744,7 +745,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_programmate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_z; $k +=4 ) {
+                                                                                    for($k = 0; $k < $nDiagnoIns; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_programmate[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
@@ -796,7 +797,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_programmate[$i+0].'" class="form-control">
                                                                         <option selected hidden style="display: none" value=\'\'>Selezionare un centro..</option>';
-                                                                            for($k = 0; $k < $n_s; $k +=10 ){
+                                                                            for($k = 0; $k < $nCentriIns; $k +=10 ){
                                                                             if( $array_centri[$k+0] == $array_programmate[$i+11])
                                                                                 echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                                             else
@@ -897,7 +898,7 @@ else
                         </div>	<!--col lg12-->
                     </div>
                 </div><br>
-                <!---------------------INDAGINI COMPLETATE------------------------------------>
+                <!-- TABELLA INDAGINI COMPLETATE -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-info">
@@ -913,7 +914,7 @@ else
                                         </thead>
                                         <tbody>
                                         <?php   //popolamento tabella indagini completate
-                                        for($i = 0; $i < $n_c; $i+=$offset){
+                                        for($i = 0; $i < $nCom; $i+=$offset){
                                             echo '<tr class="info" id="r'.$array_completate[$i+0].'">';
                                             echo '<td id="tipoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+1] . '</td>';
                                             echo '<td id="motivoCompletata'.$array_completate[$i+0].'">' . $array_completate[$i+2] . '</td>';
@@ -965,7 +966,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="motivoIndagine_'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected value=\'\'>Altro..</option>';
-                                                                                    for($k = 0; $k < $n_z; $k +=4 ) {
+                                                                                    for($k = 0; $k < $nDiagnoIns; $k +=4 ) {
                                                                                         if ($role == "pz" || $SelfcareproviderConf >= $array_diagnosi[$k + 3]) {
                                                                                             if ($array_diagnosi[$k + 0] == $array_completate[$i + 15])
                                                                                                 echo '<option selected value=\'' . $array_diagnosi[$k + 0] . '\'>' . $array_diagnosi[$k + 1] . ' - ' . $array_diagnosi[$k + 2] . '</option>';
@@ -1016,7 +1017,7 @@ else
                                                                     <div class="col-lg-4">
                                                                         <select id="centroIndagine'.$array_completate[$i+0].'" class="form-control">
                                                                             <option selected hidden style=\'display: none\' value=\'\'>Selezionare un centro..</option>';
-                                            for($k = 0; $k < $n_s; $k +=10 ){
+                                            for($k = 0; $k < $nCentriIns; $k +=10 ){
                                                 if( $array_centri[$k+0] == $array_completate[$i+11])
                                                     echo '<option selected value="'.$array_centri[$k+0] .'">' .$array_centri[$k+1] .',  '.$array_centri[$k+3].'</option>';
                                                 else
@@ -1115,16 +1116,16 @@ else
                                 </div>
                             </div>	<!--paneldanger-->
                         </div>	<!--col lg12-->
-                    </div>
-                </div><br>
-            </div><!--col-lg-12-->
+                    </div><br>
         </div>
                 </div>
-                <div id="collapse2" class="panel-collapse collapse">
-                    <hr/>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-warning">
+                <!-- FINE COLLAPSE DIARIO INDAGINI DIAGNOSTICHE -->
+
+                <!-- COLLAPSE CENTRI INDAGINI DIAGNOSTICHE -->
+                <div id="collapse2" class="panel-collapse collapse"><hr/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-warning">
                                     <div class="panel-heading">Studi Specialistici</div>
                                     <div class=" panel-body">
                                         <div class="table-responsive" >
@@ -1137,7 +1138,7 @@ else
                                                 <tbody>
                                                 <?php   //popolamento tabella studi specialistici
                                                 $link = $this->get_var('link_mostratutti');
-                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                for($i = 0; $i < $nCentriIns; $i+=10) {
                                                     if ($array_centri[$i + 4] == 0){
                                                         echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
                                                         echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
@@ -1158,12 +1159,12 @@ else
                                             </table>
                                         </div>
                                     </div>	<!--paneldanger-->
-                                </div>	<!--col lg12-->
-                            </div>
-                        </div><br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-danger">
+                            </div>	<!--col lg12-->
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-danger">
                                     <div class="panel-heading">Studi Radiologici</div>
                                     <div class=" panel-body">
                                         <div class="table-responsive" >
@@ -1176,7 +1177,7 @@ else
                                                 <tbody>
                                                 <?php   //popolamento tabella studi radiologici
                                                 $link = $this->get_var('link_mostratutti');
-                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                for($i = 0; $i < $nCentriIns; $i+=10) {
                                                     if ($array_centri[$i + 4] == 1){
                                                         echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
                                                         echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
@@ -1197,12 +1198,12 @@ else
                                             </table>
                                         </div>
                                     </div>	<!--paneldanger-->
-                                </div>	<!--col lg12-->
-                            </div>
-                        </div><br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-info">
+                            </div>	<!--col lg12-->
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-info">
                                     <div class="panel-heading">Laboratori Analisi</div>
                                     <div class=" panel-body">
                                         <div class="table-responsive" >
@@ -1215,7 +1216,7 @@ else
                                                 <tbody>
                                                 <?php   //popolamento tabella laboratori analisi
                                                 $link = $this->get_var('link_mostratutti');
-                                                for($i = 0; $i < $n_s; $i+=10) {
+                                                for($i = 0; $i < $nCentriIns; $i+=10) {
                                                     if ($array_centri[$i + 4] == 2){
                                                         echo '<tr class="info" id="studioSpecialistico' . $array_centri[$i + 0] . '">';
                                                         echo '<td id="nomeStudioSpecialistico' . $array_centri[$i + 0] . '">' . $array_centri[$i + 1] . '</td>';
@@ -1236,13 +1237,14 @@ else
                                             </table>
                                         </div>
                                     </div>	<!--paneldanger-->
-                                </div>	<!--col lg12-->
-                            </div>
-                        </div><!--row-->
+                            </div>	<!--col lg12-->
+                        </div>
+                    </div><!--row-->
                 </div>
+                <!-- FINE COLLAPSE CENTRI INDAGINI DIAGNOSTICHE -->
             </div>
         </div>
-        <!-- END ACCORDION -->
+        <!-- FINE ACCORDION -->
 
 
     </div>

@@ -1,5 +1,12 @@
 <?php
 
+/*************************************
+ * CODICE MODIFICATO PER INDAGINI
+ * A PARTIRE DALLA RIGA 2234
+ *
+ ************************************/
+
+
 include ('Account.php');
 include ('Data.php');
 include ('pdfLib/mem_image.php');
@@ -1173,33 +1180,7 @@ function getArrayAssociative($element, $table, $condition){
 	return $dbarray;
 }
 
-function getArrayNoCondition($element, $table){
 
-    /**
-     * Funzione accessoria che restituisce un insieme di elementi estratti dalla table
-     *
-     * @param $element
-     * @param $table
-     *
-     * @return array (dbarray), false
-     */
-
-    global $database;
-    $dbarray = array();
-
-    $q = "SELECT $element from $table";
-
-    $result = mysqli_query($database -> conn, $q);
-
-    if(!$result)
-        return false;
-
-    while ($res = mysqli_fetch_assoc($result)) {
-        array_push($dbarray, $res[$element]);
-    }
-
-    return $dbarray;
-}
 
 
 function getArray($element, $table, $condition){
@@ -2258,7 +2239,7 @@ function getCpId($nome, $cognome, $pzId){
 }
 
 /**
- * FUNZIONI PER L'INSERIMENTO, MODIFICA ED ELIMINAZIONE DELLE INDAGINI
+ * FUNZIONI PER L'INSERIMENTO, MODIFICA ED ELIMINAZIONE DELLE INDAGINI *************************************************
  */
 function nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
 	global $database;
@@ -2321,6 +2302,38 @@ function eliminaIndagine($id, $idutente){
     return $query;
 }
 
+/** FUNZIONE ACCESSORIA PER INDAGINI */
+function getArrayNoCondition($element, $table){
+
+    /**
+     * Funzione accessoria che restituisce un insieme di elementi estratti dalla table
+     *
+     * @param $element
+     * @param $table
+     *
+     * @return array (dbarray), false
+     */
+
+    global $database;
+    $dbarray = array();
+
+    $q = "SELECT $element from $table";
+
+    $result = mysqli_query($database -> conn, $q);
+
+    if(!$result)
+        return false;
+
+    while ($res = mysqli_fetch_assoc($result)) {
+        array_push($dbarray, $res[$element]);
+    }
+
+    return $dbarray;
+}
+
+/*
+ ******************************************************************************************************************************************
+ */
 
 function nuovaDiagnosi($idPaziente,$patologia,$stato,$conf,$idCareProvider, $careProvider){
 	global $database;

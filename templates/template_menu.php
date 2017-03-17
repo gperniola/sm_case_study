@@ -1,5 +1,11 @@
 <!-- MENU SECTION -->
   <?php
+  /*********************
+   * CODICE INDAGINI A RIGA 138
+   *****************/
+
+
+
 	//determino se l'utente è un paziente o un careprovider e di conseguenza si determina il $pz_id
 		if ( isset ($_GET["cp_Id"]))
 							{

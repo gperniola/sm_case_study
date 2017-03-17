@@ -1,5 +1,10 @@
 <!--carica i files inseriti in template_page_files-->
 <?php
+/*****************
+ * CODICE PER INDAGINI ALLA RIGA 61 E 120
+ **************/
+
+
 require_once ('configFiles.php');
 require_once ('funzioniFiles.php');
 require_once ($_SERVER['DOCUMENT_ROOT'].'modello PBAC/Utility.php');
@@ -50,11 +55,14 @@ $username = empty($_POST['username']) ? '' : $_POST['username'];
 			$fileClass = 5;	
 		if ( isset ($_POST["fileClass6"]))
 			$fileClass = 6;
+        /*****
+         * CODICE PER INDAGINI
+         *****/
         if ( isset ($_POST["fileClass7"]))
             $fileClass = 7;
         if ( isset ($_POST["fileClass8"]))
             $fileClass = 8;
-		
+		/************************/
 		if ( isset ($_POST["conf_1"])) 
 			$conf = $_POST["conf_1"]; // viene settata la riservatezza con le stringhe passate col post
 		
@@ -106,7 +114,9 @@ $username = empty($_POST['username']) ? '' : $_POST['username'];
 				$uploadPath = $uploadPath . "scansioni/";
 			else $formatoErrato = TRUE;
 			break;
-
+            /****************
+             * CODICE PER INDAGINI
+             *****************/
             case 7 :
                 if ( controllaFormato($nome, 7) )
                     $uploadPath = $uploadPath . "refertiIndagini/";
@@ -118,7 +128,7 @@ $username = empty($_POST['username']) ? '' : $_POST['username'];
                     $uploadPath = $uploadPath . "allegatiIndagini/";
                 else $formatoErrato = TRUE;
                 break;
-			
+			/****************************/
 		}//fine del switch $fileClass
 		
 		/*switch ( $conf_1){

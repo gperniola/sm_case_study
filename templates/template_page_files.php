@@ -1,5 +1,8 @@
 <!--PAGE CONTENT -->
 
+<!-- CODICE PER INDAGINI ALLA RIGA 213 E 449 -->
+
+
 <!--sono predisposte diverse sezioni. In ciascuna è presente un form per il caricamento dei file ed un elemento nav per contenere i link ai file caricati
  27/10/15 la classe nav-file è ancora da modellare gli id nav-files... sono da utilizzare per aggiungere a ciascun elemento una lista dei files ottenuta dal db
  il file css in cui sono modellati gli elementi  è in assets/plugin/botstrap/css/bootstrap.css-->
@@ -206,6 +209,7 @@
 										</a>
 									</div><!--col-lg-4-->
                                     <hr>
+                                    <!-- CODICE PER INDAGINI -->
                                     <div class="col-lg-4">
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#collapseTwo_A" href="#collapseReferti">
                                             <h2>Referti indagini diagn.</h2>
@@ -216,7 +220,7 @@
                                             <h2>Allegati indagini diagn.</h2>
                                         </a>
                                     </div><!--col-lg-4-->
-									
+									<!-- END CODICE INDAGINI -->
 								</div><!--row-->
 								
 									<div class="row">
@@ -508,7 +512,7 @@
                                                     <option value="6"> strettamente riservato</option>
                                                 </select>
                                                 <br> <br>
-                                                <input  type = "hidden" name = "fileClass8" value = "8"/> <!--classe per scansioni referti, lettere di dimissioni -->
+                                                <input  type = "hidden" name = "fileClass8" value = "8"/>
                                                 <input  type = "hidden" name = "idPaz" value = "<?php echo $pz_id; ?>" />
                                                 <input  type = "hidden" name = "id_prop" value = "<?php echo $id_prop; ?>"  />
                                                 <input type = "submit" name = "invia" value = "Invia"/>
@@ -518,7 +522,7 @@
                                     </div>	<!--panelwarning-->
                                 </div>	<!--col lg12-->
                             </div> <!--collapse Documents-->
-
+                            <!-- FINE INDAGINI DIAGNOSTICHE -->
 
 
 

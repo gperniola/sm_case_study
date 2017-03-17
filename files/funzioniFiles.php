@@ -1,5 +1,10 @@
 <?php
 
+/*********************
+ * CODICE PER INDAGINI A RIGA 102
+ **********************/
+
+
 //funzioni accessorie per uploadFiles nella directory Files
 // e per template_page_files nella directry template
 //function caricaDirectory ($dir , $idPz = 0, $fileClass = 0,  $idProp = 0, $date = 0, $conf = 0 ){

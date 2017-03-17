@@ -24,6 +24,7 @@ function careproviderChange(){
 }
 
 
+
 /**
  * Funzione per la visualizzazione dei campi appropriati in base allo stato dell'indagine
  */
@@ -50,7 +51,6 @@ function statoChange(){
             break;
     }
 }
-
 
 /**
  * Funzioni per la visualizzazione e rimozione del bordo rosso dei campi del form con errori

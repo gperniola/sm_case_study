@@ -2257,6 +2257,9 @@ function getCpId($nome, $cognome, $pzId){
 	return $idCp;
 }
 
+/**
+ * FUNZIONI PER L'INSERIMENTO, MODIFICA ED ELIMINAZIONE DELLE INDAGINI
+ */
 function nuovaIndagineRichiesta($idPaziente, $careprovider, $careproviderNome, $idMotivo, $motivo, $stato, $tipo){
 	global $database;
 	$query = 'insert into indagini (idpaziente, idcpp, careprovider, idDiagnosi, motivo, stato, tipoIndagine, dataInserimento)
@@ -2286,7 +2289,6 @@ function modificaIndagineRichiesta($idIndagine, $careprovider, $careproviderNome
     $query = 'UPDATE indagini SET idcpp='.$careprovider.', careprovider="'.$careproviderNome.'",idDiagnosi='.$idMotivo.',motivo="'.$motivo.'",
     stato="'.$stato.'",tipoIndagine="'.$tipo.'" WHERE id='.$idIndagine;
     executeQuery($query);
-    //$result = mysqli_query($query) or trigger_error(mysqli_error()." ".$query);
     return $query;
 }
 

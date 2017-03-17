@@ -5,6 +5,8 @@
 
 
 #deal with subs
+!Docs/
+
 !sections/
 sections/*
 sections/templates/*

@@ -1,8 +1,8 @@
 /*
 !.gitignore
 !README.md
-!indagini.sql
-!indaginieliminate.sql
+!tabelleIndagini_NoData.sql
+
 
 #deal with subs
 !sections/

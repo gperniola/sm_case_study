@@ -65,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     else
         echo'<script>alert("Errore: il paziente in modifica non corrisponde al paziente connesso");</script>';
 
-
 }
-
 ?>
 
